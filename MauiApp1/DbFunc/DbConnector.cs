@@ -6,7 +6,7 @@ public static class DbConnector
 {
 	private static readonly string ConnectionString = "Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;";
 
-	public static SqlConnection getConnection()
+	public static SqlConnection GetConnection()
 	{
 		try
 		{

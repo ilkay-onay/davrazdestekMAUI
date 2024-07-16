@@ -1,4 +1,3 @@
-
 public class DvDestekUzak{
 /*
 MAUI.dbo.Dv_Destek_Uzak.ID
@@ -41,9 +40,42 @@ public string TalepDetay { get; set; }
 public TimeSpan ToplamSure { get; set; }
 
 
-public DvDestekUzak() { }
+public DvDestekUzak() {
+    Baglanan = string.Empty;
+    BaglananUniq = string.Empty;
+    BaglananIp = string.Empty;
+    Yon = string.Empty;
+    Musteri = string.Empty;
+    MusteriUniq = string.Empty;
+    MusteriIp = string.Empty;
+    BaglantiAciklama = string.Empty;
+    BaglantiDestekNo = string.Empty;
+    BaglantiUniq = string.Empty;
+    TalepDetay = string.Empty;
+}
 
-public DvDestekUzak(string baglanan, string baglananUniq, string baglananIp, string yon, string musteri, string musteriUniq, string musteriIp, TimeSpan baglantiSaat, DateTime baglantiTarih, TimeSpan baglantiSure, string baglantiAciklama, string baglantiDestekNo, string baglantiUniq, int musteriErpId, int destekUrunId, string talepDetay, TimeSpan toplamSure){}
+ 
+
+public DvDestekUzak(string baglanan, string baglananUniq, string baglananIp, string yon, string musteri, string musteriUniq, string musteriIp, TimeSpan baglantiSaat, DateTime baglantiTarih, TimeSpan baglantiSure, string baglantiAciklama, string baglantiDestekNo, string baglantiUniq, int musteriErpId, int destekUrunId, string talepDetay, TimeSpan toplamSure)
+{
+    Baglanan = baglanan;
+    BaglananUniq = baglananUniq;
+    BaglananIp = baglananIp;
+    Yon = yon;
+    Musteri = musteri;
+    MusteriUniq = musteriUniq;
+    MusteriIp = musteriIp;
+    BaglantiSaat = baglantiSaat;
+    BaglantiTarih = baglantiTarih;
+    BaglantiSure = baglantiSure;
+    BaglantiAciklama = baglantiAciklama;
+    BaglantiDestekNo = baglantiDestekNo;
+    BaglantiUniq = baglantiUniq;
+    MusteriErpId = musteriErpId;
+    DestekUrunId = destekUrunId;
+    TalepDetay = talepDetay;
+    ToplamSure = toplamSure;
+}
 
 public override string ToString(){
     return $"DvDestekUzak{{id={ID}, baglanan='{Baglanan}', baglananUniq='{BaglananUniq}', baglananIp='{BaglananIp}', yon='{Yon}', musteri='{Musteri}', musteriUniq='{MusteriUniq}', musteriIp='{MusteriIp}', baglantiSaat={BaglantiSaat}, baglantiTarih={BaglantiTarih}, baglantiSure={BaglantiSure}, baglantiAciklama='{BaglantiAciklama}', baglantiDestekNo='{BaglantiDestekNo}', baglantiUniq='{BaglantiUniq}', musteriErpId={MusteriErpId}, destekUrunId={DestekUrunId}, talepDetay='{TalepDetay}', toplamSure={ToplamSure}}}";

@@ -1,11 +1,14 @@
+
 public class DbFunction : IDbFunctions
 {
+    //connection string= Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;
+    public string connectionString = "Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;";
 
     public void InsertDvDestekCagrilar(DvDestekCagrilar dvDestekCagrilar)
     {
-        using (var connection = new SqlConnection("YourConnectionString"))
+        using (var connection = new SqlConnection(connectionString))
         {
-            var query = @"INSERT INTO YourTableName (Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi) 
+            var query = @"INSERT INTO Dv_Destek_Cagrilar (Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi) 
                       VALUES (@Tarih, @Arayan, @Aranan, @ToplamSure, @BeklemeSuresi, @GorusmeSuresi, @Sonuc, @Tipi)";
 
             using (var command = new SqlCommand(query, connection))

@@ -31,22 +31,4 @@ public class DvDestekCagrilar
         return $"DvDestekCagrilar{{id={Id}, tarih={Tarih}, Arayan='{Arayan}', Aranan='{Aranan}', toplamSure={ToplamSure}, beklemeSuresi={BeklemeSuresi}, gorusmeSuresi={GorusmeSuresi}, sonuc={Sonuc}, tipi={Tipi}}}";
     }
 
-    public override bool Equals(object obj)
-    {
-        return obj is DvDestekCagrilar cagrilar &&
-               Id == cagrilar.Id &&
-               Sonuc == cagrilar.Sonuc &&
-               Tipi == cagrilar.Tipi &&
-               Tarih == cagrilar.Tarih &&
-               Arayan == cagrilar.Arayan &&
-               Aranan == cagrilar.Aranan &&
-               ToplamSure == cagrilar.ToplamSure &&
-               BeklemeSuresi == cagrilar.BeklemeSuresi &&
-               GorusmeSuresi == cagrilar.GorusmeSuresi;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Id, Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi);
-    }
 }

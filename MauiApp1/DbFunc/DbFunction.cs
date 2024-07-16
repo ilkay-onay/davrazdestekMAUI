@@ -1,15 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 public class DbFunction : IDbFunctions
 {
-    //connection string= Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;
-    public string connectionString = "Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;";
-
     public void InsertDvDestekCagrilar(DvDestekCagrilar dvDestekCagrilar)
     {
-        using (var connection = new SqlConnection(connectionString))
+        using (var connection = DbConnector.getConnection())
         {
             var query = @"INSERT INTO Dv_Destek_Cagrilar (Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi) 
-                      VALUES (@Tarih, @Arayan, @Aranan, @ToplamSure, @BeklemeSuresi, @GorusmeSuresi, @Sonuc, @Tipi)";
+                          VALUES (@Tarih, @Arayan, @Aranan, @ToplamSure, @BeklemeSuresi, @GorusmeSuresi, @Sonuc, @Tipi)";
 
             using (var command = new SqlCommand(query, connection))
             {
@@ -22,55 +22,50 @@ public class DbFunction : IDbFunctions
                 command.Parameters.AddWithValue("@Sonuc", dvDestekCagrilar.Sonuc);
                 command.Parameters.AddWithValue("@Tipi", dvDestekCagrilar.Tipi);
 
-                connection.Open();
                 command.ExecuteNonQuery();
             }
         }
     }
-    public List<DvDestekCagrilar> getAllDvDestekCagrilar()
+
+    public List<DvDestekCagrilar> GetAllDvDestekCagrilar()
     {
-        List<DvDestekCagrilar> dvDestekCagrilarList = new ArrayList<>();
-        Connection conn = DbConnector.getConnection();
-        Statement stmt = null;
-        try
+        List<DvDestekCagrilar> dvDestekCagrilarList = new List<DvDestekCagrilar>();
+
+        using (var connection = DbConnector.getConnection())
         {
-            stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(gelAllDvDestekCagrilar);
-            while (rs.next())
+            var query = "SELECT * FROM Dv_Destek_Cagrilar";
+
+            using (var command = new SqlCommand(query, connection))
             {
-                DvDestekCagrilar dvDestekCagrilar = new DvDestekCagrilar();
-                dvDestekCagrilar.setId(rs.getInt("id"));
-                dvDestekCagrilar.setTarih(rs.getDate("tarih"));
-                dvDestekCagrilar.setArayan(rs.getString("arayan"));
-                dvDestekCagrilar.setAranan(rs.getString("aranan"));
-                dvDestekCagrilar.setToplamSure(rs.getTime("toplamSure"));
-                dvDestekCagrilar.setBeklemeSuresi(rs.getTime("beklemeSuresi"));
-                dvDestekCagrilar.setGorusmeSuresi(rs.getTime("gorusmeSuresi"));
-                dvDestekCagrilar.setSonuc(rs.getInt("sonuc"));
-                dvDestekCagrilar.setTipi(rs.getShort("tipi"));
-                dvDestekCagrilarList.add(dvDestekCagrilar);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        DvDestekCagrilar dvDestekCagrilar = new DvDestekCagrilar
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("id")),
+                            Tarih = reader.GetDateTime(reader.GetOrdinal("tarih")),
+                            Arayan = reader.GetString(reader.GetOrdinal("arayan")),
+                            Aranan = reader.GetString(reader.GetOrdinal("aranan")),
+                            ToplamSure = reader.GetTimeSpan(reader.GetOrdinal("toplamSure")),
+                            BeklemeSuresi = reader.GetTimeSpan(reader.GetOrdinal("beklemeSuresi")),
+                            GorusmeSuresi = reader.GetTimeSpan(reader.GetOrdinal("gorusmeSuresi")),
+                            Sonuc = reader.GetInt32(reader.GetOrdinal("sonuc")),
+                            Tipi = reader.GetInt16(reader.GetOrdinal("tipi"))
+                        };
+
+                        dvDestekCagrilarList.Add(dvDestekCagrilar);
+                    }
+                }
             }
         }
-        catch (SQLException e)
-        {
-            throw new RuntimeException(e);
-        }
-        finally
-        {
-            try
-            {
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            }
-            catch (SQLException e)
-            {
-                e.printStackTrace();
-            }
-        }
+
         return dvDestekCagrilarList;
     }
+}
 
-
-
-
+public interface IDbFunctions
+{
+    void InsertDvDestekCagrilar(DvDestekCagrilar dvDestekCagrilar);
+    List<DvDestekCagrilar> GetAllDvDestekCagrilar();
 }

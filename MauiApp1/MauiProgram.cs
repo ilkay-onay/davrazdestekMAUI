@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using MauiApp1.Services;
 
-namespace MauiApp1
+using Microsoft.Extensions.Logging;
+using MauiApp1.Services;
 
+namespace MauiApp1
 {
     public static class MauiProgram
     {
@@ -27,3 +29,4 @@ namespace MauiApp1
         }
     }
 }
+

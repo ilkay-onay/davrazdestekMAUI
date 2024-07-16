@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 public class DbFunction : IDbFunctions
 {

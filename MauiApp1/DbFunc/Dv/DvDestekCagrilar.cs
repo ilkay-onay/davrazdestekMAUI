@@ -44,9 +44,4 @@ public class DvDestekCagrilar
                BeklemeSuresi == cagrilar.BeklemeSuresi &&
                GorusmeSuresi == cagrilar.GorusmeSuresi;
     }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(Id, Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi);
-    }
 }

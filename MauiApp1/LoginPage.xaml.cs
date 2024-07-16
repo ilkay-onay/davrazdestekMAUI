@@ -3,6 +3,9 @@ using MauiApp1.Services;
 using System;
 using Microsoft.Data.SqlClient;
 
+using Microsoft.Extensions.Logging;
+using MauiApp1.Services;
+
 namespace MauiApp1
 {
     public partial class LoginPage : ContentPage
@@ -35,7 +38,8 @@ namespace MauiApp1
                 {
                     _logger.LogInformation("User {Email} logged in successfully.", email);
                     await DisplayAlert("Success", "Login successful", "OK");
-                    // Navigate to the main page or dashboard
+                    // Navigate to the main page
+                    Application.Current.MainPage = new MainPage();
                 }
                 else
                 {
@@ -43,15 +47,10 @@ namespace MauiApp1
                     MessageLabel.Text = "Invalid email or password.";
                 }
             }
-            catch (SqlException sqlEx)
-            {
-                _logger.LogError(sqlEx, "SQL Error while logging in user {Email}: {Message}", email, sqlEx.Message);
-                MessageLabel.Text = $"SQL Error: {sqlEx.Message}";
-            }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error while logging in user {Email}: {Message}", email, ex.Message);
-                MessageLabel.Text = $"Error: {ex.Message}";
+                _logger.LogError(ex, "An error occurred while logging in user {Email}.", email);
+                MessageLabel.Text = "An error occurred. Please try again.";
             }
         }
     }

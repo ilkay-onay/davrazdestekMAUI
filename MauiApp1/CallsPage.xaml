@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.CallsPage"
+             Title="Calls">
+
+    <StackLayout Padding="10">
+        <Label Text="Calls" FontSize="24" HorizontalOptions="Center" />
+
+        <CollectionView x:Name="CallsCollectionView">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Vertical" Padding="5">
+                        <Label Text="{Binding Tarih}" FontSize="14" />
+                        <Label Text="{Binding Arayan}" FontSize="14" />
+                        <Label Text="{Binding Aranan}" FontSize="14" />
+                        <Label Text="{Binding ToplamSure}" FontSize="14" />
+                        <!-- Add more fields as needed -->
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Previous" Clicked="OnPreviousClicked" />
+            <Button Text="Next" Clicked="OnNextClicked" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
+

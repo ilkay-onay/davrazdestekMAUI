@@ -1,5 +1,6 @@
 using System;
 using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 public static class DbConnector
 {

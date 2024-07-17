@@ -26,6 +26,23 @@ interface IDbFunctions
     List<DvDestekMusteriUrun> searchDvDestekMusteriUrun(string search);
     DvDestekMusteriUrun getDvDestekMusteriUrunById(int id);
     
+    
+    //DvDestekMusteriUrunDetay
+    void insertDvDestekMusteriUrunDetay(DvDestekMusteriUrunDetay dvDestekMusteriUrunDetay);
+    void updateDvDestekMusteriUrunDetay(DvDestekMusteriUrunDetay dvDestekMusteriUrunDetay);
+    void deleteDvDestekMusteriUrunDetay(DvDestekMusteriUrunDetay dvDestekMusteriUrunDetay);
+    List<DvDestekMusteriUrunDetay> getAllDvDestekMusteriUrunDetay();
+    List<DvDestekMusteriUrunDetay> searchDvDestekMusteriUrunDetay(string search);
+    DvDestekMusteriUrunDetay getDvDestekMusteriUrunDetayById(int id);
+    
+    //DvDestekPersonel
+    void insertDvDestekPersonel(DvDestekPersonel dvDestekPersonel);
+    void updateDvDestekPersonel(DvDestekPersonel dvDestekPersonel);
+    void deleteDvDestekPersonel(DvDestekPersonel dvDestekPersonel);
+    List<DvDestekPersonel> getAllDvDestekPersonel();
+    List<DvDestekPersonel> searchDvDestekPersonel(string search);
+    DvDestekPersonel getDvDestekPersonelById(int id);
+    
 
     
     
@@ -38,16 +55,8 @@ interface IDbFunctions
     DvDestekUrunler getDvDestekUrunlerById(int id);
     
     
-    //DvDestekMusteriUrunDetay
-    void insertDvDestekMusteriUrunDetay(DvDestekMusteriUrunDetay dvDestekMusteriUrunDetay);
-    void updateDvDestekMusteriUrunDetay(DvDestekMusteriUrunDetay dvDestekMusteriUrunDetay);
-    void deleteDvDestekMusteriUrunDetay(DvDestekMusteriUrunDetay dvDestekMusteriUrunDetay);
-    List<DvDestekMusteriUrunDetay> getAllDvDestekMusteriUrunDetay();
-    List<DvDestekMusteriUrunDetay> searchDvDestekMusteriUrunDetay(string search);
-    DvDestekMusteriUrunDetay getDvDestekMusteriUrunDetayById(int id);
-
-
-
+    
+    
     //DvDestekUzak
     void insertDvDestekUzak(DvDestekUzak dvDestekUzak);
     void updateDvDestekUzak(DvDestekUzak dvDestekUzak);
@@ -67,5 +76,6 @@ interface IDbFunctions
     
     
     
-    
+
+
 }

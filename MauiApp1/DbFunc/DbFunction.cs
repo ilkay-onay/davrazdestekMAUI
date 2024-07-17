@@ -33,6 +33,13 @@ public class DbFunction : IDbFunctions
     //DvDestekMusteriUrunDetay
     private const string InsertDvDestekMusteriUrunDetayQuery = @"INSERT INTO Dv_Destek_Musteri_Urun_Detay (BaglantiId,Tarih,Aciklama,PersonelId) VALUES (@BaglantiId,@Tarih, @Aciklama, @PersonelId)";
     
+    //DvDestekUzak
+    private const string InsertDvDestekUzakQuery = @"INSERT INTO Dv_Destek_Uzak (Baglanan, BaglananUniq, BaglananIp, Yon, Musteri, MusteriUniq, MusteriIp, BaglantiSaat, BaglantiTarih, BaglantiSure, BaglantiAciklama, BaglantiDestekNo, BaglantiUniq, MusteriErpId, DestekUrunId, TalepDetay, ToplamSure) VALUES (@Baglanan, @BaglananUniq, @BaglananIp, @Yon, @Musteri, @MusteriUniq, @MusteriIp, @BaglantiSaat, @BaglantiTarih, @BaglantiSure, @BaglantiAciklama, @BaglantiDestekNo, @BaglantiUniq, @MusteriErpId, @DestekUrunId, @TalepDetay, @ToplamSure)";    
+    
+    
+    //DvDestekUzakDetay
+    private const string InsertDvDestekUzakDetayQuery =@"INSERT INTO Dv_Destek_Uzak_Detay(Id,DestekId,PersonelId,YapilanIslem,IslemTarihi,DestekVerilenKisi) VALUES (@Id,@DestekId, @PersonelId, @YapilanIslem, @IslemTarihi, @DestekVerilenKisi)";
+    
     
     // DvDestekCagrilar
     public void InsertDvDestekCagrilar(DvDestekCagrilar dvDestekCagrilar)
@@ -378,6 +385,102 @@ public class DbFunction : IDbFunctions
     }
 
     public DvDestekMusteriUrunDetay getDvDestekMusteriUrunDetayById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+
+
+    
+    //DvDestekUzak
+    public void insertDvDestekUzak(DvDestekUzak dvDestekUzak)
+    {
+        using var connection = DbConnector.GetConnection();
+    
+        using var command = new SqlCommand(InsertDvDestekUzakQuery, connection);
+        command.Parameters.AddWithValue("@Baglanan", dvDestekUzak.Baglanan);
+        command.Parameters.AddWithValue("@BaglananUniq", dvDestekUzak.BaglananUniq);
+        command.Parameters.AddWithValue("@BaglananIp", dvDestekUzak.BaglananIp); // Corrected typo
+        command.Parameters.AddWithValue("@Yon", dvDestekUzak.Yon);
+        command.Parameters.AddWithValue("@Musteri", dvDestekUzak.Musteri);
+        command.Parameters.AddWithValue("@MusteriUniq", dvDestekUzak.MusteriUniq);
+        command.Parameters.AddWithValue("@MusteriIp", dvDestekUzak.MusteriIp);
+        command.Parameters.AddWithValue("@BaglantiSaat", dvDestekUzak.BaglantiSaat);
+        command.Parameters.AddWithValue("@BaglantiTarih", dvDestekUzak.BaglantiTarih);
+        command.Parameters.AddWithValue("@BaglantiSure", dvDestekUzak.BaglantiSure);
+        command.Parameters.AddWithValue("@BaglantiAciklama", dvDestekUzak.BaglantiAciklama);
+        command.Parameters.AddWithValue("@BaglantiDestekNo", dvDestekUzak.BaglantiDestekNo);
+        command.Parameters.AddWithValue("@BaglantiUniq", dvDestekUzak.BaglantiUniq);
+        command.Parameters.AddWithValue("@MusteriErpId", dvDestekUzak.MusteriErpId); // Corrected case
+        command.Parameters.AddWithValue("@DestekUrunId", dvDestekUzak.DestekUrunId);
+        command.Parameters.AddWithValue("@TalepDetay", dvDestekUzak.TalepDetay);
+        command.Parameters.AddWithValue("@ToplamSure", dvDestekUzak.ToplamSure);
+        command.ExecuteNonQuery();
+    }
+
+    public void updateDvDestekUzak(DvDestekUzak dvDestekUzak)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void deleteDvDestekUzak(DvDestekUzak dvDestekUzak)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<DvDestekUzak> getAllDvDestekUzak()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<DvDestekUzak> searchDvDestekUzak(string search)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DvDestekUzak getDvDestekUzakById(int id)
+    {
+        throw new NotImplementedException();
+    }
+    
+    
+    //DvDestekUzakDetay
+    public void insertDvDestekUzakDetay(DvDestekUzakDetay dvDestekUzakDetay)
+    {
+        using var connection = DbConnector.GetConnection();
+        
+        using var command = new SqlCommand(InsertDvDestekUzakDetayQuery, connection);
+        command.Parameters.AddWithValue("@Id", dvDestekUzakDetay.Id);
+        command.Parameters.AddWithValue("@DestekId", dvDestekUzakDetay.DestekId);
+        command.Parameters.AddWithValue("@PersonelId", dvDestekUzakDetay.PersonelId);
+        command.Parameters.AddWithValue("@YapilanIslem", dvDestekUzakDetay.YapilanIslem);
+        command.Parameters.AddWithValue("@IslemTarihi", dvDestekUzakDetay.IslemTarihi);
+        command.Parameters.AddWithValue("@DestekVerilenKisi", dvDestekUzakDetay.DestekVerilenKisi);
+        command.ExecuteNonQuery();
+
+    }
+
+    public void updateDvDestekUzakDetay(DvDestekUzakDetay dvDestekUzakDetay)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void deleteDvDestekUzakDetay(DvDestekUzakDetay dvDestekUzakDetay)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<DvDestekUzakDetay> getAllDvDestekUzakDetay()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<DvDestekUzakDetay> searchDvDestekUzakDetay(string search)
+    {
+        throw new NotImplementedException();
+    }
+
+    public DvDestekUzakDetay getDvDestekUzakDetayById(int id)
     {
         throw new NotImplementedException();
     }

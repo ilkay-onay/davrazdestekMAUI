@@ -45,6 +45,26 @@ interface IDbFunctions
     List<DvDestekMusteriUrunDetay> getAllDvDestekMusteriUrunDetay();
     List<DvDestekMusteriUrunDetay> searchDvDestekMusteriUrunDetay(string search);
     DvDestekMusteriUrunDetay getDvDestekMusteriUrunDetayById(int id);
+
+
+
+    //DvDestekUzak
+    void insertDvDestekUzak(DvDestekUzak dvDestekUzak);
+    void updateDvDestekUzak(DvDestekUzak dvDestekUzak);
+    void deleteDvDestekUzak(DvDestekUzak dvDestekUzak);
+    List<DvDestekUzak> getAllDvDestekUzak();
+    List<DvDestekUzak> searchDvDestekUzak(string search);
+    DvDestekUzak getDvDestekUzakById(int id);
+    
+    
+    //DvDestekUzakDetay
+    void insertDvDestekUzakDetay(DvDestekUzakDetay dvDestekUzakDetay);
+    void updateDvDestekUzakDetay(DvDestekUzakDetay dvDestekUzakDetay);
+    void deleteDvDestekUzakDetay(DvDestekUzakDetay dvDestekUzakDetay);
+    List<DvDestekUzakDetay> getAllDvDestekUzakDetay();
+    List<DvDestekUzakDetay> searchDvDestekUzakDetay(string search);
+    DvDestekUzakDetay getDvDestekUzakDetayById(int id);
+    
     
     
     

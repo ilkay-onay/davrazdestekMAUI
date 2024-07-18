@@ -18,8 +18,9 @@ MAUI.dbo.Dv_Destek_Uzak_Detay.DestekVerilenKisi
 
     public DvDestekUzakDetay() { }
 
-    public DvDestekUzakDetay(int destekId, int personelId, string yapilanIslem, DateTime islemTarihi, int destekVerilenKisi)
+    public DvDestekUzakDetay(int id,int destekId, int personelId, string yapilanIslem, DateTime islemTarihi, int destekVerilenKisi)
     {
+        Id = id;
         DestekId = destekId;
         PersonelId = personelId;
         YapilanIslem = yapilanIslem;

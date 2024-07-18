@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiApp1"
              x:Class="MauiApp1.LoginPage"
-             BackgroundColor="Black"
+             BackgroundColor="#361910"
+             
              >
     
-    <Grid Padding="150">
+    <Grid Padding="100">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -27,10 +28,11 @@
                Grid.RowSpan="6"
                />
 
-        <Image Source="user.png"
-               HeightRequest="100"
+        <Image Source="davrazlogo.png"
+               HeightRequest="250"
                HorizontalOptions="Center"
-               Grid.Row="0" Margin="20"
+               Grid.Row="0" 
+               Margin="0,60,0,0"
                />
 
         <Label Text="Giriş" FontSize="24" HorizontalOptions="Center"
@@ -39,11 +41,16 @@
         <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" MaxLength="100"
                HeightRequest="50"
                WidthRequest="350"
-               Grid.Row="2" />
+               Grid.Row="2" 
+               
+              PlaceholderColor="GhostWhite"
+               
+               />
 
         <Entry x:Name="PasswordEntry" Placeholder="Şifre" IsPassword="True"
                HeightRequest="50"
                WidthRequest="350"
+               PlaceholderColor="GhostWhite"
                Grid.Row="3" />
 
         <Button Text="Giriş" Clicked="OnLoginClicked"
@@ -51,7 +58,8 @@
                WidthRequest="100"
                FontSize="14"
                HorizontalOptions="Center"
-               Grid.Row="4" />
+               Grid.Row="4"
+                BackgroundColor="CadetBlue"/>
 
         <Label x:Name="MessageLabel" TextColor="Red" HorizontalOptions="Center"
                Grid.Row="5" />

@@ -4,18 +4,21 @@
              x:Class="MauiApp1.CallsPage"
              Title="Calls">
 
-    <StackLayout Padding="10">
-        <Label Text="Calls" FontSize="24" HorizontalOptions="Center" />
+    <StackLayout>
+        <Label x:Name="PageInfoLabel" HorizontalOptions="Center" />
 
-        <CollectionView x:Name="CallsCollectionView">
+        <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Orientation="Vertical" Padding="5">
-                        <Label Text="{Binding Tarih}" FontSize="14" />
-                        <Label Text="{Binding Arayan}" FontSize="14" />
-                        <Label Text="{Binding Aranan}" FontSize="14" />
-                        <Label Text="{Binding ToplamSure}" FontSize="14" />
-                        <!-- Add more fields as needed -->
+                    <StackLayout Orientation="Horizontal" Padding="5">
+                        <Label Text="{Binding Tarih}" WidthRequest="150" />
+                        <Label Text="{Binding Arayan}" WidthRequest="150" />
+                        <Label Text="{Binding Aranan}" WidthRequest="150" />
+                        <Label Text="{Binding ToplamSure}" WidthRequest="100" />
+                        <Label Text="{Binding BeklemeSuresi}" WidthRequest="100" />
+                        <Label Text="{Binding GorusmeSuresi}" WidthRequest="100" />
+                        <Label Text="{Binding Sonuc}" WidthRequest="50" />
+                        <Label Text="{Binding Tipi}" WidthRequest="50" />
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -28,4 +31,3 @@
     </StackLayout>
 
 </ContentPage>
-

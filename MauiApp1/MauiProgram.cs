@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using MauiApp1.Services;
 
-using Microsoft.Extensions.Logging;
-using MauiApp1.Services;
-
 namespace MauiApp1
 {
     public static class MauiProgram
     {
+        public static DatabaseService DatabaseServiceInstance { get; private set; }
+        public static ILoggerFactory LoggerFactoryInstance { get; private set; }
+
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
@@ -19,14 +19,16 @@ namespace MauiApp1
                 });
 
             string connectionString = "Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;";
-            builder.Services.AddSingleton(new DatabaseService(connectionString));
-            builder.Services.AddLogging(logging =>
+            DatabaseServiceInstance = new DatabaseService(connectionString);
+            LoggerFactoryInstance = LoggerFactory.Create(logging =>
             {
                 logging.AddConsole();
             });
+
+            builder.Services.AddSingleton(DatabaseServiceInstance);
+            builder.Services.AddSingleton(LoggerFactoryInstance);
 
             return builder.Build();
         }
     }
 }
-

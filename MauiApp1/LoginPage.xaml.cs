@@ -1,10 +1,5 @@
 using Microsoft.Extensions.Logging;
 using MauiApp1.Services;
-using System;
-using Microsoft.Data.SqlClient;
-
-using Microsoft.Extensions.Logging;
-using MauiApp1.Services;
 
 namespace MauiApp1
 {

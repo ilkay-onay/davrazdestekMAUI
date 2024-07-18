@@ -1,29 +1,26 @@
 using MauiApp1.Services;
-using Microsoft.Extensions.Logging;
+using MauiApp1.Models;
+using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System;
 
 namespace MauiApp1
 {
     public partial class CallsPage : ContentPage
     {
+        private readonly DatabaseService _databaseService;
+        private int _currentPage = 1;
+        private const int PageSize = 10;
+        private int _totalPageCount;
+
+        public ObservableCollection<CallRecord> Calls { get; set; }
+
         public CallsPage()
         {
             InitializeComponent();
-        }
-        private readonly DatabaseService _databaseService;
-        private readonly ILogger<CallsPage> _logger;
-        private int _currentPage = 1;
-        private const int PageSize = 10;
-
-        public ObservableCollection<Call> Calls { get; set; }
-
-        public CallsPage(DatabaseService databaseService, ILogger<CallsPage> logger)
-        {
-            InitializeComponent();
-            _databaseService = databaseService;
-            _logger = logger;
-            Calls = new ObservableCollection<Call>();
+            _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
+            Calls = new ObservableCollection<CallRecord>();
             CallsCollectionView.ItemsSource = Calls;
             LoadCallsAsync();
         }
@@ -39,8 +36,11 @@ namespace MauiApp1
 
         private async void OnNextClicked(object sender, EventArgs e)
         {
-            _currentPage++;
-            await LoadCallsAsync();
+            if (_currentPage < _totalPageCount)
+            {
+                _currentPage++;
+                await LoadCallsAsync();
+            }
         }
 
         private async Task LoadCallsAsync()
@@ -48,17 +48,23 @@ namespace MauiApp1
             try
             {
                 var calls = await _databaseService.GetCallsAsync(_currentPage, PageSize);
+                var totalCalls = await _databaseService.GetTotalCallCountAsync();
+                _totalPageCount = (int)Math.Ceiling(totalCalls / (double)PageSize);
+
                 Calls.Clear();
                 foreach (var call in calls)
                 {
                     Calls.Add(call);
                 }
+
+                PageInfoLabel.Text = $"Page {_currentPage} of {_totalPageCount}";
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error loading calls for page {PageNumber}", _currentPage);
-                await DisplayAlert("Error", "Failed to load calls.", "OK");
+                Console.WriteLine($"Error in LoadCallsAsync: {ex.Message}");
+                await DisplayAlert("Error", "Failed to load calls. Please try again later.", "OK");
             }
         }
     }
 }
+

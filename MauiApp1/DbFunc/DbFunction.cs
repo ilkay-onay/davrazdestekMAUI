@@ -8,7 +8,7 @@ public class DbFunction:IDbFunctions
 {
     public void InsertDvDestekCagrilar(DvDestekCagrilar dvDestekCagrilar)
     {
-        using var connection = DbConnector.getConnection();
+        using var connection = DbConnector.GetConnection();
         var query = @"INSERT INTO Dv_Destek_Cagrilar (Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi) 
                       VALUES (@Tarih, @Arayan, @Aranan, @ToplamSure, @BeklemeSuresi, @GorusmeSuresi, @Sonuc, @Tipi)";
         
@@ -36,7 +36,7 @@ public class DbFunction:IDbFunctions
 
     public DvDestekCagrilar GetDvDestekCagrilarById(int id)
     {
-
+        return null;
     }
     public List<DvDestekCagrilar> GetAllDvDestekCagrilar()
     {

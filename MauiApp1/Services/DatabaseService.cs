@@ -1,6 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Data.Common;
+using Dapper;
+using MauiApp1.Models;
+
 
 namespace MauiApp1.Services
 {
@@ -29,57 +33,103 @@ namespace MauiApp1.Services
             }
         }
 
-        public async Task<List<Call>> GetCallsAsync(int pageNumber, int pageSize)
+        public async Task<IEnumerable<CallRecord>> GetCallsAsync(int pageNumber, int pageSize)
         {
-            var calls = new List<Call>();
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                await connection.OpenAsync();
-                var query = @"
-            SELECT [Id], [Tarih], [Arayan], [Aranan], [ToplamSure], [BeklemeSuresi], [GorusmeSuresi], [Sonuc], [Tipi]
-            FROM [Dv_Destek_Cagrilar]
-            ORDER BY [Tarih] DESC
-            OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
-                using (var command = new SqlCommand(query, connection))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    command.Parameters.AddWithValue("@Offset", (pageNumber - 1) * pageSize);
-                    command.Parameters.AddWithValue("@PageSize", pageSize);
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            calls.Add(new Call
-                            {
-                                Id = reader.GetInt32(0),
-                                Tarih = reader.GetDateTime(1),
-                                Arayan = reader.GetString(2),
-                                Aranan = reader.GetString(3),
-                                ToplamSure = reader.GetTimeSpan(4),
-                                BeklemeSuresi = reader.GetTimeSpan(5),
-                                GorusmeSuresi = reader.GetTimeSpan(6),
-                                Sonuc = reader.GetInt32(7),
-                                Tipi = reader.GetInt16(8)
-                            });
-                        }
-                    }
+                    string query = @"
+                    SELECT * FROM (
+                        SELECT 
+                            ROW_NUMBER() OVER (ORDER BY Tarih DESC) AS RowNum,
+                            Id, Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi
+                        FROM dbo.Dv_Destek_Cagrilar
+                    ) AS RowConstrainedResult
+                    WHERE RowNum >= @RowStart
+                        AND RowNum < @RowEnd
+                    ORDER BY RowNum";
+
+                    int rowStart = (pageNumber - 1) * pageSize + 1;
+                    int rowEnd = pageNumber * pageSize + 1;
+
+                    var calls = await connection.QueryAsync<CallRecord>(query, new { RowStart = rowStart, RowEnd = rowEnd });
+                    return calls;
                 }
             }
-            return calls;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetCallsAsync: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<int> GetTotalCallCountAsync()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    string query = "SELECT COUNT(*) FROM dbo.Dv_Destek_Cagrilar";
+                    return await connection.ExecuteScalarAsync<int>(query);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetTotalCallCountAsync: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<RemoteConnection>> GetRemoteConnectionsAsync(int pageNumber, int pageSize)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    string query = @"
+                    SELECT * FROM (
+                        SELECT 
+                            ROW_NUMBER() OVER (ORDER BY BaglantiTarih DESC) AS RowNum,
+                            ID, Baglanan, BaglananUniq, BaglananIp, Yon, Musteri, MusteriUniq, MusteriIp, BaglantiSaat, BaglantiTarih, BaglantiSure, BaglantiAciklama, BaglantiDestekNo, BaglantiUniq, MusteriErpId, DestekUrunId, TalepDetay, ToplamSure
+                        FROM dbo.Dv_Destek_Uzak
+                    ) AS RowConstrainedResult
+                    WHERE RowNum >= @RowStart
+                        AND RowNum < @RowEnd
+                    ORDER BY RowNum";
+
+                    int rowStart = (pageNumber - 1) * pageSize + 1;
+                    int rowEnd = pageNumber * pageSize + 1;
+
+                    var remoteConnections = await connection.QueryAsync<RemoteConnection>(query, new { RowStart = rowStart, RowEnd = rowEnd });
+                    return remoteConnections;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetRemoteConnectionsAsync: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<int> GetTotalRemoteConnectionCountAsync()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    string query = "SELECT COUNT(*) FROM dbo.Dv_Destek_Uzak";
+                    return await connection.ExecuteScalarAsync<int>(query);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetTotalRemoteConnectionCountAsync: {ex.Message}");
+                throw;
+            }
         }
 
     }
-
-    public class Call
-    {
-        public int Id { get; set; }
-        public DateTime Tarih { get; set; }
-        public string Arayan { get; set; }
-        public string Aranan { get; set; }
-        public TimeSpan ToplamSure { get; set; }
-        public TimeSpan BeklemeSuresi { get; set; }
-        public TimeSpan GorusmeSuresi { get; set; }
-        public int Sonuc { get; set; }
-        public short Tipi { get; set; }
-    }
 }
+
 

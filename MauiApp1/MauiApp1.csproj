@@ -57,6 +57,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
@@ -73,6 +74,9 @@
 	  <Compile Update="CallsPage.xaml.cs">
 	    <DependentUpon>CallsPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="RemoteConnectionsPage.xaml.cs">
+	    <DependentUpon>RemoteConnectionsPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -80,6 +84,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="CallsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="RemoteConnectionsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

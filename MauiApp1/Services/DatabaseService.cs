@@ -16,7 +16,14 @@ namespace MauiApp1.Services
         {
             _connectionString = connectionString;
         }
-
+        public async Task<IEnumerable<RemoteConnection>> GetAllRemoteConnectionsAsync()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM Dv_Destek_Uzak";
+                return await connection.QueryAsync<RemoteConnection>(query);
+            }
+        }
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))

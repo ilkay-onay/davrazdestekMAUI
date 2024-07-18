@@ -1169,6 +1169,33 @@ public class DbFunction : IDbFunctions
 
     }
 
+    public string ConvertQueryResultToXml(string query, string filePath)
+    {
+        using (var connection = DbConnector.GetConnection())
+        {
+            using (var command = new SqlCommand(query, connection))
+            {
+                using (var reader = command.ExecuteXmlReader())
+                {
+                    using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+                        while (reader.Read())
+                        {
+                            writer.Write(reader.ReadOuterXml());
+                        }
+                    }
+                }
+            }
+        }
+
+        return filePath;
+    }
+    //dbFunction.ConvertQueryResultToXml("select * from Dv_Destek_Kisiler FOR XML AUTO", "Dv_Destek_Kisiler.xml");
+    //mainde test etme yontemi 
+
+
+
+
 
 
 }

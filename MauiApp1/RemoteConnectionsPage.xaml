@@ -16,5 +16,8 @@
             <Label x:Name="PageInfoLabel" HorizontalOptions="Center" VerticalOptions="Center" />
             <Button Text="Next" Clicked="OnNextClicked" />
         </StackLayout>
+
+        <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" HorizontalOptions="Center" />
     </StackLayout>
 </ContentPage>
+

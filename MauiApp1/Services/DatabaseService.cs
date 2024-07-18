@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using csdb.DbFunc;
+
 
 namespace MauiApp1.Services
 {
@@ -14,20 +16,27 @@ namespace MauiApp1.Services
         }
 
         public async Task<bool> ValidateUserAsync(string email, string password)
+{
+    using (var connection = new SqlConnection(_connectionString))
+    {
+        await connection.OpenAsync();
+        var query = "SELECT [Sifre] FROM Dv_Destek_Personel WHERE [E-posta] = @Email";
+        using (var command = new SqlCommand(query, connection))
         {
-            using (var connection = new SqlConnection(_connectionString))
+            command.Parameters.AddWithValue("@Email", email);
+            var encryptedPassword = (string)await command.ExecuteScalarAsync();
+            
+            if (encryptedPassword == null)
             {
-                await connection.OpenAsync();
-                var query = "SELECT COUNT(*) FROM Dv_Destek_Personel WHERE [E-posta] = @Email AND [Sifre] = @Password";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", password);
-                    var result = (int)await command.ExecuteScalarAsync();
-                    return result > 0;
-                }
+                return false; // User not found
             }
+
+            var decryptedPassword = DbEncryptingDecryptingPassword.Decrypt(encryptedPassword);
+
+            return password == decryptedPassword;
         }
+    }
+}
 
         public async Task<List<Call>> GetCallsAsync(int pageNumber, int pageSize)
         {

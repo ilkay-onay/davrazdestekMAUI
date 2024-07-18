@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
+using csdb.DbFunc;
+
 
 
 public class DbFunction : IDbFunctions
@@ -651,19 +653,18 @@ public class DbFunction : IDbFunctions
 
     //DvDestekPersonel
 
-    public void insertDvDestekPersonel(DvDestekPersonel dvDestekPersonel)
+     public void insertDvDestekPersonel(DvDestekPersonel dvDestekPersonel)
     {
         using var connection = DbConnector.GetConnection();
 
         using var command = new SqlCommand(InsertDvDestekPersonelQuery, connection);
         command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.AdSoyad);
         command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.Eposta);
-        command.Parameters.AddWithValue("@Sifre", dvDestekPersonel.Sifre);
-        command.Parameters.AddWithValue("@Telefon", dvDestekPersonel.Telefon);
+        string encryptedPassword = DbEncryptingDecryptingPassword.Encrypt(dvDestekPersonel.Sifre);
+        command.Parameters.AddWithValue("@Sifre", encryptedPassword);        command.Parameters.AddWithValue("@Telefon", dvDestekPersonel.Telefon);
         command.Parameters.AddWithValue("@Dahili", dvDestekPersonel.Dahili);
         command.ExecuteNonQuery();
     }
-
     public void updateDvDestekPersonel(DvDestekPersonel dvDestekPersonel)
     {
         using var connection = DbConnector.GetConnection();

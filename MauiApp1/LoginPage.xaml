@@ -2,18 +2,58 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiApp1"
-             x:Class="MauiApp1.LoginPage">
+             x:Class="MauiApp1.LoginPage"
+             BackgroundColor="Black"
+             >
+    
+    <Grid Padding="150">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-    <StackLayout Padding="30">
-        <Label Text="Login" FontSize="24" HorizontalOptions="Center" />
+        <!-- Daire şeklindeki arka plan resmi -->
+        <Image Source="arkaplan.png"
+               HeightRequest="400"
+               WidthRequest="400"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               Margin="-20,0,0,0"
+               Opacity="0.5"
+               Grid.RowSpan="6"
+               />
 
-        <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" />
-        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" />
+        <Image Source="user.png"
+               HeightRequest="100"
+               HorizontalOptions="Center"
+               Grid.Row="0" Margin="20"
+               />
 
-        <Button Text="Login" Clicked="OnLoginClicked" />
+        <Label Text="Giriş" FontSize="24" HorizontalOptions="Center"
+               Grid.Row="1" />
 
-        <Label x:Name="MessageLabel" TextColor="Red" HorizontalOptions="Center" />
-    </StackLayout>
+        <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" MaxLength="100"
+               HeightRequest="50"
+               WidthRequest="350"
+               Grid.Row="2" />
 
+        <Entry x:Name="PasswordEntry" Placeholder="Şifre" IsPassword="True"
+               HeightRequest="50"
+               WidthRequest="350"
+               Grid.Row="3" />
+
+        <Button Text="Giriş" Clicked="OnLoginClicked"
+               HeightRequest="40"
+               WidthRequest="100"
+               FontSize="14"
+               HorizontalOptions="Center"
+               Grid.Row="4" />
+
+        <Label x:Name="MessageLabel" TextColor="Red" HorizontalOptions="Center"
+               Grid.Row="5" />
+    </Grid>
 </ContentPage>
-

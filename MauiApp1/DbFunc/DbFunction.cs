@@ -1170,25 +1170,23 @@ public class DbFunction : IDbFunctions
 
     }
 
-    public string ConvertQueryResultToXml(string query, string filePath)
+   public async Task<string> ConvertQueryResultToXmlAsync(string query, string fileName)
     {
-        // Execute query and get XML
+        // Get the full path asynchronously
+        string filePath = await GetSaveFilePathAsync(fileName);
+
         using (var connection = DbConnector.GetConnection())
         {
-            // Execute query
             using (var command = new SqlCommand(query, connection))
             {
-                using (var reader = command.ExecuteXmlReader()) {
-                    // Write XML to file
+                using (var reader = command.ExecuteXmlReader())
+                {
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
-
-                        // Read XML
                         while (reader.Read())
                         {
                             writer.Write(reader.ReadOuterXml());
                         }
-                        
                     }
                 }
             }
@@ -1196,6 +1194,25 @@ public class DbFunction : IDbFunctions
 
         return filePath;
     }
+    //GetSaveFilePathAsync for save file to dowload
+    public static Task<string> GetSaveFilePathAsync(string fileName)
+    {
+        // Get folder path
+        string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Downloads");
+
+        // Create folder if not exists
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
+
+        // Get file path
+        string filePath = Path.Combine(folderPath, fileName);
+
+        return Task.FromResult(filePath);
+    }
+    
+
 
     //<kslr><Id>25</Id><Ad_Soyad>AdSoyad24</Ad_Soyad><Gorev>Gorev24</Gorev><Mail>Mail24</Mail><Telefon>Telefon24</Telefon><Durum>24</Durum><BagliFirmaId>25</BagliFirmaId><Aciklama>Aciklama24</Aciklama></kslr>
     //xml to table

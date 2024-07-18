@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 
 public class DbFunction : IDbFunctions
@@ -1171,18 +1172,23 @@ public class DbFunction : IDbFunctions
 
     public string ConvertQueryResultToXml(string query, string filePath)
     {
+        // Execute query and get XML
         using (var connection = DbConnector.GetConnection())
         {
+            // Execute query
             using (var command = new SqlCommand(query, connection))
             {
-                using (var reader = command.ExecuteXmlReader())
-                {
+                using (var reader = command.ExecuteXmlReader()) {
+                    // Write XML to file
                     using (StreamWriter writer = new StreamWriter(filePath))
                     {
+
+                        // Read XML
                         while (reader.Read())
                         {
                             writer.Write(reader.ReadOuterXml());
                         }
+                        
                     }
                 }
             }
@@ -1190,8 +1196,80 @@ public class DbFunction : IDbFunctions
 
         return filePath;
     }
-    //dbFunction.ConvertQueryResultToXml("select * from Dv_Destek_Kisiler FOR XML AUTO", "Dv_Destek_Kisiler.xml");
-    //mainde test etme yontemi 
+
+    //<kslr><Id>25</Id><Ad_Soyad>AdSoyad24</Ad_Soyad><Gorev>Gorev24</Gorev><Mail>Mail24</Mail><Telefon>Telefon24</Telefon><Durum>24</Durum><BagliFirmaId>25</BagliFirmaId><Aciklama>Aciklama24</Aciklama></kslr>
+    //xml to table
+    
+    public void InsertXmlDataToDatabase(string xmlFilePath, string tableName)
+    {
+        // Read XML file
+        DataSet dataSet = new DataSet();
+        using (StreamReader reader = new StreamReader(xmlFilePath))
+        {
+            dataSet.ReadXml(reader);
+        }
+
+        // Get DataTable
+        DataTable dataTable = dataSet.Tables[0]; 
+
+        // Insert data to database
+        using (var connection = DbConnector.GetConnection())
+        {
+            // Begin transaction
+            using (var transaction = connection.BeginTransaction())
+            {
+                try
+                {
+                    // Insert each row
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        // Generate SQL command
+                        using (var command = connection.CreateCommand())
+                        {
+                            // Set transaction
+                            command.Transaction = transaction;
+                            command.CommandText = GenerateInsertCommand(dataTable, tableName);
+
+                            foreach (DataColumn column in dataTable.Columns)
+                            {
+                                // Add parameters except Id
+                                if (!column.ColumnName.Equals("Id", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    // Add parameter
+                                    command.Parameters.AddWithValue("@" + column.ColumnName, row[column]);
+                                }
+                            }
+                            // Execute command
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                    // Commit transaction
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    // Rollback transaction
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+        }
+    }
+
+    private string GenerateInsertCommand(DataTable dataTable, string tableName)
+    {
+        // Get all columns except Id
+        var allColumns = dataTable.Columns.Cast<DataColumn>().Select(c => c.ColumnName);
+        var columnsToInsert = allColumns.Where(c => !c.Equals("Id", StringComparison.OrdinalIgnoreCase)); 
+
+        // Generate SQL command
+        string columnNames = string.Join(", ", columnsToInsert);
+        // Generate parameter names
+        string parameterNames = string.Join(", ", columnsToInsert.Select(c => "@" + c));
+
+        // INSERT INTO TableName and column names and values
+        return $"INSERT INTO {tableName} ({columnNames}) VALUES ({parameterNames})";
+    }
 
 
 

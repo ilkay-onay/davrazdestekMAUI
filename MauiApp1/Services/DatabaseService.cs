@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using csdb.DbFunc;
+using AESEncryptionExample;
 
 
 namespace MauiApp1.Services
@@ -16,9 +16,11 @@ namespace MauiApp1.Services
         }
 
         public async Task<bool> ValidateUserAsync(string email, string password)
-{
-    using (var connection = new SqlConnection(_connectionString))
+
     {
+
+        using (var connection = new SqlConnection(_connectionString))
+        {
         await connection.OpenAsync();
         var query = "SELECT [Sifre] FROM Dv_Destek_Personel WHERE [E-posta] = @Email";
         using (var command = new SqlCommand(query, connection))

@@ -3,25 +3,11 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-
 namespace csdb.DbFunc
 {
-    public class DbEncryptingDecryptingPassword
+    public static class DbEncryptingDecryptingPassword
     {
-        // Key and IV should be stored securely and retrieved securely
-        private static readonly byte[] Key;
-        private static readonly byte[] IV;
-
-        static DbEncryptingDecryptingPassword()
-        {
-            using (var aes = Aes.Create())
-            {
-                aes.GenerateKey();
-                aes.GenerateIV();
-                Key = aes.Key;
-                IV = aes.IV;
-            }
-        }
+        private static readonly byte[] Key = Encoding.UTF8.GetBytes("12345678901234567890123456789012"); // 32 bytes key
 
         public static string Encrypt(string plainText)
         {
@@ -30,11 +16,13 @@ namespace csdb.DbFunc
 
             using Aes aesAlg = Aes.Create();
             aesAlg.Key = Key;
-            aesAlg.IV = IV;
+            aesAlg.GenerateIV();
+            byte[] iv = aesAlg.IV;
 
-            var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+            var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, iv);
 
             using var msEncrypt = new MemoryStream();
+            msEncrypt.Write(iv, 0, iv.Length); // prepend IV to the encrypted bytes
             using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
             using (var swEncrypt = new StreamWriter(csEncrypt))
             {
@@ -49,13 +37,20 @@ namespace csdb.DbFunc
             if (string.IsNullOrEmpty(cipherText))
                 throw new ArgumentNullException(nameof(cipherText));
 
+            byte[] fullCipher = Convert.FromBase64String(cipherText);
+            byte[] iv = new byte[16];
+            byte[] cipher = new byte[fullCipher.Length - iv.Length];
+
+            Buffer.BlockCopy(fullCipher, 0, iv, 0, iv.Length);
+            Buffer.BlockCopy(fullCipher, iv.Length, cipher, 0, cipher.Length);
+
             using Aes aesAlg = Aes.Create();
             aesAlg.Key = Key;
-            aesAlg.IV = IV;
+            aesAlg.IV = iv;
 
             var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
 
-            using var msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText));
+            using var msDecrypt = new MemoryStream(cipher);
             using var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read);
             using var srDecrypt = new StreamReader(csDecrypt);
 

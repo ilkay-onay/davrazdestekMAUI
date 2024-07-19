@@ -74,8 +74,5 @@ interface IDbFunctions
     List<DvDestekUzakDetay> searchDvDestekUzakDetay(string search);
     DvDestekUzakDetay getDvDestekUzakDetayById(int id);
     
-    
-    
-
 
 }

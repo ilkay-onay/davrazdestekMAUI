@@ -21,4 +21,11 @@ public class DvDestekKisiler
         BagliFirmaId = bagliFirmaId;
         Aciklama = aciklama;
     }
+
+    public override string ToString()
+    {
+        return $"{AdSoyad} - {Gorev} - {Mail} - {Telefon} - {Durum} - {BagliFirmaId} - {Aciklama}";
+        
+
+    }
 }

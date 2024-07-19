@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 <<<<<<< Updated upstream
 using ClosedXML.Excel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Controls;
@@ -18,6 +19,8 @@ using Microsoft.Data.SqlClient;
 using Dapper;
 
 >>>>>>> d499387cd99221afca72d077d289712cf7516bab
+=======
+>>>>>>> parent of d499387 (excel ile importlama eklendi(id olmayacak))
 namespace MauiApp1
 {
     public partial class RemoteConnectionsPage : ContentPage
@@ -97,7 +100,6 @@ namespace MauiApp1
                 AddGridHeader("BaglantiAciklama", 11);
                 AddGridHeader("BaglantiDestekNo", 12);
                 AddGridHeader("BaglantiUniq", 13);
-
                 int row = 1;
                 foreach (var remoteConnection in remoteConnections)
                 {
@@ -177,7 +179,6 @@ namespace MauiApp1
         {
             RemoteConnectionsGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
         }
-
         private async void OnExportToExcelClicked(object sender, EventArgs e)
         {
             try
@@ -231,7 +232,7 @@ namespace MauiApp1
                     workbook.SaveAs(filePath);
                 }
 
-                await DisplayAlert("Success", "Data exported successfully!", "OK");
+                await DisplayAlert("Success", $"Data exported successfully to {filePath}!", "OK");
             }
             catch (Exception ex)
             {
@@ -240,104 +241,38 @@ namespace MauiApp1
             }
         }
 
+
+
+
         private async Task<string> GetSaveFilePathAsync()
         {
-            var result = await FilePicker.PickAsync(new PickOptions
+            try
             {
-                PickerTitle = "Select a location to save the Excel file"
-            });
+                string saveDirectory = string.Empty;
 
-            if (result != null)
+                if (DeviceInfo.Platform == DevicePlatform.WinUI)
+                {
+                    saveDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads";
+                }
+                else
+                {
+                    saveDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                }
+
+                string fileName = $"RemoteConnections_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+                string filePath = Path.Combine(saveDirectory, fileName);
+
+                return filePath;
+            }
+            catch (Exception ex)
             {
-                return result.FullPath;
+                Console.WriteLine($"Error in GetSaveFilePathAsync: {ex.Message}");
+                await DisplayAlert("Error", "Failed to get file path. Please try again later.", "OK");
             }
 
             return null;
         }
 
-        private async void OnImportFromExcelClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                var result = await FilePicker.PickAsync(new PickOptions
-                {
-                    PickerTitle = "Select an Excel file"
-                });
 
-                if (result != null)
-                {
-                    using (var stream = await result.OpenReadAsync())
-                    {
-                        using (var workbook = new XLWorkbook(stream))
-                        {
-                            var worksheet = workbook.Worksheet(1);
-                            var rows = worksheet.RowsUsed().Skip(1); // Skip header row
-
-                            var remoteConnections = new List<RemoteConnection>();
-
-                            foreach (var row in rows)
-                            {
-                                var remoteConnection = new RemoteConnection
-                                {
-                                    Baglanan = row.Cell(1).GetString(),
-                                    BaglananUniq = row.Cell(2).GetString(),
-                                    BaglananIp = row.Cell(3).GetString(),
-                                    Yon = row.Cell(4).GetString(),
-                                    Musteri = row.Cell(5).GetString(),
-                                    MusteriUniq = row.Cell(6).GetString(),
-                                    MusteriIp = row.Cell(7).GetString(),
-                                    BaglantiSaat = TimeSpan.Parse(row.Cell(8).GetString(), CultureInfo.InvariantCulture),
-                                    BaglantiTarih = DateTime.Parse(row.Cell(9).GetString(), CultureInfo.InvariantCulture),
-                                    BaglantiSure = TimeSpan.Parse(row.Cell(10).GetString()), // Corrected parsing for TimeSpan
-                                    BaglantiAciklama = row.Cell(11).GetString(),
-                                    BaglantiDestekNo = row.Cell(12).GetString(),
-                                    BaglantiUniq = row.Cell(13).GetString()
-                                };
-                                remoteConnections.Add(remoteConnection);
-                            }
-
-                            // Insert the data into the database
-                            await InsertRemoteConnectionsAsync(remoteConnections);
-                        }
-                    }
-
-                    await DisplayAlert("Success", "Data imported successfully!", "OK");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in OnImportFromExcelClicked: {ex.Message}");
-                await DisplayAlert("Error", "Failed to import data. Please try again later.", "OK");
-            }
-        }
-
-        private async Task InsertRemoteConnectionsAsync(List<RemoteConnection> remoteConnections)
-        {
-            try
-            {
-                using (var connection = new SqlConnection("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;"))
-                {
-                    await connection.OpenAsync();
-                    var maxId = await connection.ExecuteScalarAsync<int>("SELECT MAX(ID) FROM dbo.Dv_Destek_Uzak");
-                    int newId = maxId + 1;
-
-                    foreach (var remoteConnection in remoteConnections)
-                    {
-                        remoteConnection.ID = newId++;
-
-                        string query = @"
-                            INSERT INTO dbo.Dv_Destek_Uzak (Baglanan, BaglananUniq, BaglananIp, Yon, Musteri, MusteriUniq, MusteriIp, BaglantiSaat, BaglantiTarih, BaglantiSure, BaglantiAciklama, BaglantiDestekNo, BaglantiUniq)
-                            VALUES (@Baglanan, @BaglananUniq, @BaglananIp, @Yon, @Musteri, @MusteriUniq, @MusteriIp, @BaglantiSaat, @BaglantiTarih, @BaglantiSure, @BaglantiAciklama, @BaglantiDestekNo, @BaglantiUniq)";
-
-                        await connection.ExecuteAsync(query, remoteConnection);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in InsertRemoteConnectionsAsync: {ex.Message}");
-                throw;
-            }
-        }
     }
 }

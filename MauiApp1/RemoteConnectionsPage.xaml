@@ -1,23 +1,46 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.RemoteConnectionsPage">
+             x:Class="MauiApp1.RemoteConnectionsPage"
+             xmlns:local="clr-namespace:MauiApp1.ViewModels">
 
     <StackLayout>
-        <ScrollView Orientation="Both">
-            <Grid x:Name="RemoteConnectionsGrid" 
-                  ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-                  RowDefinitions="Auto">
-            </Grid>
-        </ScrollView>
+        <ListView x:Name="RemoteConnectionsListView" 
+                  ItemsSource="{Binding RemoteConnections}"
+                  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <Label Text="{Binding ID}" WidthRequest="50" />
+                            <Label Text="{Binding Baglanan}" WidthRequest="100" />
+                            <Label Text="{Binding BaglananUniq}" WidthRequest="100" />
+                            <Label Text="{Binding BaglananIp}" WidthRequest="100" />
+                            <Label Text="{Binding Yon}" WidthRequest="50" />
+                            <Label Text="{Binding Musteri}" WidthRequest="100" />
+                            <Label Text="{Binding MusteriUniq}" WidthRequest="100" />
+                            <Label Text="{Binding MusteriIp}" WidthRequest="100" />
+                            <Label Text="{Binding BaglantiSaat}" WidthRequest="100" />
+                            <Label Text="{Binding BaglantiTarih}" WidthRequest="100" />
+                            <Label Text="{Binding BaglantiSure}" WidthRequest="100" />
+                            <Label Text="{Binding BaglantiAciklama}" WidthRequest="150" />
+                            <Label Text="{Binding BaglantiDestekNo}" WidthRequest="100" />
+                            <Label Text="{Binding BaglantiUniq}" WidthRequest="100" />
+                            <Button Text="Edit" Clicked="OnEditClicked" CommandParameter="{Binding .}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,0,0,20">
             <Button Text="Previous" Clicked="OnPreviousClicked" />
             <Label x:Name="PageInfoLabel" HorizontalOptions="Center" VerticalOptions="Center" />
             <Button Text="Next" Clicked="OnNextClicked" />
         </StackLayout>
 
-        <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" HorizontalOptions="Center" />
+        <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" HorizontalOptions="Center" Margin="0,0,0,80"/>
+        <Button Text="İmport to Excel" Clicked="OnImportFromExcelClicked" HorizontalOptions="Center" Margin="0,0,0,80"/>
+
     </StackLayout>
 </ContentPage>
-

@@ -1,7 +1,15 @@
-using MauiApp1.Services;
+﻿using MauiApp1.Services;
 using MauiApp1.Models;
 using System.Collections.ObjectModel;
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls;
+using System;
+using System.Threading.Tasks;
 using ClosedXML.Excel;
+using Microsoft.Data.SqlClient;
+using System.Globalization;
+using Dapper;
+
 namespace MauiApp1
 {
     public partial class RemoteConnectionsPage : ContentPage
@@ -13,11 +21,24 @@ namespace MauiApp1
 
         public ObservableCollection<RemoteConnection> RemoteConnections { get; set; }
 
+        // Default constructor
         public RemoteConnectionsPage()
         {
             InitializeComponent();
+            // Here you can initialize _databaseService with a default value if needed
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             RemoteConnections = new ObservableCollection<RemoteConnection>();
+            BindingContext = this; // BindingContext ayarlandığından emin olun
+            LoadRemoteConnectionsAsync();
+        }
+
+        // Constructor with DatabaseService parameter
+        public RemoteConnectionsPage(DatabaseService databaseService)
+        {
+            InitializeComponent();
+            _databaseService = databaseService;
+            RemoteConnections = new ObservableCollection<RemoteConnection>();
+            BindingContext = this; // BindingContext ayarlandığından emin olun
             LoadRemoteConnectionsAsync();
         }
 
@@ -47,43 +68,10 @@ namespace MauiApp1
                 var totalRemoteConnections = await _databaseService.GetTotalRemoteConnectionCountAsync();
                 _totalPageCount = (int)Math.Ceiling(totalRemoteConnections / (double)PageSize);
 
-                RemoteConnectionsGrid.Children.Clear();
-                RemoteConnectionsGrid.RowDefinitions.Clear();
-
-                // Add headers
-                AddGridHeader("ID", 0);
-                AddGridHeader("Baglanan", 1);
-                AddGridHeader("BaglananUniq", 2);
-                AddGridHeader("BaglananIp", 3);
-                AddGridHeader("Yon", 4);
-                AddGridHeader("Musteri", 5);
-                AddGridHeader("MusteriUniq", 6);
-                AddGridHeader("MusteriIp", 7);
-                AddGridHeader("BaglantiSaat", 8);
-                AddGridHeader("BaglantiTarih", 9);
-                AddGridHeader("BaglantiSure", 10);
-                AddGridHeader("BaglantiAciklama", 11);
-                AddGridHeader("BaglantiDestekNo", 12);
-                AddGridHeader("BaglantiUniq", 13);
-                int row = 1;
+                RemoteConnections.Clear();
                 foreach (var remoteConnection in remoteConnections)
                 {
-                    AddGridRow();
-                    AddGridCell(remoteConnection.ID.ToString(), row, 0);
-                    AddGridCell(remoteConnection.Baglanan, row, 1);
-                    AddGridCell(remoteConnection.BaglananUniq, row, 2);
-                    AddGridCell(remoteConnection.BaglananIp, row, 3);
-                    AddGridCell(remoteConnection.Yon, row, 4);
-                    AddGridCell(remoteConnection.Musteri, row, 5);
-                    AddGridCell(remoteConnection.MusteriUniq, row, 6);
-                    AddGridCell(remoteConnection.MusteriIp, row, 7);
-                    AddGridCell(remoteConnection.BaglantiSaat.ToString(), row, 8);
-                    AddGridCell(remoteConnection.BaglantiTarih.ToString(), row, 9);
-                    AddGridCell(remoteConnection.BaglantiSure.ToString(), row, 10);
-                    AddGridCell(remoteConnection.BaglantiAciklama, row, 11);
-                    AddGridCell(remoteConnection.BaglantiDestekNo, row, 12);
-                    AddGridCell(remoteConnection.BaglantiUniq, row, 13);
-                    row++;
+                    RemoteConnections.Add(remoteConnection);
                 }
 
                 PageInfoLabel.Text = $"Page {_currentPage} of {_totalPageCount}";
@@ -95,47 +83,105 @@ namespace MauiApp1
             }
         }
 
-        private void AddGridHeader(string headerText, int column)
+        private async void OnEditClicked(object sender, EventArgs e)
         {
-            var frame = new Frame
+            var button = sender as Button;
+            var remoteConnection = button?.CommandParameter as RemoteConnection;
+
+            if (remoteConnection != null)
             {
-                Content = new Label
-                {
-                    Text = headerText,
-                    FontAttributes = FontAttributes.Bold,
-                    HorizontalOptions = LayoutOptions.Center,
-                    Margin = new Thickness(5)
-                },
-                BorderColor = Colors.Black,
-                Margin = new Thickness(1)
-            };
-            RemoteConnectionsGrid.Children.Add(frame);
-            Grid.SetRow(frame, 0);
-            Grid.SetColumn(frame, column);
+                var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+                var logger = loggerFactory.CreateLogger<EditRemoteConnectionPage>();
+
+                await Navigation.PushAsync(new EditRemoteConnectionPage(remoteConnection, _databaseService, logger));
+            }
         }
 
-        private void AddGridCell(string cellText, int row, int column)
+        private async void OnImportFromExcelClicked(object sender, EventArgs e)
         {
-            var frame = new Frame
+            try
             {
-                Content = new Label
+                var result = await FilePicker.PickAsync(new PickOptions
                 {
-                    Text = cellText,
-                    HorizontalOptions = LayoutOptions.Center,
-                    Margin = new Thickness(5)
-                },
-                BorderColor = Colors.Black,
-                Margin = new Thickness(1)
-            };
-            RemoteConnectionsGrid.Children.Add(frame);
-            Grid.SetRow(frame, row);
-            Grid.SetColumn(frame, column);
+                    PickerTitle = "Select an Excel file"
+                });
+
+                if (result != null)
+                {
+                    using (var stream = await result.OpenReadAsync())
+                    {
+                        using (var workbook = new XLWorkbook(stream))
+                        {
+                            var worksheet = workbook.Worksheet(1);
+                            var rows = worksheet.RowsUsed().Skip(1); // Skip header row
+
+                            var remoteConnections = new List<RemoteConnection>();
+
+                            foreach (var row in rows)
+                            {
+                                var remoteConnection = new RemoteConnection
+                                {
+                                    Baglanan = row.Cell(1).GetString(),
+                                    BaglananUniq = row.Cell(2).GetString(),
+                                    BaglananIp = row.Cell(3).GetString(),
+                                    Yon = row.Cell(4).GetString(),
+                                    Musteri = row.Cell(5).GetString(),
+                                    MusteriUniq = row.Cell(6).GetString(),
+                                    MusteriIp = row.Cell(7).GetString(),
+                                    BaglantiSaat = TimeSpan.Parse(row.Cell(8).GetString(), CultureInfo.InvariantCulture),
+                                    BaglantiTarih = DateTime.Parse(row.Cell(9).GetString(), CultureInfo.InvariantCulture),
+                                    BaglantiSure = TimeSpan.Parse(row.Cell(10).GetString()), // Corrected parsing for TimeSpan
+                                    BaglantiAciklama = row.Cell(11).GetString(),
+                                    BaglantiDestekNo = row.Cell(12).GetString(),
+                                    BaglantiUniq = row.Cell(13).GetString()
+                                };
+                                remoteConnections.Add(remoteConnection);
+                            }
+
+                            // Insert the data into the database
+                            await InsertRemoteConnectionsAsync(remoteConnections);
+                        }
+                    }
+
+                    await DisplayAlert("Success", "Data imported successfully!", "OK");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in OnImportFromExcelClicked: {ex.Message}");
+                await DisplayAlert("Error", "Failed to import data. Please try again later.", "OK");
+            }
         }
 
-        private void AddGridRow()
+        private async Task InsertRemoteConnectionsAsync(List<RemoteConnection> remoteConnections)
         {
-            RemoteConnectionsGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            try
+            {
+                using (var connection = new SqlConnection("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;"))
+                {
+                    await connection.OpenAsync();
+                    var maxId = await connection.ExecuteScalarAsync<int>("SELECT MAX(ID) FROM dbo.Dv_Destek_Uzak");
+                    int newId = maxId + 1;
+
+                    foreach (var remoteConnection in remoteConnections)
+                    {
+                        remoteConnection.ID = newId++;
+
+                        string query = @"
+                            INSERT INTO dbo.Dv_Destek_Uzak (Baglanan, BaglananUniq, BaglananIp, Yon, Musteri, MusteriUniq, MusteriIp, BaglantiSaat, BaglantiTarih, BaglantiSure, BaglantiAciklama, BaglantiDestekNo, BaglantiUniq)
+                            VALUES (@Baglanan, @BaglananUniq, @BaglananIp, @Yon, @Musteri, @MusteriUniq, @MusteriIp, @BaglantiSaat, @BaglantiTarih, @BaglantiSure, @BaglantiAciklama, @BaglantiDestekNo, @BaglantiUniq)";
+
+                        await connection.ExecuteAsync(query, remoteConnection);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in InsertRemoteConnectionsAsync: {ex.Message}");
+                throw;
+            }
         }
+
         private async void OnExportToExcelClicked(object sender, EventArgs e)
         {
             try
@@ -146,7 +192,7 @@ namespace MauiApp1
                 if (string.IsNullOrEmpty(filePath))
                     return;
 
-                using (var workbook = new XLWorkbook())
+                using (var workbook = new ClosedXML.Excel.XLWorkbook())
                 {
                     var worksheet = workbook.Worksheets.Add("Remote Connections");
 
@@ -198,9 +244,6 @@ namespace MauiApp1
             }
         }
 
-
-
-
         private async Task<string> GetSaveFilePathAsync()
         {
             try
@@ -229,7 +272,5 @@ namespace MauiApp1
 
             return null;
         }
-
-
     }
 }

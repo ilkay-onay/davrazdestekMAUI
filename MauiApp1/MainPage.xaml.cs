@@ -26,9 +26,10 @@ namespace MauiApp1
             var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             var logger = loggerFactory.CreateLogger<LoginPage>();
 
+            await DisplayAlert("Çıkış Yapıldı", "", "Tamam");
             // Login sayfasına dön
             Application.Current.MainPage = new LoginPage(_databaseService, logger);
-            await DisplayAlert("Logged Out", "You have been logged out.", "OK");
+           
         }
     }
 }

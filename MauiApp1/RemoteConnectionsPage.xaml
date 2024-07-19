@@ -8,6 +8,7 @@
             <Grid x:Name="RemoteConnectionsGrid" 
                   ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
                   RowDefinitions="Auto">
+
             </Grid>
         </ScrollView>
 
@@ -18,6 +19,8 @@
         </StackLayout>
 
         <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" HorizontalOptions="Center" />
+        <Button Text="Import from Excel" Clicked="OnImportFromExcelClicked" HorizontalOptions="Center" />
     </StackLayout>
 </ContentPage>
+
 

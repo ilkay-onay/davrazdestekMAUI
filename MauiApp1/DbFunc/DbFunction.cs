@@ -934,13 +934,11 @@ public class DbFunction : IDbFunctions
         command.ExecuteNonQuery();
     }
 
-    public List<DvDestekUzak> getAllDvDestekUzak()
+     public List<DvDestekUzak> getAllDvDestekUzak()
     {
-
         var dvDestekUzak = new List<DvDestekUzak>();
 
         using var connection = DbConnector.GetConnection();
-
         using var command = new SqlCommand(GetAllDvDestekUzakQuery, connection);
         using var reader = command.ExecuteReader();
         while (reader.Read())
@@ -950,8 +948,8 @@ public class DbFunction : IDbFunctions
                 ID = reader.GetInt32(reader.GetOrdinal("id")),
                 Baglanan = reader.GetString(reader.GetOrdinal("Baglanan")),
                 BaglananUniq = reader.GetString(reader.GetOrdinal("BaglananUniq")),
-                BaglananIp = reader.GetString(reader.GetOrdinal("BaglananIp")), // Corrected typo
-                Yon = reader.GetInt32(reader.GetOrdinal("Yon")).ToString(),
+                BaglananIp = reader.GetString(reader.GetOrdinal("BaglananIp")),
+                Yon = reader.GetString(reader.GetOrdinal("Yon")),
                 Musteri = reader.GetString(reader.GetOrdinal("Musteri")),
                 MusteriUniq = reader.GetString(reader.GetOrdinal("MusteriUniq")),
                 MusteriIp = reader.GetString(reader.GetOrdinal("MusteriIp")),
@@ -961,7 +959,7 @@ public class DbFunction : IDbFunctions
                 BaglantiAciklama = reader.GetString(reader.GetOrdinal("BaglantiAciklama")),
                 BaglantiDestekNo = reader.GetString(reader.GetOrdinal("BaglantiDestekNo")),
                 BaglantiUniq = reader.GetString(reader.GetOrdinal("BaglantiUniq")),
-                MusteriErpId = Convert.ToInt32(reader.GetString(reader.GetOrdinal("MusteriErpId"))), // Corrected case
+                MusteriErpId = reader.GetInt32(reader.GetOrdinal("MusteriErpId")), // Corrected to GetInt32
                 DestekUrunId = reader.GetInt32(reader.GetOrdinal("DestekUrunId")),
                 TalepDetay = reader.GetString(reader.GetOrdinal("TalepDetay")),
                 ToplamSure = reader.GetTimeSpan(reader.GetOrdinal("ToplamSure"))
@@ -971,6 +969,7 @@ public class DbFunction : IDbFunctions
 
         return dvDestekUzak;
     }
+
 
     public List<DvDestekUzak> searchDvDestekUzak(string search)
     {
@@ -1287,10 +1286,6 @@ public class DbFunction : IDbFunctions
         // INSERT INTO TableName and column names and values
         return $"INSERT INTO {tableName} ({columnNames}) VALUES ({parameterNames})";
     }
-
-
-
-
 
 
 }

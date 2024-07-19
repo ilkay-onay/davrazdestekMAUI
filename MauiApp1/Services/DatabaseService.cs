@@ -118,6 +118,14 @@ namespace MauiApp1.Services
                 throw;
             }
         }
+        public async Task<int> ExecuteQueryAsync(string query, object parameters = null)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                return await connection.ExecuteAsync(query, parameters);
+            }
+        }
 
         public async Task<int> GetTotalRemoteConnectionCountAsync()
         {

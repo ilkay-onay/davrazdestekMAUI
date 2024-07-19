@@ -19,16 +19,11 @@ namespace MauiApp1
 
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            // Logout işlemi
-            // Burada oturum sonlandırma ile ilgili işlemleri yapabilirsiniz.
-
-            // Logger'ı alın veya null geçin
             var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             var logger = loggerFactory.CreateLogger<LoginPage>();
 
-            // Login sayfasına dön
+            await DisplayAlert("Çıkış Yapıldı", "", "Tamam");
             Application.Current.MainPage = new LoginPage(_databaseService, logger);
-            await DisplayAlert("Logged Out", "You have been logged out.", "OK");
         }
     }
 }

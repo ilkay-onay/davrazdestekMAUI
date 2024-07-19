@@ -7,7 +7,6 @@
     <local:CallsPage Title="Calls" />
     <local:RemoteConnectionsPage Title="Remote Connections" />
 
-    <!-- Yeni bir tab ekleyin ve Logout butonunu burada tanımlayın -->
     <ContentPage Title="Settings">
         <StackLayout>
             <Button Text="Logout" Clicked="OnLogoutClicked" 

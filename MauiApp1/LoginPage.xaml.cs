@@ -34,14 +34,14 @@ namespace MauiApp1
                 if (isValidUser)
                 {
                     _logger?.LogInformation("User {Email} logged in successfully.", email);
-                    await DisplayAlert("Success", "Login successful", "OK");
+                    await DisplayAlert("Başarıyla Giriş Yapıldı!", "", "Tamam");
 
-                    // Logger'ı alın veya null geçin
                     var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
                     var logger = loggerFactory.CreateLogger<MainPage>();
 
                     // Navigate to the MainPage
-                    Application.Current.MainPage = new NavigationPage(new MainPage(_databaseService, logger));
+                    var mainPage = new MainPage(_databaseService, logger);
+                    Application.Current.MainPage = new NavigationPage(mainPage);
                 }
                 else
                 {

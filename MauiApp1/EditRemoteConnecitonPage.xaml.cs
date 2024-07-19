@@ -13,12 +13,15 @@ namespace MauiApp1
 
         public EditRemoteConnectionPage(RemoteConnection remoteConnection, DatabaseService databaseService, ILogger<EditRemoteConnectionPage> logger)
         {
+
             InitializeComponent();
             _remoteConnection = remoteConnection;
             _databaseService = databaseService;
             _logger = logger;
             BindingContext = _remoteConnection;
         }
+
+
 
         private async void OnSaveClicked(object sender, EventArgs e)
         {

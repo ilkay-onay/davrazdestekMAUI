@@ -40,8 +40,8 @@ namespace MauiApp1
                     var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
                     var logger = loggerFactory.CreateLogger<MainPage>();
 
-                    // Navigate to the main page
-                    Application.Current.MainPage = new MainPage(_databaseService, logger);
+                    // Navigate to the MainPage
+                    Application.Current.MainPage = new NavigationPage(new MainPage(_databaseService, logger));
                 }
                 else
                 {

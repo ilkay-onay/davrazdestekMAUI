@@ -1,7 +1,15 @@
 using MauiApp1.Services;
 using MauiApp1.Models;
 using System.Collections.ObjectModel;
+<<<<<<< Updated upstream
 using ClosedXML.Excel;
+=======
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls;
+using System;
+using System.Threading.Tasks;
+
+>>>>>>> Stashed changes
 namespace MauiApp1
 {
     public partial class RemoteConnectionsPage : ContentPage
@@ -13,11 +21,27 @@ namespace MauiApp1
 
         public ObservableCollection<RemoteConnection> RemoteConnections { get; set; }
 
+        // Default constructor
         public RemoteConnectionsPage()
         {
             InitializeComponent();
+            // Here you can initialize _databaseService with a default value if needed
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             RemoteConnections = new ObservableCollection<RemoteConnection>();
+<<<<<<< Updated upstream
+=======
+            BindingContext = this; // BindingContext ayarlandığından emin olun
+            LoadRemoteConnectionsAsync();
+        }
+
+        // Constructor with DatabaseService parameter
+        public RemoteConnectionsPage(DatabaseService databaseService)
+        {
+            InitializeComponent();
+            _databaseService = databaseService;
+            RemoteConnections = new ObservableCollection<RemoteConnection>();
+            BindingContext = this; // BindingContext ayarlandığından emin olun
+>>>>>>> Stashed changes
             LoadRemoteConnectionsAsync();
         }
 
@@ -99,6 +123,7 @@ namespace MauiApp1
         {
             var frame = new Frame
             {
+<<<<<<< Updated upstream
                 Content = new Label
                 {
                     Text = headerText,
@@ -112,6 +137,13 @@ namespace MauiApp1
             RemoteConnectionsGrid.Children.Add(frame);
             Grid.SetRow(frame, 0);
             Grid.SetColumn(frame, column);
+=======
+                var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+                var logger = loggerFactory.CreateLogger<EditRemoteConnectionPage>();
+
+                await Navigation.PushAsync(new EditRemoteConnectionPage(remoteConnection, _databaseService, logger));
+            }
+>>>>>>> Stashed changes
         }
 
         private void AddGridCell(string cellText, int row, int column)
@@ -146,7 +178,7 @@ namespace MauiApp1
                 if (string.IsNullOrEmpty(filePath))
                     return;
 
-                using (var workbook = new XLWorkbook())
+                using (var workbook = new ClosedXML.Excel.XLWorkbook())
                 {
                     var worksheet = workbook.Worksheets.Add("Remote Connections");
 

@@ -9,7 +9,12 @@ namespace MauiApp1
         {
             InitializeComponent();
 
+<<<<<<< Updated upstream
             MainPage = new LoginPage(databaseService, logger);
+=======
+            // LoginPage'i NavigationPage içine sarıyoruz
+            MainPage = new NavigationPage(new LoginPage(databaseService, logger));
+>>>>>>> Stashed changes
         }
     }
 }

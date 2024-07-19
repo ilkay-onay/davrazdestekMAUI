@@ -1026,7 +1026,7 @@ public class DbFunction : IDbFunctions
                 Baglanan = reader.GetString(reader.GetOrdinal("Baglanan")),
                 BaglananUniq = reader.GetString(reader.GetOrdinal("BaglananUniq")),
                 BaglananIp = reader.GetString(reader.GetOrdinal("BaglananIp")), // Corrected typo
-                Yon = reader.GetInt32(reader.GetOrdinal("Yon")).ToString(),
+                Yon = reader.GetString(reader.GetOrdinal("Yon")),
                 Musteri = reader.GetString(reader.GetOrdinal("Musteri")),
                 MusteriUniq = reader.GetString(reader.GetOrdinal("MusteriUniq")),
                 MusteriIp = reader.GetString(reader.GetOrdinal("MusteriIp")),

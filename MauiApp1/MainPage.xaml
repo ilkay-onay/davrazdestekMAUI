@@ -6,6 +6,7 @@
 
     <local:CallsPage Title="Calls" />
     <local:RemoteConnectionsPage Title="Remote Connections" />
+    <local:KisilerPage Title="Kişiler"/>
 
     <!-- Yeni bir tab ekleyin ve Logout butonunu burada tanımlayın -->
     <ContentPage Title="Settings">

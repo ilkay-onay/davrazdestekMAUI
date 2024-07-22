@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.KisilerPage"
+             Title="Kişiler">
+
+    <StackLayout>
+        <!-- Kişileri göstermek için CollectionView -->
+        <CollectionView x:Name="KisilerCollectionView" ItemsSource="{Binding Kisiler}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding AdSoyad}" FontAttributes="Bold" />
+                        <Label Text="{Binding Gorev}" />
+                        <Label Text="{Binding Mail}" />
+                        <Label Text="{Binding Telefon}" />
+                        <Label Text="{Binding Aciklama}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Sayfa bilgisi -->
+        <Label x:Name="PageInfoLabel"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"
+               Margin="10" />
+
+        <!-- Önceki ve sonraki sayfa butonları -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+            <Button Text="Previous" Clicked="OnPreviousClicked" />
+            <Button Text="Next" Clicked="OnNextClicked" />
+        </StackLayout>
+
+        <!-- Verileri Excel'e aktarma ve içe aktarma butonları -->
+        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,20">
+           
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

@@ -20,7 +20,7 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="Wheat" HasShadow="True">
+                        <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="White" HasShadow="True">
                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                 <!-- Başlıklar ve Açıklamalar Yan Yana -->
                                 

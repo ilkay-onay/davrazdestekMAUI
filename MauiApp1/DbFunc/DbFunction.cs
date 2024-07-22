@@ -276,7 +276,7 @@ public class DbFunction : IDbFunctions
         using var connection = DbConnector.GetConnection();
 
         using var command = new SqlCommand(InsertDvDestekKisilerQuery, connection);
-        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekKisiler.AdSoyad);
+        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekKisiler.Ad_Soyad);
         command.Parameters.AddWithValue("@Gorev", dvDestekKisiler.Gorev);
         command.Parameters.AddWithValue("@Mail", dvDestekKisiler.Mail);
         command.Parameters.AddWithValue("@Telefon", dvDestekKisiler.Telefon);
@@ -292,7 +292,7 @@ public class DbFunction : IDbFunctions
 
         using var command = new SqlCommand(UpdateDvDestekKisilerQuery, connection);
         command.Parameters.AddWithValue("@Id", dvDestekKisiler.Id);
-        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekKisiler.AdSoyad);
+        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekKisiler.Ad_Soyad);
         command.Parameters.AddWithValue("@Gorev", dvDestekKisiler.Gorev);
         command.Parameters.AddWithValue("@Mail", dvDestekKisiler.Mail);
         command.Parameters.AddWithValue("@Telefon", dvDestekKisiler.Telefon);
@@ -325,7 +325,7 @@ public class DbFunction : IDbFunctions
             var dvDestekKisiler1 = new DvDestekKisiler
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
-                AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
                 Gorev = reader.GetString(reader.GetOrdinal("Gorev")),
                 Mail = reader.GetString(reader.GetOrdinal("Mail")),
                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
@@ -354,7 +354,7 @@ public class DbFunction : IDbFunctions
             var dvDestekKisiler = new DvDestekKisiler
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
-                AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
                 Gorev = reader.GetString(reader.GetOrdinal("Gorev")),
                 Mail = reader.GetString(reader.GetOrdinal("Mail")),
                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
@@ -381,7 +381,7 @@ public class DbFunction : IDbFunctions
             var dvDestekKisiler = new DvDestekKisiler
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
-                AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
                 Gorev = reader.GetString(reader.GetOrdinal("Gorev")),
                 Mail = reader.GetString(reader.GetOrdinal("Mail")),
                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),

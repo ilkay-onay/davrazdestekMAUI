@@ -4,7 +4,7 @@ using System;
 public class DvDestekKisiler
 {
     public int Id { get; set; }
-    public string AdSoyad { get; set; }
+    public string Ad_Soyad { get; set; }
     public string Gorev { get; set; }
     public string Mail { get; set; }
     public string Telefon { get; set; }
@@ -16,7 +16,7 @@ public class DvDestekKisiler
 
     public DvDestekKisiler(string adSoyad, string gorev, string mail, string telefon, short durum, int bagliFirmaId, string aciklama)
     {
-        AdSoyad = adSoyad;
+        Ad_Soyad = adSoyad;
         Gorev = gorev;
         Mail = mail;
         Telefon = telefon;
@@ -27,6 +27,6 @@ public class DvDestekKisiler
 
     public override string ToString()
     {
-        return $"{AdSoyad} - {Gorev} - {Mail} - {Telefon} - {Durum} - {BagliFirmaId} - {Aciklama}";
+        return $"{Ad_Soyad} - {Gorev} - {Mail} - {Telefon} - {Durum} - {BagliFirmaId} - {Aciklama}";
     }
 }

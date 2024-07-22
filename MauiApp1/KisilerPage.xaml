@@ -23,16 +23,20 @@
                         <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="Wheat" HasShadow="True">
                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                 <!-- Başlıklar ve Açıklamalar Yan Yana -->
-                                <StackLayout WidthRequest="10">
-                                    <Label Text="{Binding AdSoyad}" FontAttributes="Bold" FontSize="Medium" TextColor="DarkBlue"/>
-                                </StackLayout>
+                                
                                 <StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="Görev: " FontAttributes="Bold" FontSize="Small" TextColor="black"/>
+                                        <Label Text="Ad Soyad: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding Ad_Soyad}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Görev: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
                                         <Label Text="{Binding Gorev}" FontSize="Small" TextColor="Gray"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="Mail: " FontAttributes="Bold" FontSize="Small" TextColor="black"/>
+                                        <Label Text="Mail: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
                                         <Label Text="{Binding Mail}" FontSize="Small" TextColor="Gray"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
@@ -40,7 +44,7 @@
                                         <Label Text="{Binding Telefon}" FontSize="Small" TextColor="Gray"/>
                                     </StackLayout>
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="Açıklama: " FontAttributes="Bold" FontSize="Small" TextColor="black"/>
+                                        <Label Text="Açıklama: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
                                         <Label Text="{Binding Aciklama}" FontSize="Small" TextColor="Gray"/>
                                     </StackLayout>
                                 </StackLayout>
@@ -64,7 +68,7 @@
                 <Button Text="Next" Clicked="OnNextClicked" BackgroundColor="LightGray" TextColor="Black" Margin="10,0,0,0"/>
             </StackLayout>
 
-            
+          
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

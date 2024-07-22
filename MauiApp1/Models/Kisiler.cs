@@ -5,7 +5,7 @@ namespace MauiApp1.Models
     public class Kisiler
     {
         public int Id { get; set; }
-        public string AdSoyad { get; set; }
+        public string Ad_Soyad { get; set; }
         public string Gorev { get; set; }
         public string Mail { get; set; }
         public string Telefon { get; set; }

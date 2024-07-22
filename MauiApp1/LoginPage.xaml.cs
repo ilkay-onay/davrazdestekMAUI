@@ -3,6 +3,7 @@ using MauiApp1.Services;
 using Microsoft.Maui.Controls;
 using System;
 
+
 namespace MauiApp1
 {
     public partial class LoginPage : ContentPage
@@ -30,11 +31,17 @@ namespace MauiApp1
 
             try
             {
-                var isValidUser = await _databaseService.ValidateUserAsync(email, password);
-                if (isValidUser)
+                var user = await _databaseService.GetUserInfo(email, password);
+                if (user != null)
                 {
                     _logger?.LogInformation("User {Email} logged in successfully.", email);
                     await DisplayAlert("Başarıyla Giriş Yapıldı!", "", "Tamam");
+
+                    // Kullanıcı bilgilerini Preferences'a kaydet
+                    Preferences.Set("UserName", user.Ad_Soyad);
+                    Preferences.Set("UserEmail", user.E_posta);
+                    Preferences.Set("UserPhone", user.Telefon);
+                    Preferences.Set("UserDahili", user.Dahili);
 
                     var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
                     var logger = loggerFactory.CreateLogger<MainPage>();

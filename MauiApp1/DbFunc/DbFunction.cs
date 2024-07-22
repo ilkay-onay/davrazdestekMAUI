@@ -78,16 +78,16 @@ namespace  MauiApp1.dvFunction
 
         //DvDestekPersonel
         private const string InsertDvDestekPersonelQuery =
-            @"INSERT INTO Dv_Destek_Personel (Ad_Soyad,[E-posta],Sifre,Telefon,Dahili) VALUES (@Ad_Soyad,@Eposta, @Sifre, @Telefon, @Dahili)";
+            @"INSERT INTO Dv_Destek_Personel (Ad_Soyad,[E_posta],Sifre,Telefon,Dahili) VALUES (@Ad_Soyad,@Eposta, @Sifre, @Telefon, @Dahili)";
 
         private const string UpdateDvDestekPersonelQuery =
-            @"UPDATE Dv_Destek_Personel SET Ad_Soyad = @Ad_Soyad, [E-Posta] = @EPosta, Sifre = @Sifre, Telefon = @Telefon, Dahili = @Dahili WHERE Id = @Id";
+            @"UPDATE Dv_Destek_Personel SET Ad_Soyad = @Ad_Soyad, [E_posta] = @EPosta, Sifre = @Sifre, Telefon = @Telefon, Dahili = @Dahili WHERE Id = @Id";
 
         private const string DeleteDvDestekPersonelQuery = "DELETE FROM Dv_Destek_Personel WHERE Id = @Id";
         private const string GetAllDvDestekPersonelQuery = "SELECT * FROM Dv_Destek_Personel";
 
         private const string GetSearchDvDestekPersonelQuery =
-            "SELECT * FROM Dv_Destek_Personel WHERE Ad_Soyad LIKE @Search OR [E-Posta] LIKE @Search OR Telefon LIKE @Search";
+            "SELECT * FROM Dv_Destek_Personel WHERE Ad_Soyad LIKE @Search OR [E_posta] LIKE @Search OR Telefon LIKE @Search";
 
         private const string GetDvDestekPersonelByIdQuery = "SELECT * FROM Dv_Destek_Personel WHERE Id = @Id";
 
@@ -658,8 +658,8 @@ namespace  MauiApp1.dvFunction
             using var connection = DbConnector.GetConnection();
 
             using var command = new SqlCommand(InsertDvDestekPersonelQuery, connection);
-            command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.AdSoyad);
-            command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.Eposta);
+            command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.Ad_Soyad);
+            command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.E_posta);
             command.Parameters.AddWithValue("@Sifre", dvDestekPersonel.Sifre);
             command.Parameters.AddWithValue("@Telefon", dvDestekPersonel.Telefon);
             command.Parameters.AddWithValue("@Dahili", dvDestekPersonel.Dahili);
@@ -672,8 +672,8 @@ namespace  MauiApp1.dvFunction
 
             using var command = new SqlCommand(UpdateDvDestekPersonelQuery, connection);
             command.Parameters.AddWithValue("@Id", dvDestekPersonel.Id);
-            command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.AdSoyad);
-            command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.Eposta);
+            command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.Ad_Soyad);
+            command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.E_posta);
             command.Parameters.AddWithValue("@Sifre", dvDestekPersonel.Sifre);
             command.Parameters.AddWithValue("@Telefon", dvDestekPersonel.Telefon);
             command.Parameters.AddWithValue("@Dahili", dvDestekPersonel.Dahili);
@@ -704,8 +704,8 @@ namespace  MauiApp1.dvFunction
                 var dvDestekPersonel1 = new DvDestekPersonel
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("id")),
-                    AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
-                    Eposta = reader.GetString(reader.GetOrdinal("E-Posta")),
+                    Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                    E_posta = reader.GetString(reader.GetOrdinal("E_posta")),
                     Sifre = reader.GetString(reader.GetOrdinal("Sifre")),
                     Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                     Dahili = reader.GetString(reader.GetOrdinal("Dahili"))
@@ -731,8 +731,8 @@ namespace  MauiApp1.dvFunction
                 var dvDestekPersonel = new DvDestekPersonel
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("id")),
-                    AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
-                    Eposta = reader.GetString(reader.GetOrdinal("E-Posta")),
+                    Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                    E_posta = reader.GetString(reader.GetOrdinal("E_Posta")),
                     Sifre = reader.GetString(reader.GetOrdinal("Sifre")),
                     Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                     Dahili = reader.GetString(reader.GetOrdinal("Dahili"))
@@ -757,8 +757,8 @@ namespace  MauiApp1.dvFunction
                 var dvDestekPersonel = new DvDestekPersonel
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("id")),
-                    AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
-                    Eposta = reader.GetString(reader.GetOrdinal("E-Posta")),
+                    Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                    E_posta = reader.GetString(reader.GetOrdinal("E_Posta")),
                     Sifre = reader.GetString(reader.GetOrdinal("Sifre")),
                     Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                     Dahili = reader.GetString(reader.GetOrdinal("Dahili"))

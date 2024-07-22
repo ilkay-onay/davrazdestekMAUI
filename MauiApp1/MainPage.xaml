@@ -9,6 +9,10 @@
 
     <ContentPage Title="Settings">
         <StackLayout>
+            <Label Text="{Binding UserName}" FontSize="20" />
+            <Label Text="{Binding UserEmail}" FontSize="20" />
+            <Label Text="{Binding UserPhone}" FontSize="20" />
+            <Label Text="{Binding UserDahili}" FontSize="20" />
             <Button Text="Logout" Clicked="OnLogoutClicked" 
                     HeightRequest="40"
                     WidthRequest="300"

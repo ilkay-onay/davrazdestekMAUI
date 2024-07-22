@@ -5,7 +5,6 @@ using System.Data.Common;
 using Dapper;
 using MauiApp1.Models;
 
-
 namespace MauiApp1.Services
 {
     public class DatabaseService
@@ -16,6 +15,7 @@ namespace MauiApp1.Services
         {
             _connectionString = connectionString;
         }
+
         public async Task<IEnumerable<RemoteConnection>> GetAllRemoteConnectionsAsync()
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -24,12 +24,13 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<RemoteConnection>(query);
             }
         }
+
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var query = "SELECT COUNT(*) FROM Dv_Destek_Personel WHERE [E-posta] = @Email AND [Sifre] = @Password";
+                var query = "SELECT COUNT(*) FROM Dv_Destek_Personel WHERE [E_posta] = @Email AND [Sifre] = @Password";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
@@ -39,6 +40,28 @@ namespace MauiApp1.Services
                 }
             }
         }
+
+        public async Task<DvDestekPersonel> GetUserByEmailAndPasswordAsync(string email, string password)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT * FROM Dv_Destek_Personel WHERE [E_posta] = @Email AND [Sifre] = @Password";
+                return await connection.QuerySingleOrDefaultAsync<DvDestekPersonel>(query, new { Email = email, Password = password });
+            }
+        }
+
+        public async Task<DvDestekPersonel> GetUserInfo(string email, string password)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT * FROM Dv_Destek_Personel WHERE [E_posta] = @Email AND [Sifre] = @Password";
+                return await connection.QuerySingleOrDefaultAsync<DvDestekPersonel>(query, new { Email = email, Password = password });
+            }
+        }
+
+
 
         public async Task<IEnumerable<CallRecord>> GetCallsAsync(int pageNumber, int pageSize)
         {
@@ -118,6 +141,7 @@ namespace MauiApp1.Services
                 throw;
             }
         }
+
         public async Task<int> ExecuteQueryAsync(string query, object parameters = null)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -143,8 +167,5 @@ namespace MauiApp1.Services
                 throw;
             }
         }
-
     }
 }
-
-

@@ -29,7 +29,7 @@ namespace MauiApp1.Services
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var query = "SELECT COUNT(*) FROM Dv_Destek_Personel WHERE [E-posta] = @Email AND [Sifre] = @Password";
+                var query = "SELECT COUNT(*) FROM Dv_Destek_Personel WHERE [E_posta] = @Email AND [Sifre] = @Password";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Email", email);
@@ -143,8 +143,56 @@ namespace MauiApp1.Services
                 throw;
             }
         }
+        public async Task<IEnumerable<Kisiler>> GetKisilerAsync(int pageNumber, int pageSize)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    string query = @"
+            SELECT * FROM (
+                SELECT 
+                    ROW_NUMBER() OVER (ORDER BY Id ASC) AS RowNum,
+                    Id, Ad_Soyad, Gorev, Mail, Telefon, Durum, BagliFirmaId, Aciklama
+                FROM Dv_Destek_Kisiler
+            ) AS RowConstrainedResult
+            WHERE RowNum >= @RowStart
+                AND RowNum < @RowEnd
+            ORDER BY RowNum";
+
+                    int rowStart = (pageNumber - 1) * pageSize + 1;
+                    int rowEnd = pageNumber * pageSize + 1;
+
+                    var kisiler = await connection.QueryAsync<Kisiler>(query, new { RowStart = rowStart, RowEnd = rowEnd });
+                    return kisiler;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetKisilerAsync: {ex.Message}");
+                throw;
+            }
+        }
+   
+
+        public async Task<int> GetTotalKisilerCountAsync()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    string query = "SELECT COUNT(*) FROM Dv_Destek_Kisiler";
+                    return await connection.ExecuteScalarAsync<int>(query);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetTotalKisilerCountAsync: {ex.Message}");
+                throw;
+            }
+        }
+
 
     }
 }
-
 

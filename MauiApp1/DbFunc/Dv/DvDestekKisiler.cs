@@ -1,3 +1,6 @@
+using System;
+
+
 public class DvDestekKisiler
 {
     public int Id { get; set; }
@@ -25,7 +28,5 @@ public class DvDestekKisiler
     public override string ToString()
     {
         return $"{AdSoyad} - {Gorev} - {Mail} - {Telefon} - {Durum} - {BagliFirmaId} - {Aciklama}";
-        
-
     }
 }

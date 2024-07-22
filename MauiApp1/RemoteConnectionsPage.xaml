@@ -41,6 +41,12 @@
 
         <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" HorizontalOptions="Center" Margin="0,0,0,80"/>
         <Button Text="İmport to Excel" Clicked="OnImportFromExcelClicked" HorizontalOptions="Center" Margin="0,0,0,80"/>
+<<<<<<< HEAD
         
     </StackLayout>
 </ContentPage>
+=======
+
+    </StackLayout>
+</ContentPage>
+>>>>>>> ceac3868d98f783e6deb2922f2d96903ee2aaa9e

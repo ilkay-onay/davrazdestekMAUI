@@ -8,16 +8,70 @@
     <local:RemoteConnectionsPage Title="Remote Connections" />
 
     <ContentPage Title="Settings">
-        <StackLayout>
-            <Label Text="{Binding UserName}" FontSize="20" />
-            <Label Text="{Binding UserEmail}" FontSize="20" />
-            <Label Text="{Binding UserPhone}" FontSize="20" />
-            <Label Text="{Binding UserDahili}" FontSize="20" />
-            <Button Text="Logout" Clicked="OnLogoutClicked" 
-                    HeightRequest="40"
-                    WidthRequest="300"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"/>
+        <StackLayout Padding="20" Spacing="10">
+            <!-- Kullanıcı Bilgileri -->
+            <Frame CornerRadius="10" BackgroundColor="black" Padding="10"
+                   HeightRequest="200"
+                   WidthRequest="500">
+                <StackLayout Spacing="5">
+                    <Label Text="Kullanıcı Bilgileri" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+                    <Label FontSize="18" FontAttributes="Bold"
+                          HorizontalOptions="Center">
+                         
+                        <Label.FormattedText
+                            >
+                            <FormattedString
+                                >
+                                <Span Text="İsim: "  />
+                                <Span Text="{Binding UserName}" FontSize="20" TextColor="White" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label FontSize="18" FontAttributes="Bold"
+                           HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="E-posta: " />
+                                <Span Text="{Binding UserEmail}" FontSize="20" TextColor="White" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label FontSize="18" FontAttributes="Bold"
+                           HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Telefon: " />
+                                <Span Text="{Binding UserPhone}" FontSize="20" TextColor="White" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                    <Label FontSize="18" FontAttributes="Bold"
+                           HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Dahili: " />
+                                <Span Text="{Binding UserDahili}" FontSize="20" TextColor="White" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+            </Frame>
+
+            <!-- Logout Butonu -->
+            <Button Text="Çıkış Yap" Clicked="OnLogoutClicked" 
+            HeightRequest="50"
+            WidthRequest="200"
+            BackgroundColor="#6200EE"
+            TextColor="White"
+            FontSize="18"
+            CornerRadius="25"
+            HorizontalOptions="Center"
+            VerticalOptions="EndAndExpand"/>
         </StackLayout>
+
     </ContentPage>
 </TabbedPage>

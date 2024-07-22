@@ -3,39 +3,68 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.KisilerPage"
              Title="Kişiler">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <!-- Sayfa Başlığı -->
+            <Label Text="Kişiler Listesi" 
+                   FontSize="Large" 
+                   FontAttributes="Bold" 
+                   TextColor="DarkBlue" 
+                   HorizontalOptions="Center" 
+                   Margin="0,20,0,10" />
 
-    <StackLayout>
-        <!-- Kişileri göstermek için CollectionView -->
-        <CollectionView x:Name="KisilerCollectionView" ItemsSource="{Binding Kisiler}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Padding="10">
-                        <Label Text="{Binding AdSoyad}" FontAttributes="Bold" />
-                        <Label Text="{Binding Gorev}" />
-                        <Label Text="{Binding Mail}" />
-                        <Label Text="{Binding Telefon}" />
-                        <Label Text="{Binding Aciklama}" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <!-- Kişileri göstermek için CollectionView -->
+            <CollectionView x:Name="KisilerCollectionView" ItemsSource="{Binding Kisiler}" 
+                            VerticalOptions="FillAndExpand" 
+                            HorizontalOptions="FillAndExpand">
 
-        <!-- Sayfa bilgisi -->
-        <Label x:Name="PageInfoLabel"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand"
-               Margin="10" />
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="Wheat" HasShadow="True">
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                <!-- Başlıklar ve Açıklamalar Yan Yana -->
+                                <StackLayout WidthRequest="10">
+                                    <Label Text="{Binding AdSoyad}" FontAttributes="Bold" FontSize="Medium" TextColor="DarkBlue"/>
+                                </StackLayout>
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Görev: " FontAttributes="Bold" FontSize="Small" TextColor="black"/>
+                                        <Label Text="{Binding Gorev}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Mail: " FontAttributes="Bold" FontSize="Small" TextColor="black"/>
+                                        <Label Text="{Binding Mail}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Telefon: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding Telefon}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Açıklama: " FontAttributes="Bold" FontSize="Small" TextColor="black"/>
+                                        <Label Text="{Binding Aciklama}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-        <!-- Önceki ve sonraki sayfa butonları -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-            <Button Text="Previous" Clicked="OnPreviousClicked" />
-            <Button Text="Next" Clicked="OnNextClicked" />
+            <!-- Sayfa bilgisi -->
+            <Label x:Name="PageInfoLabel"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="10"
+                   FontSize="Medium"
+                   TextColor="DarkBlue"/>
+
+            <!-- Önceki ve sonraki sayfa butonları -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10,0">
+                <Button Text="Previous" Clicked="OnPreviousClicked" BackgroundColor="LightGray" TextColor="Black"/>
+                <Button Text="Next" Clicked="OnNextClicked" BackgroundColor="LightGray" TextColor="Black" Margin="10,0,0,0"/>
+            </StackLayout>
+
+            
         </StackLayout>
-
-        <!-- Verileri Excel'e aktarma ve içe aktarma butonları -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="0,20">
-           
-        </StackLayout>
-    </StackLayout>
-
+    </ContentPage.Content>
 </ContentPage>

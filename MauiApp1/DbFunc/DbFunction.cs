@@ -657,8 +657,8 @@ public class DbFunction : IDbFunctions
         using var connection = DbConnector.GetConnection();
 
         using var command = new SqlCommand(InsertDvDestekPersonelQuery, connection);
-        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.AdSoyad);
-        command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.Eposta);
+        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.Ad_Soyad);
+        command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.E_posta);
         command.Parameters.AddWithValue("@Sifre", dvDestekPersonel.Sifre);
         command.Parameters.AddWithValue("@Telefon", dvDestekPersonel.Telefon);
         command.Parameters.AddWithValue("@Dahili", dvDestekPersonel.Dahili);
@@ -671,8 +671,8 @@ public class DbFunction : IDbFunctions
 
         using var command = new SqlCommand(UpdateDvDestekPersonelQuery, connection);
         command.Parameters.AddWithValue("@Id", dvDestekPersonel.Id);
-        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.AdSoyad);
-        command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.Eposta);
+        command.Parameters.AddWithValue("@Ad_Soyad", dvDestekPersonel.Ad_Soyad);
+        command.Parameters.AddWithValue("@EPosta", dvDestekPersonel.E_posta);
         command.Parameters.AddWithValue("@Sifre", dvDestekPersonel.Sifre);
         command.Parameters.AddWithValue("@Telefon", dvDestekPersonel.Telefon);
         command.Parameters.AddWithValue("@Dahili", dvDestekPersonel.Dahili);
@@ -703,8 +703,8 @@ public class DbFunction : IDbFunctions
             var dvDestekPersonel1 = new DvDestekPersonel
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
-                AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
-                Eposta = reader.GetString(reader.GetOrdinal("E-Posta")),
+                Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                E_posta = reader.GetString(reader.GetOrdinal("E-Posta")),
                 Sifre = reader.GetString(reader.GetOrdinal("Sifre")),
                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                 Dahili = reader.GetString(reader.GetOrdinal("Dahili"))
@@ -730,8 +730,8 @@ public class DbFunction : IDbFunctions
             var dvDestekPersonel = new DvDestekPersonel
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
-                AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
-                Eposta = reader.GetString(reader.GetOrdinal("E-Posta")),
+                Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                E_posta = reader.GetString(reader.GetOrdinal("E-Posta")),
                 Sifre = reader.GetString(reader.GetOrdinal("Sifre")),
                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                 Dahili = reader.GetString(reader.GetOrdinal("Dahili"))
@@ -756,8 +756,8 @@ public class DbFunction : IDbFunctions
             var dvDestekPersonel = new DvDestekPersonel
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
-                AdSoyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
-                Eposta = reader.GetString(reader.GetOrdinal("E-Posta")),
+                Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                E_posta = reader.GetString(reader.GetOrdinal("E-Posta")),
                 Sifre = reader.GetString(reader.GetOrdinal("Sifre")),
                 Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
                 Dahili = reader.GetString(reader.GetOrdinal("Dahili"))

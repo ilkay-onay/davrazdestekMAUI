@@ -33,15 +33,30 @@ namespace MauiApp1
                 var isValidUser = await _databaseService.ValidateUserAsync(email, password);
                 if (isValidUser)
                 {
-                    _logger?.LogInformation("User {Email} logged in successfully.", email);
-                    await DisplayAlert("Success", "Login successful", "OK");
+                    var user = await _databaseService.GetUserInfo(email, password);
+                    if (user != null)
+                    {
+                        _logger?.LogInformation("User {Email} logged in successfully.", email);
+                        await DisplayAlert("Başarıyla Giriş Yapıldı!", "", "Tamam");
 
-                    // Logger'ı alın veya null geçin
-                    var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-                    var logger = loggerFactory.CreateLogger<MainPage>();
+                        // Kullanıcı bilgilerini Preferences'a kaydet
+                        Preferences.Set("UserName", user.Ad_Soyad);
+                        Preferences.Set("UserEmail", user.E_posta);
+                        Preferences.Set("UserPhone", user.Telefon);
+                        Preferences.Set("UserDahili", user.Dahili);
 
-                    // Navigate to the MainPage
-                    Application.Current.MainPage = new NavigationPage(new MainPage(_databaseService, logger));
+                        var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+                        var logger = loggerFactory.CreateLogger<MainPage>();
+
+                        // Navigate to the MainPage
+                        var mainPage = new MainPage(_databaseService, logger);
+                        Application.Current.MainPage = new NavigationPage(mainPage);
+                    }
+                    else
+                    {
+                        _logger?.LogWarning("Failed to retrieve user information for {Email}.", email);
+                        MessageLabel.Text = "An error occurred. Please try again.";
+                    }
                 }
                 else
                 {

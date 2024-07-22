@@ -126,6 +126,15 @@ namespace MauiApp1.Services
                 return await connection.ExecuteAsync(query, parameters);
             }
         }
+        public async Task<DvDestekPersonel> GetUserInfo(string email, string password)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT * FROM Dv_Destek_Personel WHERE [E_posta] = @Email AND [Sifre] = @Password";
+                return await connection.QuerySingleOrDefaultAsync<DvDestekPersonel>(query, new { Email = email, Password = password });
+            }
+        }
 
         public async Task<int> GetTotalRemoteConnectionCountAsync()
         {

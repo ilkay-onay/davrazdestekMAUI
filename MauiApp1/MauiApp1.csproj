@@ -81,7 +81,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+
+	  <MauiXaml Update="EditRemoteConnecitonPage.xaml">
+
 	  <MauiXaml Update="KisilerPage.xaml">
+
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="LoginPage.xaml">

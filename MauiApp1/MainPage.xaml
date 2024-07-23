@@ -4,10 +4,10 @@
              x:Class="MauiApp1.MainPage"
              xmlns:local="clr-namespace:MauiApp1">
 
-    <local:CallsPage Title="Calls" />
-    <local:RemoteConnectionsPage Title="Remote Connections" />
+    <local:CallsPage Title="Çağrılar" />
+    <local:RemoteConnectionsPage Title="Uzak Bağlantılar" />
     <local:KisilerPage Title="Kişiler"/>
-    <ContentPage Title="Settings">
+    <ContentPage Title="Ayarlar">
         <StackLayout Padding="20" Spacing="10">
             <!-- Kullanıcı Bilgileri -->
             <Frame CornerRadius="10" BackgroundColor="black" Padding="10"

@@ -126,6 +126,16 @@ namespace MauiApp1.Services
                 return await connection.ExecuteAsync(query, parameters);
             }
         }
+        public async Task UpdateKisilerAsync(Kisiler kisi)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var sql = @"UPDATE Dv_Destek_Kisiler 
+                            SET Ad_Soyad = @Ad_Soyad, Gorev = @Gorev, Mail = @Mail, Telefon = @Telefon, Durum = @Durum, BagliFirmaId = @BagliFirmaId, Aciklama = @Aciklama 
+                            WHERE Id = @Id";
+                await connection.ExecuteAsync(sql, kisi);
+            }
+        }
         public async Task<DvDestekPersonel> GetUserInfo(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))

@@ -51,7 +51,7 @@
                                 </StackLayout>
 
 
-                                <Button Text="Edit" Clicked="OnEditClicked" CommandParameter="{Binding .}" BackgroundColor="LightGray" TextColor="Black" 
+                                <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}" BackgroundColor="LightGray" TextColor="Black" 
                                         HorizontalOptions="EndAndExpand"/>
                             </StackLayout>
                         </Frame>

@@ -14,7 +14,7 @@
                    Margin="0,20,0,10" />
 
             <!-- Arama Çubuğu -->
-            <SearchBar x:Name="SearchBar" Placeholder="Search by name" 
+            <SearchBar x:Name="SearchBar" Placeholder="İsme göre arayınız" 
                        TextChanged="OnSearchBarTextChanged"/>
 
             <!-- Kişileri göstermek için CollectionView -->
@@ -49,8 +49,6 @@
                                         <Label Text="{Binding Aciklama}" FontSize="Small" TextColor="Gray"/>
                                     </StackLayout>
                                 </StackLayout>
-
-
                                 <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}" BackgroundColor="LightGray" TextColor="Black" 
                                         HorizontalOptions="EndAndExpand"/>
                             </StackLayout>

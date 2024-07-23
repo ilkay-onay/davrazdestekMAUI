@@ -69,37 +69,33 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="LoginPage.xaml.cs">
-	    <DependentUpon>LoginPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="CallsPage.xaml.cs">
-	    <DependentUpon>CallsPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="RemoteConnectionsPage.xaml.cs">
-	    <DependentUpon>RemoteConnectionsPage.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="LoginPage.xaml.cs">
+			<DependentUpon>LoginPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="CallsPage.xaml.cs">
+			<DependentUpon>CallsPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="RemoteConnectionsPage.xaml.cs">
+			<DependentUpon>RemoteConnectionsPage.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-
-	  <MauiXaml Update="EditRemoteConnecitonPage.xaml">
-
-	  <MauiXaml Update="KisilerPage.xaml">
-
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="LoginPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="CallsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="RemoteConnectionsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="RemoteConnectionsPageViewModel.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="KisilerPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="LoginPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="CallsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="RemoteConnectionsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="RemoteConnectionsPageViewModel.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 </Project>

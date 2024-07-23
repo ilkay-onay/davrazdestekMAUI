@@ -3,9 +3,7 @@ using System.Threading.Tasks;
 using MauiApp1.Services;
 using Microsoft.Maui.Controls;
 using System;
-
 using MauiApp1.Models;
-
 
 namespace MauiApp1
 {
@@ -20,21 +18,21 @@ namespace MauiApp1
 
         public KisilerPage()
         {
-            InitializeComponent(); // XAML dosyasýndaki bileþenleri baþlatýr
+            InitializeComponent(); // XAML dosyasÄ±ndaki bileÅŸenleri baÅŸlatÄ±r
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             Kisiler = new ObservableCollection<Kisiler>();
-            KisilerCollectionView.ItemsSource = Kisiler; // CollectionView'a veri kaynaðý atama
+            KisilerCollectionView.ItemsSource = Kisiler; // CollectionView'a veri kaynaÄŸÄ± atama
             LoadKisilerAsync();
         }
+
         public KisilerPage(DatabaseService databaseService)
         {
             InitializeComponent();
             _databaseService = databaseService;
             Kisiler = new ObservableCollection<Kisiler>();
-            BindingContext = this; // BindingContext ayarlandýðýndan emin olun
+            BindingContext = this; // BindingContext ayarlandÄ±ÄŸÄ±ndan emin olun
             LoadKisilerAsync();
         }
-
 
         private async void OnPreviousClicked(object sender, EventArgs e)
         {
@@ -51,6 +49,16 @@ namespace MauiApp1
             {
                 _currentPage++;
                 await LoadKisilerAsync();
+            }
+        }
+
+        private async void OnEditClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var kisi = button?.CommandParameter as Kisiler;
+            if (kisi != null)
+            {
+                await Navigation.PushAsync(new EditKisilerPage(kisi, _databaseService));
             }
         }
 
@@ -78,4 +86,3 @@ namespace MauiApp1
         }
     }
 }
-

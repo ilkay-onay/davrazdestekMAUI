@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.EditKisilerPage"
+             Title="Düzenle Kişi">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <!-- Kişi Düzenleme Formu -->
+            <Label Text="Ad Soyad" FontAttributes="Bold" />
+            <Entry Text="{Binding Kisiler.Ad_Soyad}" />
+
+            <Label Text="Görev" FontAttributes="Bold" />
+            <Entry Text="{Binding Kisiler.Gorev}" />
+
+            <Label Text="Mail" FontAttributes="Bold" />
+            <Entry Text="{Binding Kisiler.Mail}" />
+
+            <Label Text="Telefon" FontAttributes="Bold" />
+            <Entry Text="{Binding Kisiler.Telefon}" />
+
+            <Label Text="Durum" FontAttributes="Bold" />
+            <Entry Text="{Binding Kisiler.Durum}" />
+
+            <Label Text="Bağlı Firma Id" FontAttributes="Bold" />
+            <Entry Text="{Binding Kisiler.BagliFirmaId}" />
+
+            <Label Text="Açıklama" FontAttributes="Bold" />
+            <Entry Text="{Binding Kisiler.Aciklama}" />
+
+            <Button Text="Kaydet" Clicked="OnSaveClicked" BackgroundColor="LightGray" TextColor="Black" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

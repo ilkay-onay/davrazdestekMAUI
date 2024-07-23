@@ -8,12 +8,7 @@
     <ContentPage.Content>
         <StackLayout Padding="10" >
             <!-- Sayfa Başlığı -->
-            <Label Text="Remote Connections List" 
-                   FontSize="Large" 
-                   FontAttributes="Bold" 
-                   TextColor="DarkBlue" 
-                   HorizontalOptions="Center" 
-                   Margin="0,20,0,10" />
+            
 
             <!-- Remote Connections CollectionView -->
            
@@ -97,7 +92,7 @@
                                             </StackLayout>
                                         </StackLayout>
 
-                                        <Button Text="Edit" Clicked="OnEditClicked" CommandParameter="{Binding .}" BackgroundColor="LightGray" TextColor="Black"/>
+                                        <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}" BackgroundColor="LightGray" TextColor="Black"/>
                                     </StackLayout>
                                 </Frame>
                             </DataTemplate>
@@ -119,8 +114,8 @@
             </StackLayout>
 
             <!-- Export and Import buttons -->
-            <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" BackgroundColor="LightGray" TextColor="Black" HorizontalOptions="Center" Margin="0,20,0,0"/>
-            <Button Text="Import from Excel" Clicked="OnImportFromExcelClicked" BackgroundColor="LightGray" TextColor="Black" HorizontalOptions="Center" Margin="0,10,0,80"/>
+            <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" BackgroundColor="LightGray" TextColor="Black" HorizontalOptions="Center" Margin="0,10,0,0"/>
+            <Button Text="Import from Excel" Clicked="OnImportFromExcelClicked" BackgroundColor="LightGray" TextColor="Black" HorizontalOptions="Center" Margin="0,10,0,10"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

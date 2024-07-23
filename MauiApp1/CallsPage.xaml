@@ -25,8 +25,8 @@
         </CollectionView>
 
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-            <Button Text="Previous" Clicked="OnPreviousClicked" />
-            <Button Text="Next" Clicked="OnNextClicked" />
+            <Button Text="Geri" Clicked="OnPreviousClicked" />
+            <Button Text="İler" Clicked="OnNextClicked" />
         </StackLayout>
     </StackLayout>
 

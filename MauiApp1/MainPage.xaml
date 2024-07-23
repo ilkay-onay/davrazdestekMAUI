@@ -55,6 +55,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    
                 </StackLayout>
             </Frame>
 

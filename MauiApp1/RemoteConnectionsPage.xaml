@@ -109,8 +109,8 @@
 
             <!-- Önceki ve sonraki sayfa butonları -->
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10,0">
-                <Button Text="Previous" Clicked="OnPreviousClicked" BackgroundColor="LightGray" TextColor="Black"/>
-                <Button Text="Next" Clicked="OnNextClicked" BackgroundColor="LightGray" TextColor="Black" Margin="10,0,0,0"/>
+                <Button Text="Geri" Clicked="OnPreviousClicked" BackgroundColor="LightGray" TextColor="Black"/>
+                <Button Text="İleri" Clicked="OnNextClicked" BackgroundColor="LightGray" TextColor="Black" Margin="10,0,0,0"/>
             </StackLayout>
 
             <!-- Export and Import buttons -->

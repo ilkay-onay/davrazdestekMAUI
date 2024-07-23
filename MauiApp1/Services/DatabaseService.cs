@@ -210,6 +210,36 @@ namespace MauiApp1.Services
                 throw;
             }
         }
+        public async Task<List<Kisiler>> SearchKisilerAsync(string search)
+        {
+            var kisilerList = new List<Kisiler>();
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var command = new SqlCommand("SELECT * FROM Dv_Destek_Kisiler WHERE Ad_Soyad LIKE @Search", connection);
+            command.Parameters.AddWithValue("@Search", "%" + search + "%");
+
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var kisi = new Kisiler
+                {
+                    Id = reader.GetInt32(reader.GetOrdinal("id")),
+                    Ad_Soyad = reader.GetString(reader.GetOrdinal("Ad_Soyad")),
+                    Gorev = reader.GetString(reader.GetOrdinal("Gorev")),
+                    Mail = reader.GetString(reader.GetOrdinal("Mail")),
+                    Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
+                    Durum = reader.GetInt16(reader.GetOrdinal("Durum")),
+                    BagliFirmaId = reader.GetInt32(reader.GetOrdinal("BagliFirmaId")),
+                    Aciklama = reader.GetString(reader.GetOrdinal("Aciklama"))
+                };
+
+                kisilerList.Add(kisi);
+            }
+
+            return kisilerList;
+        }
 
 
     }

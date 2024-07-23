@@ -84,5 +84,29 @@ namespace MauiApp1
                 await DisplayAlert("Error", "Failed to load persons. Please try again later.", "OK");
             }
         }
+
+        private async void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
+        {
+            await SearchKisilerAsync(e.NewTextValue);
+        }
+
+        private async Task SearchKisilerAsync(string searchTerm)
+        {
+            try
+            {
+                var searchResults = await _databaseService.SearchKisilerAsync(searchTerm);
+
+                Kisiler.Clear();
+                foreach (var kisi in searchResults)
+                {
+                    Kisiler.Add(kisi);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchKisilerAsync: {ex.Message}");
+                await DisplayAlert("Error", "Failed to search persons. Please try again later.", "OK");
+            }
+        }
     }
 }

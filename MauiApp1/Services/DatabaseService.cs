@@ -88,34 +88,32 @@ namespace MauiApp1.Services
             }
         }
 
-        public async Task<IEnumerable<RemoteConnection>> GetRemoteConnectionsAsync(int pageNumber, int pageSize)
+        public async Task<IEnumerable<RemoteConnection>> GetRemoteConnectionsAsync(int page, int pageSize, bool isAscending)
         {
-            try
+            using (var connection = new SqlConnection(_connectionString))
             {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    string query = @"
-                    SELECT * FROM (
-                        SELECT 
-                            ROW_NUMBER() OVER (ORDER BY BaglantiTarih DESC) AS RowNum,
-                            ID, Baglanan, BaglananUniq, BaglananIp, Yon, Musteri, MusteriUniq, MusteriIp, BaglantiSaat, BaglantiTarih, BaglantiSure, BaglantiAciklama, BaglantiDestekNo, BaglantiUniq, MusteriErpId, DestekUrunId, TalepDetay, ToplamSure
-                        FROM dbo.Dv_Destek_Uzak
-                    ) AS RowConstrainedResult
-                    WHERE RowNum >= @RowStart
-                        AND RowNum < @RowEnd
-                    ORDER BY RowNum";
+                await connection.OpenAsync();
 
-                    int rowStart = (pageNumber - 1) * pageSize + 1;
-                    int rowEnd = pageNumber * pageSize + 1;
+                var sortOrder = isAscending ? "ASC" : "DESC";
+                var offset = (page - 1) * pageSize;
 
-                    var remoteConnections = await connection.QueryAsync<RemoteConnection>(query, new { RowStart = rowStart, RowEnd = rowEnd });
-                    return remoteConnections;
-                }
+                var query = $@"
+                    SELECT * FROM dbo.Dv_Destek_Cagrilar
+                    ORDER BY ID {sortOrder}
+                    OFFSET @Offset ROWS
+                    FETCH NEXT @PageSize ROWS ONLY";
+
+                return await connection.QueryAsync<RemoteConnection>(query, new { Offset = offset, PageSize = pageSize });
             }
-            catch (Exception ex)
+        }
+
+        public async Task<int> GetTotalRemoteConnectionCountAsync()
+        {
+            using (var connection = new SqlConnection(_connectionString))
             {
-                Console.WriteLine($"Error in GetRemoteConnectionsAsync: {ex.Message}");
-                throw;
+                await connection.OpenAsync();
+                var query = "SELECT COUNT(*) FROM dbo.Dv_Destek_Cagrilar";
+                return await connection.ExecuteScalarAsync<int>(query);
             }
         }
         public async Task<int> ExecuteQueryAsync(string query, object parameters = null)
@@ -146,22 +144,6 @@ namespace MauiApp1.Services
             }
         }
 
-        public async Task<int> GetTotalRemoteConnectionCountAsync()
-        {
-            try
-            {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    string query = "SELECT COUNT(*) FROM dbo.Dv_Destek_Uzak";
-                    return await connection.ExecuteScalarAsync<int>(query);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetTotalRemoteConnectionCountAsync: {ex.Message}");
-                throw;
-            }
-        }
         public async Task<IEnumerable<Kisiler>> GetKisilerAsync(int pageNumber, int pageSize)
         {
             try

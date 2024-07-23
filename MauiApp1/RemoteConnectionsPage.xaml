@@ -8,7 +8,9 @@
     <ContentPage.Content>
         <StackLayout Padding="10" >
             <!-- Sayfa Başlığı -->
-            
+            <Button Text="ID'ye göre sırala" Clicked="OnSortClicked" HeightRequest="80" WidthRequest="150" Margin="0,0,0,0" HorizontalOptions="EndAndExpand"/>
+
+
 
             <!-- Remote Connections CollectionView -->
            
@@ -90,7 +92,7 @@
                                                 <Label Text="Baglanti Uniq: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
                                                 <Label Text="{Binding BaglantiUniq}" FontSize="Small" TextColor="Gray"/>
                                             </StackLayout>
-                                        </StackLayout>
+                                </StackLayout>
 
                                         <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}" BackgroundColor="LightGray" TextColor="Black"/>
                                     </StackLayout>

@@ -18,27 +18,25 @@ namespace MauiApp1
         private int _currentPage = 1;
         private const int PageSize = 10;
         private int _totalPageCount;
+        private bool _isAscending = true; // Add a field to track the current sort order
 
         public ObservableCollection<RemoteConnection> RemoteConnections { get; set; }
 
-        // Default constructor
         public RemoteConnectionsPage()
         {
             InitializeComponent();
-            // Here you can initialize _databaseService with a default value if needed
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             RemoteConnections = new ObservableCollection<RemoteConnection>();
-            BindingContext = this; // BindingContext ayarlandığından emin olun
+            BindingContext = this;
             LoadRemoteConnectionsAsync();
         }
 
-        // Constructor with DatabaseService parameter
         public RemoteConnectionsPage(DatabaseService databaseService)
         {
             InitializeComponent();
             _databaseService = databaseService;
             RemoteConnections = new ObservableCollection<RemoteConnection>();
-            BindingContext = this; // BindingContext ayarlandığından emin olun
+            BindingContext = this;
             LoadRemoteConnectionsAsync();
         }
 
@@ -60,11 +58,17 @@ namespace MauiApp1
             }
         }
 
+        private async void OnSortClicked(object sender, EventArgs e)
+        {
+            _isAscending = !_isAscending; // Toggle the sort order
+            await LoadRemoteConnectionsAsync();
+        }
+
         private async Task LoadRemoteConnectionsAsync()
         {
             try
             {
-                var remoteConnections = await _databaseService.GetRemoteConnectionsAsync(_currentPage, PageSize);
+                var remoteConnections = await _databaseService.GetRemoteConnectionsAsync(_currentPage, PageSize, _isAscending);
                 var totalRemoteConnections = await _databaseService.GetTotalRemoteConnectionCountAsync();
                 _totalPageCount = (int)Math.Ceiling(totalRemoteConnections / (double)PageSize);
 

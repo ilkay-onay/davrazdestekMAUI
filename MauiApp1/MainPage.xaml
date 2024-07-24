@@ -10,10 +10,10 @@
         <OnPlatform x:TypeArguments="Color" Default="White" />
     </TabbedPage.BarTextColor>
 
-    <local:CallsPage Title="Çağrılar" />
-    <local:RemoteConnectionsPage Title="Uzak Bağlantılar" />
-    <local:KisilerPage Title="Kişiler"/>
-    <ContentPage Title="Ayarlar">
+    <local:CallsPage Title="Çağrılar" IconImageSource="dd.png" />
+    <local:RemoteConnectionsPage Title="Uzak Bağlantılar" IconImageSource="remote.png" />
+    <local:KisilerPage Title="Kişiler" IconImageSource="cona.png"/>
+    <ContentPage Title="Ayarlar" IconImageSource="settings.png">
         <StackLayout Padding="20" Spacing="10">
             <!-- Kullanıcı Bilgileri -->
             <Frame CornerRadius="10" BackgroundColor="black" Padding="10"

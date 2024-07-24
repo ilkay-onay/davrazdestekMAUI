@@ -59,6 +59,10 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\calls_icon.png" />
+	  <None Remove="Resources\Images\cona.png" />
+	  <None Remove="Resources\Images\dd.png" />
+	  <None Remove="Resources\Images\remote.png" />
+	  <None Remove="Resources\Images\settings.png" />
 	</ItemGroup>
 
 	<ItemGroup>

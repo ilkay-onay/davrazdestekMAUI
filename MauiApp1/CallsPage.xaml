@@ -1,33 +1,83 @@
 <?xml version="1.0" encoding="utf-8" ?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.CallsPage"
              Title="Calls">
 
-    <StackLayout>
-        <Label x:Name="PageInfoLabel" HorizontalOptions="Center" />
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <!-- Calls CollectionView -->
+            <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}" 
+                            VerticalOptions="FillAndExpand" 
+                            HorizontalOptions="FillAndExpand">
 
-        <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <StackLayout Orientation="Horizontal" Padding="5">
-                        <Label Text="{Binding Tarih}" WidthRequest="150" />
-                        <Label Text="{Binding Arayan}" WidthRequest="150" />
-                        <Label Text="{Binding Aranan}" WidthRequest="150" />
-                        <Label Text="{Binding ToplamSure}" WidthRequest="100" />
-                        <Label Text="{Binding BeklemeSuresi}" WidthRequest="100" />
-                        <Label Text="{Binding GorusmeSuresi}" WidthRequest="100" />
-                        <Label Text="{Binding Sonuc}" WidthRequest="50" />
-                        <Label Text="{Binding Tipi}" WidthRequest="50" />
-                    </StackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="White" HasShadow="True">
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                <StackLayout>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Tarih: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding Tarih}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-            <Button Text="Geri" Clicked="OnPreviousClicked" />
-            <Button Text="İler" Clicked="OnNextClicked" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Arayan: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding Arayan}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Aranan: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding Aranan}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Toplam Sure: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding ToplamSure}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Bekleme Suresi: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding BeklemeSuresi}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Gorusme Suresi: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding GorusmeSuresi}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Sonuc: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding Sonuc}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Tipi: " FontAttributes="Bold" FontSize="Small" TextColor="Black"/>
+                                        <Label Text="{Binding Tipi}" FontSize="Small" TextColor="Gray"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Sayfa bilgisi -->
+            <Label x:Name="PageInfoLabel"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="10"
+                   FontSize="Medium"
+                   TextColor="DarkBlue"/>
+
+            <!-- Önceki ve sonraki sayfa butonları -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10,0">
+                <Button Text="Previous" Clicked="OnPreviousClicked" BackgroundColor="LightGray" TextColor="Black"/>
+                <Button Text="Next" Clicked="OnNextClicked" BackgroundColor="LightGray" TextColor="Black" Margin="10,0,0,0"/>
+            </StackLayout>
+
         </StackLayout>
-    </StackLayout>
-
+    </ContentPage.Content>
 </ContentPage>

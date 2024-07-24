@@ -21,6 +21,7 @@ namespace MauiApp1
             InitializeComponent();
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             Calls = new ObservableCollection<CallRecord>();
+            BindingContext = this;
             CallsCollectionView.ItemsSource = Calls;
             LoadCallsAsync();
         }
@@ -65,6 +66,7 @@ namespace MauiApp1
                 await DisplayAlert("Error", "Failed to load calls. Please try again later.", "OK");
             }
         }
+
+
     }
 }
-

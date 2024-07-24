@@ -11,17 +11,17 @@ namespace MauiApp1
     {
         private readonly DatabaseService _databaseService;
         private int _currentPage = 1;
-        private const int PageSize = 10;
+        private const int PageSize = 5;
         private int _totalPageCount;
 
         public ObservableCollection<Kisiler> Kisiler { get; set; }
 
         public KisilerPage()
         {
-            InitializeComponent(); // XAML dosyasındaki bileşenleri başlatır
+            InitializeComponent();
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             Kisiler = new ObservableCollection<Kisiler>();
-            KisilerCollectionView.ItemsSource = Kisiler; // CollectionView'a veri kaynağı atama
+            BindingContext = this;
             LoadKisilerAsync();
         }
 
@@ -30,7 +30,7 @@ namespace MauiApp1
             InitializeComponent();
             _databaseService = databaseService;
             Kisiler = new ObservableCollection<Kisiler>();
-            BindingContext = this; // BindingContext ayarlandığından emin olun
+            BindingContext = this;
             LoadKisilerAsync();
         }
 

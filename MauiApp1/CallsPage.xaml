@@ -4,7 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.CallsPage"
              Title="Calls"
-             BackgroundColor="#F0F0F5">
+             BackgroundColor="#F0F0F5"
+             >
+
 
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="15">
@@ -12,11 +14,12 @@
             <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}" 
                             VerticalOptions="FillAndExpand" 
                             HorizontalOptions="FillAndExpand">
+                
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" CornerRadius="10" Padding="15" Margin="10" BackgroundColor="White" HasShadow="True">
-                            <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*" RowDefinitions="Auto,Auto" RowSpacing="10" ColumnSpacing="15">
+                            <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*" RowDefinitions="Auto,Auto,Auto">
                                 <!-- First row with four pieces of information -->
                                 <Label Text="Tarih: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="0" Padding="5,0"/>
                                 <Label Text="{Binding Tarih}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="1" Padding="5,0"/>

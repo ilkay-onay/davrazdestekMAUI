@@ -58,11 +58,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+<<<<<<< HEAD
 	  <None Remove="Resources\Images\calls_icon.png" />
 	  <None Remove="Resources\Images\cona.png" />
 	  <None Remove="Resources\Images\dd.png" />
 	  <None Remove="Resources\Images\remote.png" />
 	  <None Remove="Resources\Images\settings.png" />
+=======
+	  <MauiImage Remove="Resources\Images\phone.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\phone.png" />
+>>>>>>> 3f7ac5743e40ef7309d39a32c6248e54e6b181ac
 	</ItemGroup>
 
 	<ItemGroup>

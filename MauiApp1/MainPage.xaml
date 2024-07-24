@@ -2,73 +2,85 @@
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.MainPage"
-             xmlns:local="clr-namespace:MauiApp1">
+             xmlns:local="clr-namespace:MauiApp1"
+             BackgroundColor="#F0F0F5">
 
-    <local:CallsPage Title="Çağrılar" />
-    <local:RemoteConnectionsPage Title="Uzak Bağlantılar" />
-    <local:KisilerPage Title="Kişiler"/>
-    <ContentPage Title="Ayarlar">
-        <StackLayout Padding="20" Spacing="10">
-            <!-- Kullanıcı Bilgileri -->
-            <Frame CornerRadius="10" BackgroundColor="black" Padding="10"
-                   HeightRequest="200"
-                   WidthRequest="500">
-                <StackLayout Spacing="5">
-                    <Label Text="Kullanıcı Bilgileri" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+    <TabbedPage.BarBackgroundColor>
+        <OnPlatform x:TypeArguments="Color" Default="#75590b" />
+    </TabbedPage.BarBackgroundColor>
+    <TabbedPage.BarTextColor>
+        <OnPlatform x:TypeArguments="Color" Default="White" />
+    </TabbedPage.BarTextColor>
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                          HorizontalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="İsim: "  />
-                                <Span Text="{Binding UserName}" FontSize="20" TextColor="White" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+    <local:CallsPage Title="Çağrılar" IconImageSource="calls_icon.png" />
+    <local:RemoteConnectionsPage Title="Uzak Bağlantılar" IconImageSource="remote_icon.png" />
+    <local:KisilerPage Title="Kişiler" IconImageSource="contacts_icon.png" />
+    <ContentPage Title="Ayarlar" IconImageSource="settings_icon.png">
+        <ScrollView>
+            <StackLayout Padding="20" Spacing="15">
+                <!-- Kullanıcı Bilgileri -->
+                <Frame CornerRadius="10" BackgroundColor="#FFFFFF" Padding="20"
+                       HasShadow="True"
+                       HeightRequest="200"
+                       WidthRequest="500">
+                    <StackLayout Spacing="10">
+                        <Label Text="Kullanıcı Bilgileri" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#6200EE"/>
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                           HorizontalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="E-posta: " />
-                                <Span Text="{Binding UserEmail}" FontSize="20" TextColor="White" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        <Label FontSize="18" FontAttributes="Bold" TextColor="#333333"
+                               HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="İsim: " />
+                                    <Span Text="{Binding UserName}" FontSize="20" TextColor="#6200EE" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                           HorizontalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Telefon: " />
-                                <Span Text="{Binding UserPhone}" FontSize="20" TextColor="White" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
+                        <Label FontSize="18" FontAttributes="Bold" TextColor="#333333"
+                               HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="E-posta: " />
+                                    <Span Text="{Binding UserEmail}" FontSize="20" TextColor="#6200EE" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                           HorizontalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="Dahili: " />
-                                <Span Text="{Binding UsserDahili}" FontSize="20" TextColor="White" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    
-                </StackLayout>
-            </Frame>
+                        <Label FontSize="18" FontAttributes="Bold" TextColor="#333333"
+                               HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Telefon: " />
+                                    <Span Text="{Binding UserPhone}" FontSize="20" TextColor="#6200EE" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
 
-            <!-- Logout Butonu -->
-            <Button Text="Çıkış Yap" Clicked="OnLogoutClicked" 
-                    HeightRequest="50"
-                    WidthRequest="200"
-                    BackgroundColor="#6200EE"
-                    TextColor="White"
-                    FontSize="18"
-                    CornerRadius="25"
-                    HorizontalOptions="Center"
-                    VerticalOptions="EndAndExpand"/>
-        </StackLayout>
+                        <Label FontSize="18" FontAttributes="Bold" TextColor="#333333"
+                               HorizontalOptions="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Dahili: " />
+                                    <Span Text="{Binding UsserDahili}" FontSize="20" TextColor="#6200EE" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                    </StackLayout>
+                </Frame>
+
+                <!-- Logout Butonu -->
+                <Button Text="Çıkış Yap" Clicked="OnLogoutClicked" 
+                        HeightRequest="50"
+                        WidthRequest="200"
+                        BackgroundColor="#6200EE"
+                        TextColor="White"
+                        FontSize="18"
+                        CornerRadius="25"
+                        HorizontalOptions="Center"
+                        VerticalOptions="EndAndExpand"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage>
 </TabbedPage>
+

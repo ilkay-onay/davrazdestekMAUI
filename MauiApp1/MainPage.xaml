@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.MainPage"
-             xmlns:local="clr-namespace:MauiApp1"
-             BackgroundColor="#F0F0F5">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MauiApp1.MainPage"
+            xmlns:local="clr-namespace:MauiApp1"
+            BackgroundColor="#F0F0F5">
 
     <TabbedPage.BarBackgroundColor>
         <OnPlatform x:TypeArguments="Color" Default="#75590b" />
@@ -12,10 +12,13 @@
         <OnPlatform x:TypeArguments="Color" Default="White" />
     </TabbedPage.BarTextColor>
 
-    <local:CallsPage Title="Çağrılar" IconImageSource="calls_icon.png" />
-    <local:RemoteConnectionsPage Title="Uzak Bağlantılar" IconImageSource="remote_icon.png" />
-    <local:KisilerPage Title="Kişiler" IconImageSource="contacts_icon.png" />
-    <ContentPage Title="Ayarlar" IconImageSource="settings_icon.png">
+    <local:CallsPage Title="Çağrılar" IconImageSource="phone.png" />
+    <local:RemoteConnectionsPage Title="Uzak Bağlantılar" IconImageSource="remote.png" />
+    <local:KisilerPage Title="Kişiler" IconImageSource="user.png" />
+
+    <!-- Ayarlar Page with Profile Icon -->
+    <ContentPage Title="Ayarlar" IconImageSource="user.png">
+        <!-- Replace profile_icon.png with your actual icon filename -->
         <ScrollView>
             <StackLayout Padding="20" Spacing="15">
                 <!-- Kullanıcı Bilgileri -->
@@ -82,5 +85,7 @@
             </StackLayout>
         </ScrollView>
     </ContentPage>
+
 </TabbedPage>
+
 

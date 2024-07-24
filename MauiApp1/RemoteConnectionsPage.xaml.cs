@@ -10,15 +10,16 @@ using Microsoft.Data.SqlClient;
 using System.Globalization;
 using Dapper;
 
+
 namespace MauiApp1
 {
     public partial class RemoteConnectionsPage : ContentPage
     {
         private readonly DatabaseService _databaseService;
         private int _currentPage = 1;
-        private const int PageSize = 10;
+        private const int PageSize = 5;
         private int _totalPageCount;
-        private bool _isAscending = true; // Add a field to track the current sort order
+        private bool _isAscending = true;
 
         public ObservableCollection<RemoteConnection> RemoteConnections { get; set; }
 
@@ -60,7 +61,7 @@ namespace MauiApp1
 
         private async void OnSortClicked(object sender, EventArgs e)
         {
-            _isAscending = !_isAscending; // Toggle the sort order
+            _isAscending = !_isAscending;
             await LoadRemoteConnectionsAsync();
         }
 
@@ -117,7 +118,7 @@ namespace MauiApp1
                         using (var workbook = new XLWorkbook(stream))
                         {
                             var worksheet = workbook.Worksheet(1);
-                            var rows = worksheet.RowsUsed().Skip(1); // Skip header row
+                            var rows = worksheet.RowsUsed().Skip(1);
 
                             var remoteConnections = new List<RemoteConnection>();
 
@@ -134,7 +135,7 @@ namespace MauiApp1
                                     MusteriIp = row.Cell(7).GetString(),
                                     BaglantiSaat = TimeSpan.Parse(row.Cell(8).GetString(), CultureInfo.InvariantCulture),
                                     BaglantiTarih = DateTime.Parse(row.Cell(9).GetString(), CultureInfo.InvariantCulture),
-                                    BaglantiSure = TimeSpan.Parse(row.Cell(10).GetString()), // Corrected parsing for TimeSpan
+                                    BaglantiSure = TimeSpan.Parse(row.Cell(10).GetString()),
                                     BaglantiAciklama = row.Cell(11).GetString(),
                                     BaglantiDestekNo = row.Cell(12).GetString(),
                                     BaglantiUniq = row.Cell(13).GetString()
@@ -142,7 +143,6 @@ namespace MauiApp1
                                 remoteConnections.Add(remoteConnection);
                             }
 
-                            // Insert the data into the database
                             await InsertRemoteConnectionsAsync(remoteConnections);
                         }
                     }
@@ -190,7 +190,7 @@ namespace MauiApp1
         {
             try
             {
-                var allRemoteConnections = await _databaseService.GetAllRemoteConnectionsAsync(); // Fetch all data
+                var allRemoteConnections = await _databaseService.GetAllRemoteConnectionsAsync();
                 string filePath = await GetSaveFilePathAsync();
 
                 if (string.IsNullOrEmpty(filePath))
@@ -200,7 +200,6 @@ namespace MauiApp1
                 {
                     var worksheet = workbook.Worksheets.Add("Remote Connections");
 
-                    // Add headers
                     worksheet.Cell(1, 1).Value = "ID";
                     worksheet.Cell(1, 2).Value = "Baglanan";
                     worksheet.Cell(1, 3).Value = "BaglananUniq";
@@ -276,5 +275,7 @@ namespace MauiApp1
 
             return null;
         }
+
+        
     }
 }

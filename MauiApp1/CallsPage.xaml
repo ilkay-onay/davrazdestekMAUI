@@ -7,7 +7,7 @@
              BackgroundColor="#F0F0F5">
 
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="10">
+        <StackLayout Padding="10" Spacing="15">
             <!-- Calls CollectionView -->
             <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}" 
                             VerticalOptions="FillAndExpand" 
@@ -15,33 +15,33 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame BorderColor="LightGray" CornerRadius="10" Padding="10" Margin="10" BackgroundColor="White" HasShadow="True">
-                            <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*" RowDefinitions="Auto,Auto">
+                        <Frame BorderColor="LightGray" CornerRadius="10" Padding="15" Margin="10" BackgroundColor="White" HasShadow="True">
+                            <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*" RowDefinitions="Auto,Auto" RowSpacing="10" ColumnSpacing="15">
                                 <!-- First row with four pieces of information -->
-                                <Label Text="Tarih: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
-                                <Label Text="{Binding Tarih}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="1"/>
+                                <Label Text="Tarih: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="0" Padding="5,0"/>
+                                <Label Text="{Binding Tarih}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="1" Padding="5,0"/>
 
-                                <Label Text="Arayan: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="2"/>
-                                <Label Text="{Binding Arayan}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="3"/>
+                                <Label Text="Arayan: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="2" Padding="5,0"/>
+                                <Label Text="{Binding Arayan}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="3" Padding="5,0"/>
 
-                                <Label Text="Aranan: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="4"/>
-                                <Label Text="{Binding Aranan}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="5"/>
+                                <Label Text="Aranan: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="4" Padding="5,0"/>
+                                <Label Text="{Binding Aranan}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="5" Padding="5,0"/>
 
-                                <Label Text="Toplam Süre: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="6"/>
-                                <Label Text="{Binding ToplamSure}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="7"/>
+                                <Label Text="Toplam Süre: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="6" Padding="5,0"/>
+                                <Label Text="{Binding ToplamSure}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="7" Padding="5,0"/>
 
                                 <!-- Second row with four pieces of information -->
-                                <Label Text="Bekleme Süresi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="0"/>
-                                <Label Text="{Binding BeklemeSuresi}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="1"/>
+                                <Label Text="Bekleme Süresi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="0" Padding="5,0"/>
+                                <Label Text="{Binding BeklemeSuresi}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="1" Padding="5,0"/>
 
-                                <Label Text="Görüşme Süresi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="2"/>
-                                <Label Text="{Binding GorusmeSuresi}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="3"/>
+                                <Label Text="Görüşme Süresi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="2" Padding="5,0"/>
+                                <Label Text="{Binding GorusmeSuresi}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="3" Padding="5,0"/>
 
-                                <Label Text="Sonuç: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="4"/>
-                                <Label Text="{Binding Sonuc}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="5"/>
+                                <Label Text="Sonuç: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="4" Padding="5,0"/>
+                                <Label Text="{Binding Sonuc}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="5" Padding="5,0"/>
 
-                                <Label Text="Tipi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="6"/>
-                                <Label Text="{Binding Tipi}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="7"/>
+                                <Label Text="Tipi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="6" Padding="5,0"/>
+                                <Label Text="{Binding Tipi}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="7" Padding="5,0"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>

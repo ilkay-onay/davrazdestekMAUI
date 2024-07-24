@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\calls_icon.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="ClosedXML" Version="0.102.2" />
 		<PackageReference Include="Dapper" Version="2.1.35" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />

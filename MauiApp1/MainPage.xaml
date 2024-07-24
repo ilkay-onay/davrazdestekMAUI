@@ -19,7 +19,7 @@
         <ScrollView>
             <StackLayout Padding="20" Spacing="15">
                 <!-- Kullanıcı Bilgileri -->
-                <Frame CornerRadius="10" BackgroundColor="#FFFFFF" Padding="20"
+                <Frame CornerRadius="10" BackgroundColor="Black" Padding="20"
                        HasShadow="True"
                        HeightRequest="200"
                        WidthRequest="500">

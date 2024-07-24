@@ -11,7 +11,7 @@ namespace MauiApp1
     {
         private readonly DatabaseService _databaseService;
         private int _currentPage = 1;
-        private const int PageSize = 10;
+        private const int PageSize = 7;
         private int _totalPageCount;
 
         public ObservableCollection<CallRecord> Calls { get; set; }

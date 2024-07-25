@@ -14,13 +14,22 @@
                        TextColor="Black"/>
 
             <!-- Date filter -->
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Label Text="From:" VerticalOptions="Center" />
-                <DatePicker x:Name="StartDatePicker" Date="{Binding StartDate, Mode=TwoWay}" />
-                <Label Text="To:" VerticalOptions="Center" />
-                <DatePicker x:Name="EndDatePicker" Date="{Binding EndDate, Mode=TwoWay}" />
-                <Button Text="Filter" Clicked="OnFilterClicked" BackgroundColor="#6200EE" TextColor="White"/>
+            <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="White" Padding="10">
+                <Label Text="Başlangıç:" VerticalOptions="Center" TextColor="Black"/>
+                <DatePicker x:Name="StartDatePicker" Date="{Binding StartDate, Mode=TwoWay}">
+                    <DatePicker.TextColor>
+                        <Color>Black</Color>
+                    </DatePicker.TextColor>
+                </DatePicker>
+                <Label Text="Bitiş:" VerticalOptions="Center" TextColor="Black"/>
+                <DatePicker x:Name="EndDatePicker" Date="{Binding EndDate, Mode=TwoWay}">
+                    <DatePicker.TextColor>
+                        <Color>Black</Color>
+                    </DatePicker.TextColor>
+                </DatePicker>
+                <Button Text="Filtrele" Clicked="OnFilterClicked" BackgroundColor="#6200EE" TextColor="White"/>
             </StackLayout>
+
 
             <!-- Calls CollectionView -->
             <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}" 

@@ -222,6 +222,26 @@ namespace MauiApp1.Services
 
             return kisilerList;
         }
+
+
+        public async Task<IEnumerable<CallRecord>> GetCallsAsync(int page, int pageSize, string searchQuery = "")
+        {
+            using var connection = new SqlConnection(_connectionString);
+            var query = @"SELECT * FROM Dv_Destek_Cagrilar 
+                          WHERE (@Search IS NULL OR Arayan LIKE @Search OR Aranan LIKE @Search)
+                          ORDER BY Tarih
+                          OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
+
+            return await connection.QueryAsync<CallRecord>(query, new
+            {
+                Search = string.IsNullOrEmpty(searchQuery) ? null : $"%{searchQuery}%",
+                Offset = (page - 1) * pageSize,
+                PageSize = pageSize
+            });
+        }
+
+       
+
         public async Task<List<RemoteConnection>> SearchRemoteAsync(string search)
         {
             var remoteConnectionList = new List<RemoteConnection>();
@@ -265,6 +285,9 @@ namespace MauiApp1.Services
 
             return remoteConnectionList;
         }
+
+
+
 
 
 

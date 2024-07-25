@@ -44,11 +44,16 @@ namespace MauiApp1
             }
         }
 
-        private async Task LoadCallsAsync()
+        private async void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
+        {
+            await LoadCallsAsync(e.NewTextValue);
+        }
+
+        private async Task LoadCallsAsync(string searchQuery = "")
         {
             try
             {
-                var calls = await _databaseService.GetCallsAsync(_currentPage, PageSize);
+                var calls = await _databaseService.GetCallsAsync(_currentPage, PageSize, searchQuery);
                 var totalCalls = await _databaseService.GetTotalCallCountAsync();
                 _totalPageCount = (int)Math.Ceiling(totalCalls / (double)PageSize);
 
@@ -66,7 +71,5 @@ namespace MauiApp1
                 await DisplayAlert("Error", "Failed to load calls. Please try again later.", "OK");
             }
         }
-
-
     }
 }

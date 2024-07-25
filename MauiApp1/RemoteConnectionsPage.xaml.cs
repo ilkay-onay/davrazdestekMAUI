@@ -26,7 +26,7 @@ namespace MauiApp1
         public RemoteConnectionsPage()
         {
             InitializeComponent();
-            _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
+            _databaseService = new DatabaseService("Server=192.168.100.220;Database=Dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             RemoteConnections = new ObservableCollection<RemoteConnection>();
             BindingContext = this;
             LoadRemoteConnectionsAsync();
@@ -161,7 +161,7 @@ namespace MauiApp1
         {
             try
             {
-                using (var connection = new SqlConnection("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;"))
+                using (var connection = new SqlConnection("Server=192.168.100.220;Database=Dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;"))
                 {
                     await connection.OpenAsync();
                     var maxId = await connection.ExecuteScalarAsync<int>("SELECT MAX(ID) FROM dbo.Dv_Destek_Uzak");
@@ -275,7 +275,30 @@ namespace MauiApp1
 
             return null;
         }
+        private async void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
+        {
+            await SearchRemoteAsync(e.NewTextValue);
+        }
 
-        
+        private async Task SearchRemoteAsync(string searchTerm)
+        {
+            try
+            {
+                var searchResults = await _databaseService.SearchRemoteAsync(searchTerm);
+
+                RemoteConnections.Clear();
+                foreach (var remoteConnection in searchResults)
+                {
+                    RemoteConnections.Add(remoteConnection);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchRemoteAsync: {ex.Message}");
+                await DisplayAlert("Error", "Failed to search persons. Please try again later.", "OK");
+            }
+        }
+
+
     }
 }

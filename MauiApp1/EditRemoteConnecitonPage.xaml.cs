@@ -27,7 +27,7 @@ namespace MauiApp1
         {
             try
             {
-                var query = "UPDATE Dv_Destek_Uzak SET Baglanan = @Baglanan, BaglananUniq = @BaglananUniq, BaglananIp = @BaglananIp, Yon = @Yon, Musteri = @Musteri, MusteriUniq = @MusteriUniq, MusteriIp = @MusteriIp, BaglantiSaat = @BaglantiSaat, BaglantiTarih = @BaglantiTarih, BaglantiSure = @BaglantiSure, BaglantiAciklama = @BaglantiAciklama, BaglantiDestekNo = @BaglantiDestekNo, BaglantiUniq = @BaglantiUniq, MusteriErpId = @MusteriErpId, DestekUrunId = @DestekUrunId, TalepDetay = @TalepDetay, ToplamSure = @ToplamSure WHERE Id = @Id";
+                var query = "UPDATE Dv_Destek_Uzak SET Baglanan = @Baglanan, BaglananUniq = @BaglananUniq, BaglananIp = @BaglananIp, Yon = @Yon, Musteri = @Musteri, MusteriUniq = @MusteriUniq, MusteriIp = @MusteriIp, BaglantiSaat = @BaglantiSaat, BaglantiTarih = @BaglantiTarih,BaglantiAciklama = @BaglantiAciklama, BaglantiDestekNo = @BaglantiDestekNo, BaglantiUniq = @BaglantiUniq, MusteriErpId = @MusteriErpId, DestekUrunId = @DestekUrunId, TalepDetay = @TalepDetay, ToplamSure = @ToplamSure, BaglantiSure = @BaglantiSure WHERE Id = @Id";
                 var parameters = new Dictionary<string, object>
                 {
                     { "@Baglanan", _remoteConnection.Baglanan },
@@ -39,7 +39,6 @@ namespace MauiApp1
                     { "@MusteriIp", _remoteConnection.MusteriIp },
                     { "@BaglantiSaat", _remoteConnection.BaglantiSaat },
                     { "@BaglantiTarih", _remoteConnection.BaglantiTarih },
-                    { "@BaglantiSure", _remoteConnection.BaglantiSure },
                     { "@BaglantiAciklama", _remoteConnection.BaglantiAciklama },
                     { "@BaglantiDestekNo", _remoteConnection.BaglantiDestekNo },
                     { "@BaglantiUniq", _remoteConnection.BaglantiUniq },
@@ -47,6 +46,7 @@ namespace MauiApp1
                     { "@DestekUrunId", _remoteConnection.DestekUrunId },
                     { "@TalepDetay", _remoteConnection.TalepDetay },
                     { "@ToplamSure", _remoteConnection.ToplamSure },
+                    { "@BaglantiSure", _remoteConnection.BaglantiSure },
                     { "@Id", _remoteConnection.ID }
                 };
 

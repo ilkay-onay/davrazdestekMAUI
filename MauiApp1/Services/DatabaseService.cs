@@ -98,7 +98,7 @@ namespace MauiApp1.Services
                 var offset = (page - 1) * pageSize;
 
                 var query = $@"
-                    SELECT * FROM dbo.Dv_Destek_Cagrilar
+                    SELECT * FROM dbo.Dv_Destek_Uzak
                     ORDER BY ID {sortOrder}
                     OFFSET @Offset ROWS
                     FETCH NEXT @PageSize ROWS ONLY";
@@ -222,6 +222,51 @@ namespace MauiApp1.Services
 
             return kisilerList;
         }
+        public async Task<List<RemoteConnection>> SearchRemoteAsync(string search)
+        {
+            var remoteConnectionList = new List<RemoteConnection>();
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var command = new SqlCommand(
+                @"SELECT * FROM Dv_Destek_Uzak 
+          WHERE ID LIKE @Search 
+             OR Baglanan LIKE @Search 
+             OR Yon LIKE @Search 
+             OR Musteri LIKE @Search 
+            OR BaglantiTarih LIKE @Search 
+            OR BaglantiAciklama LIKE @Search 
+
+             ", connection);
+
+            command.Parameters.AddWithValue("@Search", "%" + search + "%");
+
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var remoteConnection = new RemoteConnection
+                {
+                    ID = reader.GetInt32(reader.GetOrdinal("ID")),
+                    Baglanan = reader.GetString(reader.GetOrdinal("Baglanan")),
+                    BaglananUniq = reader.GetString(reader.GetOrdinal("BaglananUniq")),
+                    BaglananIp = reader.GetString(reader.GetOrdinal("BaglananIp")),
+                    Yon = reader.GetString(reader.GetOrdinal("Yon")),
+                    Musteri = reader.GetString(reader.GetOrdinal("Musteri")),
+                    MusteriUniq = reader.GetString(reader.GetOrdinal("MusteriUniq")),
+                    MusteriIp = reader.GetString(reader.GetOrdinal("MusteriIp")),
+                    BaglantiTarih = reader.GetDateTime(reader.GetOrdinal("BaglantiTarih")),
+                    BaglantiAciklama = reader.GetString(reader.GetOrdinal("BaglantiAciklama")),
+
+
+                };
+
+                remoteConnectionList.Add(remoteConnection);
+            }
+
+            return remoteConnectionList;
+        }
+
 
 
     }

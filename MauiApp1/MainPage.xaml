@@ -57,7 +57,7 @@
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Dahili: " />
-                                <Span Text="{Binding UsserDahili}" FontSize="20" TextColor="White" />
+                                <Span Text="{Binding UserDahili}" FontSize="20" TextColor="White" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

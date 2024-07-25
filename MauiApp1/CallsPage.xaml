@@ -8,7 +8,7 @@
         <StackLayout Padding="10" Spacing="15">
             <!-- SearchBar -->
             <SearchBar x:Name="SearchBar" 
-                       Placeholder="Search calls..." 
+                       Placeholder="Çağrı kayıtı ara" 
                        TextChanged="OnSearchBarTextChanged"
                        BackgroundColor="White"
                        TextColor="Black"/>

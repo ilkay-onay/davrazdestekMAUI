@@ -235,7 +235,6 @@ namespace MauiApp1.Services
              OR Baglanan LIKE @Search 
              OR Yon LIKE @Search 
              OR Musteri LIKE @Search 
-            OR BaglantiTarih LIKE @Search 
             OR BaglantiAciklama LIKE @Search 
 
              ", connection);

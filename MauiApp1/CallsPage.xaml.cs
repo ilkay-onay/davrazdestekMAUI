@@ -19,7 +19,7 @@ namespace MauiApp1
         public CallsPage()
         {
             InitializeComponent();
-            _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
+            _databaseService = new DatabaseService("Server=192.168.100.220;Database=Dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             Calls = new ObservableCollection<CallRecord>();
             BindingContext = this;
             CallsCollectionView.ItemsSource = Calls;

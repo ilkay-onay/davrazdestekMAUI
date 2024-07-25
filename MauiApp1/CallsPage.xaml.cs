@@ -15,6 +15,8 @@ namespace MauiApp1
         private int _totalPageCount;
 
         public ObservableCollection<CallRecord> Calls { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now.AddMonths(-1); // Default start date
+        public DateTime EndDate { get; set; } = DateTime.Now; // Default end date
 
         public CallsPage()
         {
@@ -46,15 +48,21 @@ namespace MauiApp1
 
         private async void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
         {
-            await LoadCallsAsync(e.NewTextValue);
+            await LoadCallsAsync(searchQuery: e.NewTextValue);
         }
 
-        private async Task LoadCallsAsync(string searchQuery = "")
+        private async void OnFilterClicked(object sender, EventArgs e)
+        {
+            // Refresh the data with the selected date range
+            await LoadCallsAsync(startDate: StartDate, endDate: EndDate);
+        }
+
+        private async Task LoadCallsAsync(string searchQuery = "", DateTime? startDate = null, DateTime? endDate = null)
         {
             try
             {
-                var calls = await _databaseService.GetCallsAsync(_currentPage, PageSize, searchQuery);
-                var totalCalls = await _databaseService.GetTotalCallCountAsync();
+                var calls = await _databaseService.GetCallsAsync(_currentPage, PageSize, searchQuery, startDate, endDate);
+                var totalCalls = await _databaseService.GetTotalCallCountAsync(searchQuery, startDate, endDate);
                 _totalPageCount = (int)Math.Ceiling(totalCalls / (double)PageSize);
 
                 Calls.Clear();
@@ -73,3 +81,6 @@ namespace MauiApp1
         }
     }
 }
+
+
+

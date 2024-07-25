@@ -40,53 +40,52 @@ namespace MauiApp1.Services
             }
         }
 
-        public async Task<IEnumerable<CallRecord>> GetCallsAsync(int pageNumber, int pageSize)
+        public async Task<IEnumerable<CallRecord>> GetCallsAsync(int page, int pageSize, string searchQuery = "", DateTime? startDate = null, DateTime? endDate = null)
         {
-            try
-            {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    string query = @"
-                    SELECT * FROM (
-                        SELECT 
-                            ROW_NUMBER() OVER (ORDER BY Tarih DESC) AS RowNum,
-                            Id, Tarih, Arayan, Aranan, ToplamSure, BeklemeSuresi, GorusmeSuresi, Sonuc, Tipi
-                        FROM dbo.Dv_Destek_Cagrilar
-                    ) AS RowConstrainedResult
-                    WHERE RowNum >= @RowStart
-                        AND RowNum < @RowEnd
-                    ORDER BY RowNum";
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
 
-                    int rowStart = (pageNumber - 1) * pageSize + 1;
-                    int rowEnd = pageNumber * pageSize + 1;
+            var query = @"
+        SELECT * FROM Dv_Destek_Cagrilar
+        WHERE (@Search IS NULL OR Arayan LIKE '%' + @Search + '%' OR Aranan LIKE '%' + @Search + '%')
+        AND (@StartDate IS NULL OR Tarih >= @StartDate)
+        AND (@EndDate IS NULL OR Tarih <= @EndDate)
+        ORDER BY Tarih DESC
+        OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;";
 
-                    var calls = await connection.QueryAsync<CallRecord>(query, new { RowStart = rowStart, RowEnd = rowEnd });
-                    return calls;
-                }
-            }
-            catch (Exception ex)
+            var calls = await connection.QueryAsync<CallRecord>(query, new
             {
-                Console.WriteLine($"Error in GetCallsAsync: {ex.Message}");
-                throw;
-            }
+                Search = searchQuery,
+                StartDate = startDate,
+                EndDate = endDate,
+                Offset = (page - 1) * pageSize,
+                PageSize = pageSize
+            });
+
+            return calls;
         }
 
-        public async Task<int> GetTotalCallCountAsync()
+        public async Task<int> GetTotalCallCountAsync(string searchQuery = "", DateTime? startDate = null, DateTime? endDate = null)
         {
-            try
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var query = @"
+        SELECT COUNT(*) FROM Dv_Destek_Cagrilar
+        WHERE (@Search IS NULL OR Arayan LIKE '%' + @Search + '%' OR Aranan LIKE '%' + @Search + '%')
+        AND (@StartDate IS NULL OR Tarih >= @StartDate)
+        AND (@EndDate IS NULL OR Tarih <= @EndDate);";
+
+            var totalCount = await connection.ExecuteScalarAsync<int>(query, new
             {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    string query = "SELECT COUNT(*) FROM dbo.Dv_Destek_Cagrilar";
-                    return await connection.ExecuteScalarAsync<int>(query);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetTotalCallCountAsync: {ex.Message}");
-                throw;
-            }
+                Search = searchQuery,
+                StartDate = startDate,
+                EndDate = endDate
+            });
+
+            return totalCount;
         }
+
 
         public async Task<IEnumerable<RemoteConnection>> GetRemoteConnectionsAsync(int page, int pageSize, bool isAscending)
         {

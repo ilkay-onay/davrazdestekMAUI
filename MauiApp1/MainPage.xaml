@@ -12,8 +12,8 @@
 
     <local:CallsPage Title="Çağrılar" IconImageSource="dd.png" />
     <local:RemoteConnectionsPage Title="Uzak Bağlantılar" IconImageSource="remote.png" />
-    <local:KisilerPage Title="Kişiler" IconImageSource="cona.png"/>
-    <ContentPage Title="Ayarlar" IconImageSource="settings.png">
+    <local:KisilerPage Title="Kişiler" IconImageSource="cona.png" />
+    <ContentPage  IconImageSource="user.png">
         <StackLayout Padding="20" Spacing="10">
             <!-- Kullanıcı Bilgileri -->
             <Frame CornerRadius="10" BackgroundColor="black" Padding="10"
@@ -61,7 +61,7 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    
+
                 </StackLayout>
             </Frame>
 
@@ -77,4 +77,6 @@
                     VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage>
+    <local:SettingsPage Title="" IconImageSource="settings.png" />
+
 </TabbedPage>

@@ -12,10 +12,7 @@
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="Margin" Value="0,5"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="BorderColor" Value="Black"/>
-            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Margin" Value="5,0"/>
         </Style>
         <Style x:Key="CustomDatePickerStyle" TargetType="DatePicker">
             <Setter Property="BackgroundColor" Value="LightGray"/>
@@ -23,10 +20,7 @@
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
             <Setter Property="VerticalOptions" Value="Center"/>
-            <Setter Property="Margin" Value="0,5"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="BorderColor" Value="Black"/>
-            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Margin" Value="5,0"/>
         </Style>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="BackgroundColor" Value="#6200EE"/>
@@ -34,34 +28,54 @@
             <Setter Property="FontSize" Value="Medium"/>
             <Setter Property="CornerRadius" Value="5"/>
             <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="5,0"/>
         </Style>
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Padding="10" Spacing="15">
-            <!-- SearchBar -->
-            <SearchBar x:Name="SearchBar" 
-                       Placeholder="Search calls..." 
-                       TextChanged="OnSearchBarTextChanged"
-                       BackgroundColor="White"
-                       TextColor="Black"/>
+        <StackLayout Padding="10" Spacing="10">
+            <!-- SearchBar and Filters -->
+            <Grid ColumnDefinitions="2*,Auto,Auto,Auto,Auto,Auto,Auto" BackgroundColor="White" Padding="5" HeightRequest="70">
+                <SearchBar x:Name="SearchBar" 
+                           Placeholder="Çağrıları ara" 
+                           TextChanged="OnSearchBarTextChanged"
+                           BackgroundColor="White"
+                           TextColor="Black"
+                           Grid.Column="0"
+                           HorizontalOptions="FillAndExpand"
+                           HeightRequest="35"
+                           Margin="5,0"/>
 
-            <!-- Date filter -->
-            <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="White" Padding="10">
-                <Label Text="From:" VerticalOptions="Center" TextColor="Black"/>
-                <DatePicker x:Name="StartDatePicker" Date="{Binding StartDate, Mode=TwoWay}" Style="{StaticResource CustomDatePickerStyle}"/>
-                <Label Text="To:" VerticalOptions="Center" TextColor="Black"/>
-                <DatePicker x:Name="EndDatePicker" Date="{Binding EndDate, Mode=TwoWay}" Style="{StaticResource CustomDatePickerStyle}"/>
-                <Button Text="Filter" Clicked="OnFilterClicked" Style="{StaticResource CustomButtonStyle}"/>
-                <Button Text="Reset" Clicked="OnResetClicked" Style="{StaticResource CustomButtonStyle}"/>
-            </StackLayout>
+                <Frame BackgroundColor="White" Padding="0" CornerRadius="5" BorderColor="White" Grid.Column="1" Margin="5,0">
+                    <StackLayout>
+                        <Label Text="Personel"
+                               FontSize="Small"
+                               TextColor="Black"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Margin="5,0"/>
+                        <Picker x:Name="ArananPicker"
+                                ItemsSource="{Binding UniqueArananList}"
+                                SelectedIndexChanged="OnArananPickerSelectedIndexChanged"
+                                Style="{StaticResource CustomPickerStyle}"
+                                WidthRequest="150"
+                                HeightRequest="35"/>
+                    </StackLayout>
+                </Frame>
 
-            <!-- Dropdown for Aranan -->
-            <Picker x:Name="ArananPicker"
-                    Title="Select Aranan"
-                    ItemsSource="{Binding UniqueArananList}"
-                    SelectedIndexChanged="OnArananPickerSelectedIndexChanged"
-                    Style="{StaticResource CustomPickerStyle}"/>
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2" Grid.Column="2" Margin="5,0">
+                    <Label Text="Başlangıç:" VerticalOptions="Center" TextColor="Black"/>
+                    <DatePicker x:Name="StartDatePicker" Date="{Binding StartDate, Mode=TwoWay}" Style="{StaticResource CustomDatePickerStyle}" WidthRequest="150" HeightRequest="35"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical" VerticalOptions="Center" Spacing="2" Grid.Column="3" Margin="5,0">
+                    <Label Text="Bitiş:" VerticalOptions="Center" TextColor="Black"/>
+                    <DatePicker x:Name="EndDatePicker" Date="{Binding EndDate, Mode=TwoWay}" Style="{StaticResource CustomDatePickerStyle}" WidthRequest="150" HeightRequest="35"/>
+                </StackLayout>
+
+                <Button Text="Filtre" Clicked="OnFilterClicked" Style="{StaticResource CustomButtonStyle}" Grid.Column="4" WidthRequest="80" HeightRequest="35"/>
+                <Button Text="Reset" Clicked="OnResetClicked" Style="{StaticResource CustomButtonStyle}" Grid.Column="5" WidthRequest="80" HeightRequest="35"/>
+            </Grid>
 
             <!-- Calls CollectionView -->
             <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}" 
@@ -118,4 +132,3 @@
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
-

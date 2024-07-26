@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiApp1"
+             x:Class="MauiApp1.MusteriUrunPage"
+             Title="Müşteri Ürün"
+             BackgroundColor="#F0F0F5">
+
+    <ContentPage.Content>
+        <StackLayout Padding="10" Spacing="15">
+            <!-- Müşteri Ürün CollectionView -->
+            <CollectionView x:Name="MusteriUrunCollectionView" ItemsSource="{Binding MusteriUrunList}" 
+                            VerticalOptions="FillAndExpand" 
+                            HorizontalOptions="FillAndExpand">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="White" HasShadow="True">
+                            <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*,Auto,*,Auto,*" RowDefinitions="Auto,Auto,Auto">
+
+                                <!-- İlk Satır -->
+                                <Label Text="ID: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                                <Label Text="{Binding Id}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="1"/>
+
+                                <Label Text="MusteriId: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="2"/>
+                                <Label Text="{Binding MusteriId}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="3"/>
+
+                                <Label Text="UrunId: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="4"/>
+                                <Label Text="{Binding UrunId}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="5"/>
+
+                                <Label Text="Başlama Tarihi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="6"/>
+                                <Label Text="{Binding BaslamaTarihi, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="7"/>
+
+                                <!-- İkinci Satır -->
+                                <Label Text="Son Kullanım Tarihi: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="0"/>
+                                <Label Text="{Binding SonKullanimTarihi, StringFormat='{0:dd.MM.yyyy}'}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="1"/>
+
+                                <Label Text="Açıklama: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="2"/>
+                                <Label Text="{Binding Aciklama}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="3"/>
+
+                                <Label Text="Miktar: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="4"/>
+                                <Label Text="{Binding Miktar}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="5"/>
+
+                                <Label Text="Durum: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="6"/>
+                                <Label Text="{Binding Durum}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="7"/>
+
+                                <!-- Üçüncü Satır -->
+                                <Label Text="BirimId: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="2" Grid.Column="0"/>
+                                <Label Text="{Binding BirimId}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="1"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

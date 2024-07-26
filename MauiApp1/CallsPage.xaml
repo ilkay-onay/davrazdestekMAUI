@@ -9,7 +9,8 @@
         <StackLayout Padding="10" Spacing="15">
             <!-- SearchBar -->
             <SearchBar x:Name="SearchBar" 
-                       Placeholder="Search calls..." 
+                       PlaceholderColor="Black"
+                       Placeholder="Arama" 
                        TextChanged="OnSearchBarTextChanged"
                        BackgroundColor="White"
                        TextColor="Black"/>

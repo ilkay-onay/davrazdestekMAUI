@@ -11,7 +11,8 @@
             <!-- Müşteri Ürün CollectionView -->
             <CollectionView x:Name="MusteriUrunCollectionView" ItemsSource="{Binding MusteriUrunList}" 
                             VerticalOptions="FillAndExpand" 
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="FillAndExpand"
+                            SelectionMode="Single">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="White" HasShadow="True">
@@ -46,6 +47,9 @@
                                 <!-- Üçüncü Satır -->
                                 <Label Text="BirimId: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="2" Grid.Column="0"/>
                                 <Label Text="{Binding BirimId}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="1"/>
+
+                                <!-- Edit Butonu -->
+                                <Button Text="Düzenle" Clicked="OnEditButtonClicked" Grid.Row="2" Grid.Column="11"/>
                             </Grid>
                         </Frame>
                     </DataTemplate>

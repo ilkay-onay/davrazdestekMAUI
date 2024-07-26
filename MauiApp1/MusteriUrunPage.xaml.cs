@@ -54,5 +54,15 @@ namespace MauiApp1
                 await DisplayAlert("Hata", "Müşteri Ürün Yüklenemedi", "Devam");
             }
         }
+
+        private async void OnEditButtonClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var urun = button?.BindingContext as DvDestekMusteriUrun;
+            if (urun != null)
+            {
+                await Navigation.PushAsync(new EditMusteriUrunPage(urun, _databaseService));
+            }
+        }
     }
 }

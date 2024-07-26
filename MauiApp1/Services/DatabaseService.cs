@@ -49,6 +49,8 @@ namespace MauiApp1.Services
             }
         }
 
+
+
         public async Task<IEnumerable<CallRecord>> GetCallsAsync(int pageNumber, int pageSize)
         {
             try
@@ -114,6 +116,25 @@ namespace MauiApp1.Services
 
                 return await connection.QueryAsync<RemoteConnection>(query, new { Offset = offset, PageSize = pageSize });
             }
+        }
+        public void UpdateDvDestekMusteriUrun(DvDestekMusteriUrun dvDestekMusteriUrun)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+
+            using var command = new SqlCommand(UpdateDvDestekMusteriUrunQuery, connection);
+            command.Parameters.AddWithValue("@Id", dvDestekMusteriUrun.Id);
+            command.Parameters.AddWithValue("@MusteriId", dvDestekMusteriUrun.MusteriId);
+            command.Parameters.AddWithValue("@UrunId", dvDestekMusteriUrun.UrunId);
+            command.Parameters.AddWithValue("@BaslamaTarihi", dvDestekMusteriUrun.BaslamaTarihi);
+            command.Parameters.AddWithValue("@SonKullanimTarihi", dvDestekMusteriUrun.SonKullanimTarihi);
+            command.Parameters.AddWithValue("@Aciklama", dvDestekMusteriUrun.Aciklama);
+            command.Parameters.AddWithValue("@Miktar", dvDestekMusteriUrun.Miktar);
+            command.Parameters.AddWithValue("@Durum", dvDestekMusteriUrun.Durum);
+            command.Parameters.AddWithValue("@BirimId", dvDestekMusteriUrun.BirimId);
+            command.ExecuteNonQuery();
+
         }
 
         public async Task<int> GetTotalRemoteConnectionCountAsync()
@@ -335,8 +356,10 @@ namespace MauiApp1.Services
 
 
 
-
+        private const string UpdateDvDestekMusteriUrunQuery =
+        @"UPDATE Dv_Destek_Musteri_Urun SET MusteriId = @MusteriId, UrunId = @UrunId, BaslamaTarihi = @BaslamaTarihi, SonKullanimTarihi = @SonKullanimTarihi, Aciklama = @Aciklama, Miktar = @Miktar, Durum = @Durum, BirimId = @BirimId WHERE Id = @Id";
 
     }
+
 }
 

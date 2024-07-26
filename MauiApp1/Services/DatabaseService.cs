@@ -24,6 +24,15 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<RemoteConnection>(query);
             }
         }
+        public async Task<IEnumerable<DvDestekMusteriUrun>> GetAllDvDestekMusteriUrunAsync()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT Id, MusteriId, UrunId, BaslamaTarihi, SonKullanimTarihi, Aciklama, Miktar, Durum, BirimId FROM Dv_Destek_Musteri_Urun";
+                return await connection.QueryAsync<DvDestekMusteriUrun>(query);
+            }
+        }
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -103,6 +112,25 @@ namespace MauiApp1.Services
 
                 return await connection.QueryAsync<RemoteConnection>(query, new { Offset = offset, PageSize = pageSize });
             }
+        }
+        public void UpdateDvDestekMusteriUrun(DvDestekMusteriUrun dvDestekMusteriUrun)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+
+            using var command = new SqlCommand(UpdateDvDestekMusteriUrunQuery, connection);
+            command.Parameters.AddWithValue("@Id", dvDestekMusteriUrun.Id);
+            command.Parameters.AddWithValue("@MusteriId", dvDestekMusteriUrun.MusteriId);
+            command.Parameters.AddWithValue("@UrunId", dvDestekMusteriUrun.UrunId);
+            command.Parameters.AddWithValue("@BaslamaTarihi", dvDestekMusteriUrun.BaslamaTarihi);
+            command.Parameters.AddWithValue("@SonKullanimTarihi", dvDestekMusteriUrun.SonKullanimTarihi);
+            command.Parameters.AddWithValue("@Aciklama", dvDestekMusteriUrun.Aciklama);
+            command.Parameters.AddWithValue("@Miktar", dvDestekMusteriUrun.Miktar);
+            command.Parameters.AddWithValue("@Durum", dvDestekMusteriUrun.Durum);
+            command.Parameters.AddWithValue("@BirimId", dvDestekMusteriUrun.BirimId);
+            command.ExecuteNonQuery();
+
         }
 
         public async Task<int> GetTotalRemoteConnectionCountAsync()
@@ -237,8 +265,45 @@ namespace MauiApp1.Services
                 PageSize = pageSize
             });
         }
+        private const string GetAllDvDestekMusteriUrunQuery = "SELECT * FROM Dv_Destek_Musteri_Urun";
 
-       
+        public List<DvDestekMusteriUrun> getAllDvDestekMusteriUrun()
+        {
+            var dvDestekMusteriUrun = new List<DvDestekMusteriUrun>();
+
+            try
+            {
+                using var connection = DbConnector.GetConnection();
+                connection.Open();
+
+                using var command = new SqlCommand(GetAllDvDestekMusteriUrunQuery, connection);
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var dvDestekMusteriUrun1 = new DvDestekMusteriUrun
+                    {
+                        Id = reader.GetInt32(reader.GetOrdinal("id")),
+                        MusteriId = reader.GetInt32(reader.GetOrdinal("MusteriId")),
+                        UrunId = reader.GetInt32(reader.GetOrdinal("UrunId")),
+                        BaslamaTarihi = reader.GetDateTime(reader.GetOrdinal("BaslamaTarihi")),
+                        SonKullanimTarihi = reader.GetDateTime(reader.GetOrdinal("SonKullanimTarihi")),
+                        Aciklama = reader.GetString(reader.GetOrdinal("Aciklama")),
+                        Miktar = reader.GetInt32(reader.GetOrdinal("Miktar")),
+                        Durum = reader.GetInt16(reader.GetOrdinal("Durum")),
+                        BirimId = reader.GetInt32(reader.GetOrdinal("BirimId"))
+                    };
+                    dvDestekMusteriUrun.Add(dvDestekMusteriUrun1);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in getAllDvDestekMusteriUrun: {ex.Message}");
+                // Loglama veya hata yönetimi eklenebilir
+            }
+
+            return dvDestekMusteriUrun;
+        }
+
 
         public async Task<List<RemoteConnection>> SearchRemoteAsync(string search)
         {
@@ -287,8 +352,10 @@ namespace MauiApp1.Services
 
 
 
-
+        private const string UpdateDvDestekMusteriUrunQuery =
+        @"UPDATE Dv_Destek_Musteri_Urun SET MusteriId = @MusteriId, UrunId = @UrunId, BaslamaTarihi = @BaslamaTarihi, SonKullanimTarihi = @SonKullanimTarihi, Aciklama = @Aciklama, Miktar = @Miktar, Durum = @Durum, BirimId = @BirimId WHERE Id = @Id";
 
     }
+
 }
 

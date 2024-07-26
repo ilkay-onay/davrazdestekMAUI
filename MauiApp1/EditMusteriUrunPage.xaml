@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiApp1"
+             x:Class="MauiApp1.EditMusteriUrunPage"
+             Title="Müşteri Ürün Düzenle"
+             BackgroundColor="black">
+    
+       
+        <ContentPage.Content>
+        <ScrollView Padding="20">
+            <StackLayout Padding="10" Spacing="15">
+            <Label Text="ID" FontAttributes="Bold" />
+            <Entry Text="{Binding Id}" IsEnabled="False"/>
+
+            <Label Text="MusteriId" FontAttributes="Bold" />
+            <Entry Text="{Binding MusteriId}" />
+
+            <Label Text="UrunId" FontAttributes="Bold" />
+            <Entry Text="{Binding UrunId}" />
+
+            <Label Text="Başlama Tarihi" FontAttributes="Bold" />
+            <DatePicker Date="{Binding BaslamaTarihi}" />
+
+            <Label Text="Son Kullanım Tarihi" FontAttributes="Bold" />
+            <DatePicker Date="{Binding SonKullanimTarihi}" />
+
+            <Label Text="Açıklama" FontAttributes="Bold" />
+            <Entry Text="{Binding Aciklama}" />
+
+            <Label Text="Miktar" FontAttributes="Bold" />
+            <Entry Text="{Binding Miktar}" />
+
+            <Label Text="Durum" FontAttributes="Bold" />
+            <Entry Text="{Binding Durum}" />
+
+            <Label Text="BirimId" FontAttributes="Bold" />
+            <Entry Text="{Binding BirimId}" />
+                
+                <Button Text="Kaydet" Clicked="OnSaveButtonClicked"/>
+        </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

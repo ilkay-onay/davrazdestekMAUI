@@ -10,7 +10,7 @@
             <!-- Sayfa Başlığı -->
 
             <!-- Arama Çubuğu -->
-            <SearchBar x:Name="SearchBar" Placeholder="İsmi Aratın" 
+            <SearchBar x:Name="SearchBar" Placeholder="Arama" 
                        PlaceholderColor="Black"
                         TextColor="Black"
                        TextChanged="OnSearchBarTextChanged"

@@ -15,7 +15,7 @@
 
             <ScrollView x:Name="scrollView" Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <StackLayout Padding="10">
-                    <SearchBar x:Name="SearchBar" Placeholder="İsmi Aratın" 
+                    <SearchBar x:Name="SearchBar" Placeholder="Arama" 
            PlaceholderColor="Black"
             TextColor="Black"
            TextChanged="OnSearchBarTextChanged"
@@ -41,6 +41,7 @@
                             <DataTemplate>
                                 <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="White" HasShadow="True">
                                     <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*,Auto,*,Auto,*" RowDefinitions="Auto,Auto,Auto">
+                                        
                                         <!-- İlk Satır -->
                                         <Label Text="ID: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
                                         <Label Text="{Binding ID}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="1"/>
@@ -79,8 +80,8 @@
 
                                         <Label Text="Baglanti Aciklama: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="2" Grid.Column="8"/>
                                         <Label Text="{Binding BaglantiAciklama}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="9"/>
+                                        <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}" Grid.Row="1" Grid.Column="11"/>
 
-                                     
                                     </Grid>
                                 </Frame>
                             </DataTemplate>

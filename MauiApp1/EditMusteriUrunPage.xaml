@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiApp1"
              x:Class="MauiApp1.EditMusteriUrunPage"
-             Title="Müşteri Ürün Düzenle"
+             
+             
              BackgroundColor="black">
-    
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="Müşteri Ürün Düzenle" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
        
         <ContentPage.Content>
         <ScrollView Padding="20">

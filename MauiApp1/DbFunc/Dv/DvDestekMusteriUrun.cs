@@ -9,12 +9,12 @@ public class DvDestekMusteriUrun
     public DateTime SonKullanimTarihi { get; set; }
     public string Aciklama { get; set; }
     public int Miktar { get; set; }
-    public short Durum { get; set; }
+    public string Durum { get; set; }
     public int BirimId { get; set; }
 
     public DvDestekMusteriUrun() { }
 
-    public DvDestekMusteriUrun(int id, int musteriId, int urunId, DateTime baslamaTarihi, DateTime sonKullanimTarihi, string aciklama, int miktar, short durum, int birimId)
+    public DvDestekMusteriUrun(int id, int musteriId, int urunId, DateTime baslamaTarihi, DateTime sonKullanimTarihi, string aciklama, int miktar, string durum, int birimId)
     {
         Id = id;
         MusteriId = musteriId;

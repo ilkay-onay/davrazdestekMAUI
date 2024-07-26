@@ -55,6 +55,31 @@ namespace MauiApp1
             }
         }
 
+        private async void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
+        {
+            await SearchUrunAsync(e.NewTextValue);
+        }
+
+        private async Task SearchUrunAsync(string searchTerm)
+        {
+            try
+            {
+                var searchResults = await _databaseService.SearchUrunAsync(searchTerm);
+
+                MusteriUrunList.Clear();
+                foreach (var urun in searchResults)
+                {
+                    MusteriUrunList.Add(urun);
+                }
+                BindingContext = this;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchKisilerAsync: {ex.Message}");
+                await DisplayAlert("Error", "Failed to search persons. Please try again later.", "OK");
+            }
+        }
+
         private async void OnEditButtonClicked(object sender, EventArgs e)
         {
             var button = sender as Button;

@@ -463,7 +463,7 @@ public class DbFunction : IDbFunctions
                 SonKullanimTarihi = reader.GetDateTime(reader.GetOrdinal("SonKullanimTarihi")),
                 Aciklama = reader.GetString(reader.GetOrdinal("Aciklama")),
                 Miktar = reader.GetInt32(reader.GetOrdinal("Miktar")),
-                Durum = reader.GetInt16(reader.GetOrdinal("Durum")),
+                Durum = reader.GetString(reader.GetOrdinal("Durum")),
                 BirimId = reader.GetInt32(reader.GetOrdinal("BirimId"))
             };
             dvDestekMusteriUrun.Add(dvDestekMusteriUrun1);
@@ -493,7 +493,7 @@ public class DbFunction : IDbFunctions
                 SonKullanimTarihi = reader.GetDateTime(reader.GetOrdinal("SonKullanimTarihi")),
                 Aciklama = reader.GetString(reader.GetOrdinal("Aciklama")),
                 Miktar = reader.GetInt32(reader.GetOrdinal("Miktar")),
-                Durum = reader.GetInt16(reader.GetOrdinal("Durum")),
+                Durum = reader.GetString(reader.GetOrdinal("Durum")),
                 BirimId = reader.GetInt32(reader.GetOrdinal("BirimId"))
             };
 
@@ -522,7 +522,7 @@ public class DbFunction : IDbFunctions
                 SonKullanimTarihi = reader.GetDateTime(reader.GetOrdinal("SonKullanimTarihi")),
                 Aciklama = reader.GetString(reader.GetOrdinal("Aciklama")),
                 Miktar = reader.GetInt32(reader.GetOrdinal("Miktar")),
-                Durum = reader.GetInt16(reader.GetOrdinal("Durum")),
+                Durum = reader.GetString(reader.GetOrdinal("Durum")),
                 BirimId = reader.GetInt32(reader.GetOrdinal("BirimId"))
             };
 

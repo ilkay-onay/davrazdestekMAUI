@@ -20,8 +20,6 @@
             TextColor="Black"
            TextChanged="OnSearchBarTextChanged"
            CancelButtonColor="black"
-         
-           
            Grid.Row="1"/>
 
                     <StackLayout Orientation="Horizontal"  >

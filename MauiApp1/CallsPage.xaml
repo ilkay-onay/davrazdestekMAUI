@@ -1,35 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.CallsPage"
              Title="Calls"
              BackgroundColor="#F0F0F5">
 
+    <ContentPage.Resources>
+        <Style x:Key="CustomPickerStyle" TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="LightGray"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderColor" Value="Black"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style x:Key="CustomDatePickerStyle" TargetType="DatePicker">
+            <Setter Property="BackgroundColor" Value="LightGray"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="BorderColor" Value="Black"/>
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#6200EE"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="15">
             <!-- SearchBar -->
             <SearchBar x:Name="SearchBar" 
-                       Placeholder="Çağrı kayıtı ara" 
+                       Placeholder="Search calls..." 
                        TextChanged="OnSearchBarTextChanged"
                        BackgroundColor="White"
                        TextColor="Black"/>
 
             <!-- Date filter -->
             <StackLayout Orientation="Horizontal" Spacing="10" BackgroundColor="White" Padding="10">
-                <Label Text="Başlangıç:" VerticalOptions="Center" TextColor="Black"/>
-                <DatePicker x:Name="StartDatePicker" Date="{Binding StartDate, Mode=TwoWay}">
-                    <DatePicker.TextColor>
-                        <Color>Black</Color>
-                    </DatePicker.TextColor>
-                </DatePicker>
-                <Label Text="Bitiş:" VerticalOptions="Center" TextColor="Black"/>
-                <DatePicker x:Name="EndDatePicker" Date="{Binding EndDate, Mode=TwoWay}">
-                    <DatePicker.TextColor>
-                        <Color>Black</Color>
-                    </DatePicker.TextColor>
-                </DatePicker>
-                <Button Text="Filtrele" Clicked="OnFilterClicked" BackgroundColor="#6200EE" TextColor="White"/>
+                <Label Text="From:" VerticalOptions="Center" TextColor="Black"/>
+                <DatePicker x:Name="StartDatePicker" Date="{Binding StartDate, Mode=TwoWay}" Style="{StaticResource CustomDatePickerStyle}"/>
+                <Label Text="To:" VerticalOptions="Center" TextColor="Black"/>
+                <DatePicker x:Name="EndDatePicker" Date="{Binding EndDate, Mode=TwoWay}" Style="{StaticResource CustomDatePickerStyle}"/>
+                <Button Text="Filter" Clicked="OnFilterClicked" Style="{StaticResource CustomButtonStyle}"/>
+                <Button Text="Reset" Clicked="OnResetClicked" Style="{StaticResource CustomButtonStyle}"/>
             </StackLayout>
 
+            <!-- Dropdown for Aranan -->
+            <Picker x:Name="ArananPicker"
+                    Title="Select Aranan"
+                    ItemsSource="{Binding UniqueArananList}"
+                    SelectedIndexChanged="OnArananPickerSelectedIndexChanged"
+                    Style="{StaticResource CustomPickerStyle}"/>
 
             <!-- Calls CollectionView -->
             <CollectionView x:Name="CallsCollectionView" ItemsSource="{Binding Calls}" 

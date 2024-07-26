@@ -40,50 +40,49 @@ namespace MauiApp1.Services
             }
         }
 
-        public async Task<IEnumerable<CallRecord>> GetCallsAsync(int page, int pageSize, string searchQuery = "", DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<IEnumerable<CallRecord>> GetCallsAsync(int page, int pageSize, DateTime startDate, DateTime endDate, string aranan = "", string searchQuery = "")
         {
             using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            var query = @"SELECT * FROM Dv_Destek_Cagrilar 
+                          WHERE Tarih BETWEEN @StartDate AND @EndDate
+                            AND (@Aranan IS NULL OR Aranan = @Aranan)
+                            AND (@Search IS NULL OR Arayan LIKE @Search OR Aranan LIKE @Search)
+                          ORDER BY Tarih
+                          OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
 
-            var query = @"
-        SELECT * FROM Dv_Destek_Cagrilar
-        WHERE (@Search IS NULL OR Arayan LIKE '%' + @Search + '%' OR Aranan LIKE '%' + @Search + '%')
-        AND (@StartDate IS NULL OR Tarih >= @StartDate)
-        AND (@EndDate IS NULL OR Tarih <= @EndDate)
-        ORDER BY Tarih DESC
-        OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY;";
-
-            var calls = await connection.QueryAsync<CallRecord>(query, new
+            return await connection.QueryAsync<CallRecord>(query, new
             {
-                Search = searchQuery,
                 StartDate = startDate,
                 EndDate = endDate,
+                Aranan = string.IsNullOrEmpty(aranan) ? null : aranan,
+                Search = string.IsNullOrEmpty(searchQuery) ? null : $"%{searchQuery}%",
                 Offset = (page - 1) * pageSize,
                 PageSize = pageSize
             });
-
-            return calls;
         }
 
-        public async Task<int> GetTotalCallCountAsync(string searchQuery = "", DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<int> GetTotalCallCountAsync(DateTime startDate, DateTime endDate, string aranan = "", string searchQuery = "")
         {
             using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
+            var query = @"SELECT COUNT(*) FROM Dv_Destek_Cagrilar 
+                          WHERE Tarih BETWEEN @StartDate AND @EndDate
+                            AND (@Aranan IS NULL OR Aranan = @Aranan)
+                            AND (@Search IS NULL OR Arayan LIKE @Search OR Aranan LIKE @Search)";
 
-            var query = @"
-        SELECT COUNT(*) FROM Dv_Destek_Cagrilar
-        WHERE (@Search IS NULL OR Arayan LIKE '%' + @Search + '%' OR Aranan LIKE '%' + @Search + '%')
-        AND (@StartDate IS NULL OR Tarih >= @StartDate)
-        AND (@EndDate IS NULL OR Tarih <= @EndDate);";
-
-            var totalCount = await connection.ExecuteScalarAsync<int>(query, new
+            return await connection.ExecuteScalarAsync<int>(query, new
             {
-                Search = searchQuery,
                 StartDate = startDate,
-                EndDate = endDate
+                EndDate = endDate,
+                Aranan = string.IsNullOrEmpty(aranan) ? null : aranan,
+                Search = string.IsNullOrEmpty(searchQuery) ? null : $"%{searchQuery}%"
             });
+        }
 
-            return totalCount;
+        public async Task<IEnumerable<string>> GetUniqueArananListAsync()
+        {
+            using var connection = new SqlConnection(_connectionString);
+            var query = "SELECT DISTINCT Aranan FROM Dv_Destek_Cagrilar";
+            return await connection.QueryAsync<string>(query);
         }
 
 

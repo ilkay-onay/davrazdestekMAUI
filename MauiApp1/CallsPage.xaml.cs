@@ -2,6 +2,7 @@ using MauiApp1.Models;
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Linq;
 using System;
 using MauiApp1.Services;
 
@@ -13,19 +14,23 @@ namespace MauiApp1
         private int _currentPage = 1;
         private const int PageSize = 5;
         private int _totalPageCount;
+        private string _selectedAranan;
 
         public ObservableCollection<CallRecord> Calls { get; set; }
-        public DateTime StartDate { get; set; } = DateTime.Now.AddMonths(-1); // Default start date
-        public DateTime EndDate { get; set; } = DateTime.Now; // Default end date
+        public ObservableCollection<string> UniqueArananList { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Today.AddMonths(-1); // Default to last month
+        public DateTime EndDate { get; set; } = DateTime.Today; // Default to today
 
         public CallsPage()
         {
             InitializeComponent();
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=Dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             Calls = new ObservableCollection<CallRecord>();
+            UniqueArananList = new ObservableCollection<string>();
             BindingContext = this;
             CallsCollectionView.ItemsSource = Calls;
             LoadCallsAsync();
+            LoadUniqueArananListAsync();
         }
 
         private async void OnPreviousClicked(object sender, EventArgs e)
@@ -48,21 +53,36 @@ namespace MauiApp1
 
         private async void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
         {
-            await LoadCallsAsync(searchQuery: e.NewTextValue);
+            await LoadCallsAsync(e.NewTextValue);
         }
 
         private async void OnFilterClicked(object sender, EventArgs e)
         {
-            // Refresh the data with the selected date range
-            await LoadCallsAsync(startDate: StartDate, endDate: EndDate);
+            await LoadCallsAsync();
         }
 
-        private async Task LoadCallsAsync(string searchQuery = "", DateTime? startDate = null, DateTime? endDate = null)
+        private async void OnArananPickerSelectedIndexChanged(object sender, EventArgs e)
+        {
+            _selectedAranan = ArananPicker.SelectedItem as string;
+            await LoadCallsAsync();
+        }
+
+        private async void OnResetClicked(object sender, EventArgs e)
+        {
+            StartDate = DateTime.Today.AddMonths(-1); // Reset to last month
+            EndDate = DateTime.Today; // Reset to today
+            ArananPicker.SelectedItem = null; // Reset dropdown selection
+            SearchBar.Text = string.Empty; // Clear search bar
+            _selectedAranan = null; // Clear selected "Aranan"
+            await LoadCallsAsync();
+        }
+
+        private async Task LoadCallsAsync(string searchQuery = "")
         {
             try
             {
-                var calls = await _databaseService.GetCallsAsync(_currentPage, PageSize, searchQuery, startDate, endDate);
-                var totalCalls = await _databaseService.GetTotalCallCountAsync(searchQuery, startDate, endDate);
+                var calls = await _databaseService.GetCallsAsync(_currentPage, PageSize, StartDate, EndDate, _selectedAranan, searchQuery);
+                var totalCalls = await _databaseService.GetTotalCallCountAsync(StartDate, EndDate, _selectedAranan, searchQuery);
                 _totalPageCount = (int)Math.Ceiling(totalCalls / (double)PageSize);
 
                 Calls.Clear();
@@ -71,16 +91,29 @@ namespace MauiApp1
                     Calls.Add(call);
                 }
 
-                PageInfoLabel.Text = $"Page {_currentPage} of {_totalPageCount}";
+                PageInfoLabel.Text = $"Sayfa {_currentPage} / {_totalPageCount}";
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in LoadCallsAsync: {ex.Message}");
-                await DisplayAlert("Error", "Failed to load calls. Please try again later.", "OK");
+                Console.WriteLine($"Error loading calls: {ex.Message}");
+            }
+        }
+
+        private async Task LoadUniqueArananListAsync()
+        {
+            try
+            {
+                var uniqueAranan = await _databaseService.GetUniqueArananListAsync();
+                UniqueArananList.Clear();
+                foreach (var aranan in uniqueAranan)
+                {
+                    UniqueArananList.Add(aranan);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading unique Aranan list: {ex.Message}");
             }
         }
     }
 }
-
-
-

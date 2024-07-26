@@ -26,7 +26,6 @@ namespace MauiApp1
             InitializeComponent();
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=Dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             MusteriUrunList = new ObservableCollection<DvDestekMusteriUrun>();
-            BindingContext = this;
         }
 
         protected override async void OnAppearing()
@@ -45,6 +44,9 @@ namespace MauiApp1
                 {
                     MusteriUrunList.Add(urun);
                 }
+
+                // BindingContext'in veriler yüklendikten sonra ayarlanması
+                BindingContext = this;
             }
             catch (Exception ex)
             {

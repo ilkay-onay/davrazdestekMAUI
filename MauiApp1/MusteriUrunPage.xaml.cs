@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using MauiApp1.Services;
+using MauiApp1.Models;
 
 namespace MauiApp1
 {
@@ -45,11 +46,38 @@ namespace MauiApp1
                 {
                     MusteriUrunList.Add(urun);
                 }
+                BindingContext = this;
             }
+
+
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in LoadMusteriUrunAsync: {ex.Message}");
                 await DisplayAlert("Hata", "Müşteri Ürün Yüklenemedi", "Devam");
+            }
+        }
+        private async void OnSearchBarTextChanged(object sender, TextChangedEventArgs e)
+        {
+            await SearchUrunAsync(e.NewTextValue);
+        }
+
+        private async Task SearchUrunAsync(string searchTerm)
+        {
+            try
+            {
+                var searchResults = await _databaseService.SearchUrunAsync(searchTerm);
+
+                MusteriUrunList.Clear();
+                foreach (var urun in searchResults)
+                {
+                    MusteriUrunList.Add(urun);
+                }
+                BindingContext = this;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchKisilerAsync: {ex.Message}");
+                await DisplayAlert("Error", "Failed to search persons. Please try again later.", "OK");
             }
         }
     }

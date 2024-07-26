@@ -8,6 +8,14 @@
 
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="15">
+            <SearchBar x:Name="SearchBar" Placeholder="Arama" 
+              PlaceholderColor="Black"
+               TextColor="Black"
+                       TextChanged="OnSearchBarTextChanged"
+              CancelButtonColor="black"
+            
+              
+              Grid.Row="1"/>
             <!-- Müşteri Ürün CollectionView -->
             <CollectionView x:Name="MusteriUrunCollectionView" ItemsSource="{Binding MusteriUrunList}" 
                             VerticalOptions="FillAndExpand" 

@@ -15,7 +15,7 @@ namespace MauiApp1.Models
             public DateTime SonKullanimTarihi { get; set; }
             public string Aciklama { get; set; }
             public int Miktar { get; set; }
-            public short Durum { get; set; }
+            public string Durum { get; set; }
             public int BirimId { get; set; }
         }
     }

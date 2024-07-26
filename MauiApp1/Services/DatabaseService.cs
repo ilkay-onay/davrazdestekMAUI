@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using System.Data.Common;
 using Dapper;
 using MauiApp1.Models;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Globalization;
 
 
 namespace MauiApp1.Services
@@ -33,6 +35,42 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<DvDestekMusteriUrun>(query);
             }
         }
+
+
+        public async Task<List<DvDestekMusteriUrun>> SearchUrunAsync(string search)
+        {
+            var urunList = new List<DvDestekMusteriUrun>();
+
+            using var connection = new SqlConnection(_connectionString);
+            await connection.OpenAsync();
+
+            var command = new SqlCommand("SELECT * FROM Dv_Destek_Musteri_Urun WHERE MusteriId LIKE @Search;", connection);
+            command.Parameters.AddWithValue("@Search", "%" + search + "%");
+
+            using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var urun = new DvDestekMusteriUrun
+                {
+
+                    MusteriId = reader.GetInt32(reader.GetOrdinal("MusteriId")),
+                    UrunId = reader.GetInt32(reader.GetOrdinal("UrunId")),
+                    BaslamaTarihi = reader.GetDateTime(reader.GetOrdinal("BaslamaTarihi")),
+                    SonKullanimTarihi = reader.GetDateTime(reader.GetOrdinal("SonKullanimTarihi")),
+                    Aciklama = reader.GetString(reader.GetOrdinal("Aciklama")),
+                    
+                    Miktar = reader.GetInt32(reader.GetOrdinal("Miktar")),
+                    Durum = reader.GetString(reader.GetOrdinal("Durum")),
+                    BirimId = reader.GetInt32(reader.GetOrdinal("BirimId")),
+
+                };
+
+                urunList.Add(urun);
+            }
+
+            return urunList;
+        }
+        
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -272,7 +310,7 @@ namespace MauiApp1.Services
                         SonKullanimTarihi = reader.GetDateTime(reader.GetOrdinal("SonKullanimTarihi")),
                         Aciklama = reader.GetString(reader.GetOrdinal("Aciklama")),
                         Miktar = reader.GetInt32(reader.GetOrdinal("Miktar")),
-                        Durum = reader.GetInt16(reader.GetOrdinal("Durum")),
+                        Durum = reader.GetString(reader.GetOrdinal("Durum")),
                         BirimId = reader.GetInt32(reader.GetOrdinal("BirimId"))
                     };
                     dvDestekMusteriUrun.Add(dvDestekMusteriUrun1);

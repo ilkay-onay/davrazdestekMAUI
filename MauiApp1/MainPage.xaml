@@ -13,7 +13,7 @@
     <local:CallsPage Title="Çağrılar" IconImageSource="dd.png" />
     <local:RemoteConnectionsPage Title="Uzak Bağlantılar" IconImageSource="remote.png" />
     <local:KisilerPage Title="Kişiler" IconImageSource="cona.png" />
-    <local:MusteriUrunPage Title="Müşteri Ürün" IconImageSource="cona.png" />
+    <local:MusteriUrunPage Title="Müşteri Ürün" IconImageSource="urun.png" />
     <ContentPage  IconImageSource="user.png">
         <StackLayout Padding="20" Spacing="10">
             <!-- Kullanıcı Bilgileri -->

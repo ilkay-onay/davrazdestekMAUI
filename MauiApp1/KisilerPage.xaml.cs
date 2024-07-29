@@ -19,7 +19,7 @@ namespace MauiApp1
         public KisilerPage()
         {
             InitializeComponent();
-            _databaseService = new DatabaseService("Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
+            _databaseService = new DatabaseService("Server=192.168.100.220;Database=dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             Kisiler = new ObservableCollection<Kisiler>();
             BindingContext = this;
             LoadKisilerAsync();

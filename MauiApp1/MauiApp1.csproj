@@ -63,6 +63,7 @@
 
 	<ItemGroup>
 	  <None Remove="Resources\Images\phone.png" />
+	  <None Remove="Resources\Images\urun.png" />
 	</ItemGroup>
 
 	<ItemGroup>

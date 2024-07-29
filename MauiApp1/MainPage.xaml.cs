@@ -10,6 +10,7 @@ namespace MauiApp1
 {
     public partial class MainPage : TabbedPage              
     {
+        private bool _isPasswordVisible = false;
         private readonly DatabaseService _databaseService;
         private readonly ILogger<MainPage> _logger;
 
@@ -49,7 +50,7 @@ namespace MauiApp1
             var settingsPage = this.Children[4] as ContentPage;
             if (settingsPage != null && settingsPage.BindingContext is DvDestekPersonel dvDestekPersonel)
             {
-                //await updateDvDestekPersonel(dvDestekPersonel);
+                //await UpdateDvDestekPersonel(dvDestekPersonel);
                 await DisplayAlert("Başarılı", "Bilgiler güncellendi", "Tamam");
 
                 // Güncellenmiş bilgileri Preferences'e kaydet
@@ -60,8 +61,13 @@ namespace MauiApp1
                 Preferences.Set("UserPassword", dvDestekPersonel.Sifre);
             }
         }
+        private void OnTogglePasswordVisibility(object sender, EventArgs e)
+        {
+            _isPasswordVisible = !_isPasswordVisible;
+            Enr.IsPassword = !_isPasswordVisible;
+            TogglePasswordButton.Source = _isPasswordVisible ? "eyeacik.png" : "eyekapali.png";
+        }
 
-       
 
 
     }

@@ -44,6 +44,8 @@ namespace MauiApp1
                         Preferences.Set("UserEmail", user.E_posta);
                         Preferences.Set("UserPhone", user.Telefon);
                         Preferences.Set("UserDahili", user.Dahili);
+                        Preferences.Set("UserPassword", user.Sifre);
+
 
                         var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
                         var logger = loggerFactory.CreateLogger<MainPage>();

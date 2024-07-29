@@ -10,6 +10,7 @@ namespace MauiApp1.Services
 {
     public class DatabaseService
     {
+
         private readonly string _connectionString;
 
         public DatabaseService(string connectionString)
@@ -33,6 +34,8 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<DvDestekMusteriUrun>(query);
             }
         }
+
+
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -113,6 +116,8 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<RemoteConnection>(query, new { Offset = offset, PageSize = pageSize });
             }
         }
+
+       
         public void UpdateDvDestekMusteriUrun(DvDestekMusteriUrun dvDestekMusteriUrun)
         {
             using var connection = new SqlConnection(_connectionString);
@@ -167,6 +172,41 @@ namespace MauiApp1.Services
                 await connection.OpenAsync();
                 var query = "SELECT * FROM Dv_Destek_Personel WHERE [E_posta] = @Email AND [Sifre] = @Password";
                 return await connection.QuerySingleOrDefaultAsync<DvDestekPersonel>(query, new { Email = email, Password = password });
+            }
+        }
+
+        public async Task UpdateDvDestekPersonelAsync(DvDestekPersonel dvDestekPersonel)
+        {
+            const string query = @"
+                UPDATE Dv_Destek_Personel
+                SET Ad_Soyad = @Ad_Soyad,
+                    [E-Posta] = @E_posta,
+                    Sifre = @Sifre,
+                    Telefon = @Telefon,
+                    Dahili = @Dahili
+                WHERE Id = @Id";
+
+            var parameters = new
+            {
+                dvDestekPersonel.Ad_Soyad,
+                E_posta = dvDestekPersonel.E_posta,
+                dvDestekPersonel.Sifre,
+                dvDestekPersonel.Telefon,
+                dvDestekPersonel.Dahili,
+                dvDestekPersonel.Id
+            };
+
+            try
+            {
+                using (var connection = DbConnector.GetConnection())
+                {
+                    await connection.ExecuteAsync(query, parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError($"Error in UpdateDvDestekPersonelAsync: {ex.Message}");
+                throw;
             }
         }
 
@@ -348,6 +388,7 @@ namespace MauiApp1.Services
 
             return remoteConnectionList;
         }
+
 
         public async Task<List<DvDestekMusteriUrun>> SearchUrunAsync(string search)
         {

@@ -14,70 +14,68 @@
     <local:RemoteConnectionsPage Title="Uzak Bağlantılar" IconImageSource="remote.png" />
     <local:KisilerPage Title="Kişiler" IconImageSource="cona.png" />
     <local:MusteriUrunPage Title="Müşteri Ürün" IconImageSource="urun.png" />
-    <ContentPage  IconImageSource="user.png">
+
+    <ContentPage Title="Kullanıcı Bilgileri" IconImageSource="user.png">
         <StackLayout Padding="20" Spacing="10">
             <!-- Kullanıcı Bilgileri -->
-            <Frame CornerRadius="10" BackgroundColor="black" Padding="10"
-                   HeightRequest="200"
-                   WidthRequest="500">
+            <Frame CornerRadius="10" BackgroundColor="black" Padding="10" HeightRequest="600" WidthRequest="600">
                 <StackLayout Spacing="5">
-                    <Label Text="Kullanıcı Bilgileri" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center"/>
+                    <Label Text="Kullanıcı Bilgileri" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                          HorizontalOptions="Center">
+                    <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="İsim: "  />
-                                <Span Text="{Binding UserName}" FontSize="20" TextColor="White" />
+                                <Span Text="İsim: " />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    <Entry Text="{Binding Ad_Soyad}" FontSize="20" TextColor="White" />
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                           HorizontalOptions="Center">
+                    <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="E-posta: " />
-                                <Span Text="{Binding UserEmail}" FontSize="20" TextColor="White" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    <Entry Text="{Binding E_posta}" FontSize="20" TextColor="White" />
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                           HorizontalOptions="Center">
+                    <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Telefon: " />
-                                <Span Text="{Binding UserPhone}" FontSize="20" TextColor="White" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    <Entry Text="{Binding Telefon}" FontSize="20" TextColor="White" />
 
-                    <Label FontSize="18" FontAttributes="Bold"
-                           HorizontalOptions="Center">
+                    <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="Dahili: " />
-                                <Span Text="{Binding UserDahili}" FontSize="20" TextColor="White" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
+                    <Entry Text="{Binding Dahili}" FontSize="20" TextColor="White" />
 
+                    <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Şifre: " />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Entry Text="{Binding Sifre}" FontSize="20" TextColor="White" IsPassword="True" />
+
+                    <!-- Düzenleme Butonu -->
+                    <Button Text="Düzenle" Clicked="OnEditClicked" HeightRequest="50" WidthRequest="200" BackgroundColor="#6200EE" TextColor="White" FontSize="18" CornerRadius="25" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
                 </StackLayout>
             </Frame>
 
             <!-- Logout Butonu -->
-            <Button Text="Çıkış Yap" Clicked="OnLogoutClicked" 
-                    HeightRequest="50"
-                    WidthRequest="200"
-                    BackgroundColor="#6200EE"
-                    TextColor="White"
-                    FontSize="18"
-                    CornerRadius="25"
-                    HorizontalOptions="Center"
-                    VerticalOptions="EndAndExpand"/>
+            <Button Text="Çıkış Yap" Clicked="OnLogoutClicked" HeightRequest="50" WidthRequest="200" BackgroundColor="#6200EE" TextColor="White" FontSize="18" CornerRadius="25" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
         </StackLayout>
     </ContentPage>
-    <local:SettingsPage Title="" IconImageSource="settings.png" />
 
+    <local:SettingsPage Title="Settings" IconImageSource="settings.png" />
 </TabbedPage>

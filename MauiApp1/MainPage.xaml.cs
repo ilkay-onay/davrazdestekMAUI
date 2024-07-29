@@ -2,11 +2,13 @@
 using MauiApp1.Services;
 using Microsoft.Maui.Controls;
 using System;
-
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using Dapper;
 
 namespace MauiApp1
 {
-    public partial class MainPage : TabbedPage
+    public partial class MainPage : TabbedPage              
     {
         private readonly DatabaseService _databaseService;
         private readonly ILogger<MainPage> _logger;
@@ -18,15 +20,17 @@ namespace MauiApp1
             _logger = logger;
 
             // Settings tab'ı için kullanıcı bilgilerini ayarla
-            var settingsPage = this.Children[3] as ContentPage;
+            var settingsPage = this.Children[4] as ContentPage;
             if (settingsPage != null)
             {
-                settingsPage.BindingContext = new
+                settingsPage.BindingContext = new DvDestekPersonel
                 {
-                    UserName = Preferences.Get("UserName", "N/A"),
-                    UserEmail = Preferences.Get("UserEmail", "N/A"),
-                    UserPhone = Preferences.Get("UserPhone", "N/A"),
-                    UserDahili = Preferences.Get("UserDahili", "N/A")
+                    Id = Preferences.Get("UserId", 0),
+                    Ad_Soyad = Preferences.Get("UserName", "N/A"),
+                    E_posta = Preferences.Get("UserEmail", "N/A"),
+                    Telefon = Preferences.Get("UserPhone", "N/A"),
+                    Dahili = Preferences.Get("UserDahili", "N/A"),
+                    Sifre = Preferences.Get("UserPassword", "N/A")
                 };
             }
         }
@@ -39,5 +43,28 @@ namespace MauiApp1
             await DisplayAlert("Çıkış Yapıldı", "", "Tamam");
             Application.Current.MainPage = new LoginPage(_databaseService, logger);
         }
+
+        private async void OnEditClicked(object sender, EventArgs e)
+        {
+            var settingsPage = this.Children[4] as ContentPage;
+            if (settingsPage != null && settingsPage.BindingContext is DvDestekPersonel dvDestekPersonel)
+            {
+                //await updateDvDestekPersonel(dvDestekPersonel);
+                await DisplayAlert("Başarılı", "Bilgiler güncellendi", "Tamam");
+
+                // Güncellenmiş bilgileri Preferences'e kaydet
+                Preferences.Set("UserName", dvDestekPersonel.Ad_Soyad);
+                Preferences.Set("UserEmail", dvDestekPersonel.E_posta);
+                Preferences.Set("UserPhone", dvDestekPersonel.Telefon);
+                Preferences.Set("UserDahili", dvDestekPersonel.Dahili);
+                Preferences.Set("UserPassword", dvDestekPersonel.Sifre);
+            }
+        }
+
+       
+
+
     }
+
+    
 }

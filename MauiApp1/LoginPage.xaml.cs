@@ -9,6 +9,7 @@ namespace MauiApp1
     {
         private readonly DatabaseService _databaseService;
         private readonly ILogger<LoginPage> _logger;
+        private bool _isPasswordVisible = false;
 
         public LoginPage(DatabaseService databaseService, ILogger<LoginPage> logger)
         {
@@ -24,7 +25,7 @@ namespace MauiApp1
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                MessageLabel.Text = "Please enter email and password.";
+                MessageLabel.Text = "Lütfen e-posta ve şifreyi girin.";
                 return;
             }
 
@@ -36,7 +37,7 @@ namespace MauiApp1
                     var user = await _databaseService.GetUserInfo(email, password);
                     if (user != null)
                     {
-                        _logger?.LogInformation("User {Email} logged in successfully.", email);
+                        _logger?.LogInformation("{Email} kullanıcısı başarıyla giriş yaptı", email);
                         await DisplayAlert("Başarıyla Giriş Yapıldı!", "", "Tamam");
 
                         // Kullanıcı bilgilerini Preferences'a kaydet
@@ -44,6 +45,8 @@ namespace MauiApp1
                         Preferences.Set("UserEmail", user.E_posta);
                         Preferences.Set("UserPhone", user.Telefon);
                         Preferences.Set("UserDahili", user.Dahili);
+                        Preferences.Set("UserPassword", user.Sifre);
+
 
                         var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
                         var logger = loggerFactory.CreateLogger<MainPage>();
@@ -54,21 +57,28 @@ namespace MauiApp1
                     }
                     else
                     {
-                        _logger?.LogWarning("Failed to retrieve user information for {Email}.", email);
-                        MessageLabel.Text = "An error occurred. Please try again.";
+                        _logger?.LogWarning("{Email} için kullanıcı bilgileri alınamadı.", email);
+                        MessageLabel.Text = "Bir hata oluştu. Lütfen tekrar deneyin.";
                     }
                 }
                 else
                 {
-                    _logger?.LogWarning("Invalid login attempt for user {Email}.", email);
-                    MessageLabel.Text = "Invalid email or password.";
+                    _logger?.LogWarning("{Email} kullanıcısı için geçersiz giriş denemesi.", email);
+                    MessageLabel.Text = "Geçersiz e-posta veya şifre.";
                 }
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex, "An error occurred while logging in user {Email}.", email);
-                MessageLabel.Text = "An error occurred. Please try again.";
+                _logger?.LogError(ex, "{Email} kullanıcısı oturum açarken bir hata oluştu.", email);
+                MessageLabel.Text = "Bir hata oluştu. Lütfen tekrar deneyin.";
             }
+        }
+
+        private void OnTogglePasswordVisibility(object sender, EventArgs e)
+        {
+            _isPasswordVisible = !_isPasswordVisible;
+            PasswordEntry.IsPassword = !_isPasswordVisible;
+            TogglePasswordButton.Source = _isPasswordVisible ? "eyeacik.png" : "eyekapali.png";
         }
     }
 }

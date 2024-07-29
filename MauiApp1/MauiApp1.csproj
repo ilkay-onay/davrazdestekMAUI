@@ -62,6 +62,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\eye.png" />
+	  <None Remove="Resources\Images\eyeacik.png" />
+	  <None Remove="Resources\Images\eyekapali.png" />
+	  <None Remove="Resources\Images\goz.png" />
 	  <None Remove="Resources\Images\phone.png" />
 	  <None Remove="Resources\Images\urun.png" />
 	</ItemGroup>
@@ -91,6 +95,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="DetailMusteriUrunPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="EditMusteriUrunPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

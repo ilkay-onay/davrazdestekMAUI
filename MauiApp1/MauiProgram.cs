@@ -18,7 +18,7 @@ namespace MauiApp1
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 });
 
-            string connectionString = "Server=192.168.100.220;Database=MAUI;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;";
+            string connectionString = "Server=192.168.100.220;Database=dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;";
             DatabaseServiceInstance = new DatabaseService(connectionString);
             LoggerFactoryInstance = LoggerFactory.Create(logging =>
             {

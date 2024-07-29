@@ -67,6 +67,7 @@
 	  <None Remove="Resources\Images\eyekapali.png" />
 	  <None Remove="Resources\Images\goz.png" />
 	  <None Remove="Resources\Images\phone.png" />
+	  <None Remove="Resources\Images\urun.png" />
 	</ItemGroup>
 
 	<ItemGroup>

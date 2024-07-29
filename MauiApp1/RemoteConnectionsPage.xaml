@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.RemoteConnectionsPage"
              Title="Remote Connections"
-             xmlns:local="clr-namespace:MauiApp1.ViewModels"
              BackgroundColor="White">
 
     <ContentPage.Content>
@@ -15,100 +14,238 @@
 
             <ScrollView x:Name="scrollView" Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <StackLayout Padding="10">
-                    <SearchBar x:Name="SearchBar" Placeholder="Arama" 
-           PlaceholderColor="Black"
-            TextColor="Black"
-           TextChanged="OnSearchBarTextChanged"
-           CancelButtonColor="black"
-           Grid.Row="1"/>
+                    <!-- Layout for Search Bar and Buttons -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                    <StackLayout Orientation="Horizontal"  >
-                        <Button Text="Export to Excel" Clicked="OnExportToExcelClicked" BackgroundColor="LightGray" TextColor="Black" HorizontalOptions="Center" Margin="0,10,10,10"/>
-                        <Button Text="Import from Excel" Clicked="OnImportFromExcelClicked" BackgroundColor="LightGray" TextColor="Black" HorizontalOptions="Center" Margin="0,10,0,10"/>
-                        <Button Text="ID'ye göre sırala" Clicked="OnSortClicked" HeightRequest="50" WidthRequest="150" Margin="0,0,0,0" HorizontalOptions="EndAndExpand" BackgroundColor="#8e44ad" TextColor="White"/>
-                    </StackLayout>
-                    
-                    
+                        <!-- Search Bar -->
+                        <SearchBar x:Name="SearchBar" 
+                                   Placeholder="Arama" 
+                                   PlaceholderColor="Black"
+                                   TextColor="Black"
+                                   TextChanged="OnSearchBarTextChanged"
+                                   CancelButtonColor="Black"
+                                   BackgroundColor="LightGray"
+                                   Grid.Column="0"
+                                   VerticalOptions="Center"
+                                   Margin="0,0,10,0"/>
+
+                        <!-- Buttons -->
+                        <Button Text="Export to Excel" 
+                                Clicked="OnExportToExcelClicked" 
+                                BackgroundColor="#8e44ad" 
+                                TextColor="White" 
+                                Grid.Column="1" 
+                                HorizontalOptions="Center" 
+                                Margin="0,0,10,0"/>
+                        <Button Text="Import from Excel" 
+                                Clicked="OnImportFromExcelClicked" 
+                                BackgroundColor="#8e44ad" 
+                                TextColor="White" 
+                                Grid.Column="2" 
+                                HorizontalOptions="Center" 
+                                Margin="0,0,10,0"/>
+                        <Button Text="ID'ye göre sırala" 
+                                Clicked="OnSortClicked" 
+                                BackgroundColor="LightGray" 
+                                TextColor="Black" 
+                                HeightRequest="50" 
+                                WidthRequest="150" 
+                                Grid.Column="3" 
+                                HorizontalOptions="Center"/>
+                    </Grid>
 
                     <!-- Remote Connections CollectionView -->
-                    <CollectionView x:Name="RemoteConnectionsCollectionView" ItemsSource="{Binding RemoteConnections}" 
+                    <CollectionView x:Name="RemoteConnectionsCollectionView" 
+                                    ItemsSource="{Binding RemoteConnections}" 
                                     VerticalOptions="FillAndExpand" 
                                     HorizontalOptions="FillAndExpand">
-
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Frame BorderColor="LightGray" CornerRadius="10" Padding="5" Margin="5" BackgroundColor="White" HasShadow="True">
-                                    <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*,Auto,*,Auto,*" RowDefinitions="Auto,Auto,Auto">
-                                        
-                                        <!-- İlk Satır -->
-                                        <Label Text="ID: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
-                                        <Label Text="{Binding ID}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="1"/>
-
-                                        <Label Text="Baglanan: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="2"/>
-                                        <Label Text="{Binding Baglanan}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="3"/>
-
-                                        <Label Text="Baglanan Uniq: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="6"/>
-                                        <Label Text="{Binding BaglananUniq}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="7"/>
-
-                                        <Label Text="Baglanan Ip: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="8"/>
-                                        <Label Text="{Binding BaglananIp}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="9"/>
-
-                                        <!-- İkinci Satır -->
-                                        <Label Text="Yon: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="0"/>
-                                        <Label Text="{Binding Yon}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="1"/>
-
-                                        <Label Text="Musteri: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="2"/>
-                                        <Label Text="{Binding Musteri}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="3"/>
-
-                                        <Label Text="Musteri Uniq: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="6"/>
-                                        <Label Text="{Binding MusteriUniq}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="7"/>
-
-                                        <Label Text="Musteri Ip: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="1" Grid.Column="8"/>
-                                        <Label Text="{Binding MusteriIp}" FontSize="Small" TextColor="Gray" Grid.Row="1" Grid.Column="9"/>
-
-                                        <!-- Üçüncü Satır -->
-                                        <Label Text="Baglanti Saat: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="2" Grid.Column="0"/>
-                                        <Label Text="{Binding BaglantiSaat}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="1"/>
-
-                                        <Label Text="Baglanti Tarih: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="2" Grid.Column="2"/>
-                                        <Label Text="{Binding BaglantiTarih}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="3"/>
-
-                                        <Label Text="Baglanti Sure: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="2" Grid.Column="6"/>
-                                        <Label Text="{Binding BaglantiSure}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="7"/>
-
-                                        <Label Text="Baglanti Aciklama: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="2" Grid.Column="8"/>
-                                        <Label Text="{Binding BaglantiAciklama}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="9"/>
-                                        <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}" Grid.Row="1" Grid.Column="11"/>
-
+                                <Frame BorderColor="LightGray" 
+                                       CornerRadius="10" 
+                                       Padding="5" 
+                                       Margin="5" 
+                                       BackgroundColor="White" 
+                                       HasShadow="True">
+                                    <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,*,Auto,*,Auto,*" 
+                                          RowDefinitions="Auto,Auto,Auto">
+                                        <!-- First Row -->
+                                        <Label Text="ID: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="0" 
+                                               Grid.Column="0"/>
+                                        <Label Text="{Binding ID}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="0" 
+                                               Grid.Column="1"/>
+                                        <Label Text="Baglanan: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="0" 
+                                               Grid.Column="2"/>
+                                        <Label Text="{Binding Baglanan}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="0" 
+                                               Grid.Column="3"/>
+                                        <Label Text="Baglanan Uniq: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="0" 
+                                               Grid.Column="6"/>
+                                        <Label Text="{Binding BaglananUniq}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="0" 
+                                               Grid.Column="7"/>
+                                        <Label Text="Baglanan Ip: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="0" 
+                                               Grid.Column="8"/>
+                                        <Label Text="{Binding BaglananIp}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="0" 
+                                               Grid.Column="9"/>
+                                        <!-- Second Row -->
+                                        <Label Text="Yon: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="1" 
+                                               Grid.Column="0"/>
+                                        <Label Text="{Binding Yon}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="1" 
+                                               Grid.Column="1"/>
+                                        <Label Text="Musteri: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="1" 
+                                               Grid.Column="2"/>
+                                        <Label Text="{Binding Musteri}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="1" 
+                                               Grid.Column="3"/>
+                                        <Label Text="Musteri Uniq: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="1" 
+                                               Grid.Column="6"/>
+                                        <Label Text="{Binding MusteriUniq}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="1" 
+                                               Grid.Column="7"/>
+                                        <Label Text="Musteri Ip: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="1" 
+                                               Grid.Column="8"/>
+                                        <Label Text="{Binding MusteriIp}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="1" 
+                                               Grid.Column="9"/>
+                                        <!-- Third Row -->
+                                        <Label Text="Baglanti Saat: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="2" 
+                                               Grid.Column="0"/>
+                                        <Label Text="{Binding BaglantiSaat}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="2" 
+                                               Grid.Column="1"/>
+                                        <Label Text="Baglanti Tarih: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="2" 
+                                               Grid.Column="2"/>
+                                        <Label Text="{Binding BaglantiTarih}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="2" 
+                                               Grid.Column="3"/>
+                                        <Label Text="Baglanti Sure: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="2" 
+                                               Grid.Column="6"/>
+                                        <Label Text="{Binding BaglantiSure}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="2" 
+                                               Grid.Column="7"/>
+                                        <Label Text="Baglanti Aciklama: " 
+                                               FontAttributes="Bold" 
+                                               FontSize="Small" 
+                                               TextColor="Black" 
+                                               Grid.Row="2" 
+                                               Grid.Column="8"/>
+                                        <Label Text="{Binding BaglantiAciklama}" 
+                                               FontSize="Small" 
+                                               TextColor="Gray" 
+                                               Grid.Row="2" 
+                                               Grid.Column="9"/>
+                                        <Button Text="Düzenle" 
+                                                Clicked="OnEditClicked" 
+                                                CommandParameter="{Binding .}" 
+                                                Grid.Row="1" 
+                                                Grid.Column="11"/>
                                     </Grid>
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <!-- Sayfa bilgisi -->
-                    <Label x:Name="PageInfoLabel"
-                           HorizontalOptions="Center"
-                           VerticalOptions="Center"
-                           Margin="10"
-                           FontSize="Medium"
+                    <!-- Page Info and Navigation Buttons -->
+                    <Label x:Name="PageInfoLabel" 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" 
+                           Margin="10" 
+                           FontSize="Medium" 
                            TextColor="DarkBlue"/>
-
-                    <!-- Önceki ve sonraki sayfa butonları -->
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10,0">
-                        <Button Text="Geri" Clicked="OnPreviousClicked" BackgroundColor="LightGray" TextColor="Black"/>
-                        <Button Text="İleri" Clicked="OnNextClicked" BackgroundColor="LightGray" TextColor="Black" Margin="10,0,0,0"/>
-                       
+                    <StackLayout Orientation="Horizontal" 
+                                 HorizontalOptions="Center" 
+                                 Margin="10,0">
+                        <Button Text="Geri" 
+                                Clicked="OnPreviousClicked" 
+                                BackgroundColor="#8e44ad" 
+                                TextColor="White"/>
+                        <Button Text="İleri" 
+                                Clicked="OnNextClicked" 
+                                BackgroundColor="#8e44ad" 
+                                TextColor="White" 
+                                Margin="10,0,0,0"/>
                     </StackLayout>
-
-                    <!-- Export and Import buttons -->
-
                 </StackLayout>
             </ScrollView>
 
-            <StackLayout Grid.Row="0" Grid.Column="1" VerticalOptions="FillAndExpand" Margin="0,10,0,10">
-                
-            </StackLayout>
+            <!-- Empty StackLayout for alignment -->
+            <StackLayout Grid.Row="0" Grid.Column="1" VerticalOptions="FillAndExpand" Margin="0,10,0,10"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

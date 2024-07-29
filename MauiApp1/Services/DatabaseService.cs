@@ -34,10 +34,10 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<DvDestekMusteriUrun>(query);
             }
         }
-<<<<<<< HEAD
 
 
-=======
+
+
         public async Task<IEnumerable<DvDestekMusteriUrunDetay>> GetAllDvDestekMusteriUrunDetayAsync()
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -47,7 +47,7 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<DvDestekMusteriUrunDetay>(query);
             }
         }
->>>>>>> 2a36686acca8fc5874a6df50b81d274ce8d945fe
+
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -129,9 +129,9 @@ namespace MauiApp1.Services
             }
         }
 
-<<<<<<< HEAD
+
        
-=======
+
         public async Task UpdateDvDestekMusteriUrunDetayAsync(DvDestekMusteriUrunDetay urunDetay)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -175,7 +175,7 @@ namespace MauiApp1.Services
             }
             return urunDetay;
         }
->>>>>>> 2a36686acca8fc5874a6df50b81d274ce8d945fe
+
         public void UpdateDvDestekMusteriUrun(DvDestekMusteriUrun dvDestekMusteriUrun)
         {
             using var connection = new SqlConnection(_connectionString);

@@ -9,6 +9,7 @@ namespace MauiApp1
     {
         private readonly DatabaseService _databaseService;
         private readonly ILogger<LoginPage> _logger;
+        private bool _isPasswordVisible = false;
 
         public LoginPage(DatabaseService databaseService, ILogger<LoginPage> logger)
         {
@@ -69,6 +70,13 @@ namespace MauiApp1
                 _logger?.LogError(ex, "An error occurred while logging in user {Email}.", email);
                 MessageLabel.Text = "An error occurred. Please try again.";
             }
+        }
+
+        private void OnTogglePasswordVisibility(object sender, EventArgs e)
+        {
+            _isPasswordVisible = !_isPasswordVisible;
+            PasswordEntry.IsPassword = !_isPasswordVisible;
+            TogglePasswordButton.Source = _isPasswordVisible ? "eyeacik.png" : "eyekapali.png";
         }
     }
 }

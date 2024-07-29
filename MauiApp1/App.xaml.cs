@@ -9,9 +9,13 @@ namespace MauiApp1
         {
             InitializeComponent();
 
-            MainPage = new LoginPage(databaseService, logger);
 
+
+           
+
+            MainPage = new LoginPage(databaseService, logger);
             MainPage = new NavigationPage(new LoginPage(databaseService, logger));
+
         }
     }
 }

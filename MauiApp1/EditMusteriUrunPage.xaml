@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MauiApp1"
              x:Class="MauiApp1.EditMusteriUrunPage"
              Title="Müşteri Ürün Düzenle"
-             BackgroundColor="black">
-    
-       
-        <ContentPage.Content>
-        <ScrollView Padding="20">
+             BackgroundColor="#F0F0F5">
+
+    <ContentPage.Content>
+        <ScrollView>
             <StackLayout Padding="10" Spacing="15">
-            <Label Text="ID" FontAttributes="Bold" />
-            <Entry Text="{Binding Id}" IsEnabled="False"/>
 
-            <Label Text="MusteriId" FontAttributes="Bold" />
-            <Entry Text="{Binding MusteriId}" />
+                <!-- ID -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="ID: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Text="{Binding Id}" IsEnabled="False" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
 
-            <Label Text="UrunId" FontAttributes="Bold" />
-            <Entry Text="{Binding UrunId}" />
+                <!-- MusteriId -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Musteri Id: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Text="{Binding MusteriId}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
 
-            <Label Text="Başlama Tarihi" FontAttributes="Bold" />
-            <DatePicker Date="{Binding BaslamaTarihi}" />
+                <!-- UrunId -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Urun Id: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Text="{Binding UrunId}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
 
-            <Label Text="Son Kullanım Tarihi" FontAttributes="Bold" />
-            <DatePicker Date="{Binding SonKullanimTarihi}" />
+                <!-- Başlama Tarihi -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Başlama Tarihi: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <DatePicker Date="{Binding BaslamaTarihi}" TextColor="Black" Format="MM/dd/yyyy" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
 
-            <Label Text="Açıklama" FontAttributes="Bold" />
-            <Entry Text="{Binding Aciklama}" />
+                <!-- Son Kullanım Tarihi -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Son Kullanım Tarihi: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <DatePicker Date="{Binding SonKullanimTarihi}" TextColor="Black" Format="MM/dd/yyyy" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
 
-            <Label Text="Miktar" FontAttributes="Bold" />
-            <Entry Text="{Binding Miktar}" />
+                <!-- Açıklama -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Açıklama: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Text="{Binding Aciklama}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
 
-            <Label Text="Durum" FontAttributes="Bold" />
-            <Entry Text="{Binding Durum}" />
+                <!-- Miktar -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Miktar: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Text="{Binding Miktar}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
 
-            <Label Text="BirimId" FontAttributes="Bold" />
-            <Entry Text="{Binding BirimId}" />
-                
-                <Button Text="Kaydet" Clicked="OnSaveButtonClicked"/>
-        </StackLayout>
+                <!-- Durum -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Durum: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Text="{Binding Durum}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <!-- BirimId -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Birim Id: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Entry Text="{Binding BirimId}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <!-- Save Button -->
+                <Button Text="Kaydet" Clicked="OnSaveButtonClicked" BackgroundColor="#007ACC" TextColor="White" FontAttributes="Bold"/>
+
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

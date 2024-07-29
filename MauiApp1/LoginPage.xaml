@@ -40,7 +40,7 @@
                PlaceholderColor="GhostWhite"/>
 
         <Grid Grid.Row="3" HorizontalOptions="Center" WidthRequest="350" HeightRequest="50">
-            <Entry x:Name="PasswordEntry" Placeholder="Şifre" IsPassword="True" MaxLength="100"
+            <Entry x:Name="PasswordEntry" Placeholder="Şifre" IsPassword="True" MaxLength="105"
                    PlaceholderColor="GhostWhite"
                    Margin="0,0,3,0"
                    VerticalOptions="Center"/>
@@ -51,6 +51,7 @@
                          HorizontalOptions="End"
                          BackgroundColor="Transparent"
                          Aspect="Fill"
+                         BorderWidth="10"   
                          VerticalOptions="Center"/>
         </Grid>
 

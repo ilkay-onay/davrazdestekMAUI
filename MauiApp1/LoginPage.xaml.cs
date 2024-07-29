@@ -80,5 +80,10 @@ namespace MauiApp1
             PasswordEntry.IsPassword = !_isPasswordVisible;
             TogglePasswordButton.Source = _isPasswordVisible ? "eyeacik.png" : "eyekapali.png";
         }
+
+        private void TogglePasswordButton_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

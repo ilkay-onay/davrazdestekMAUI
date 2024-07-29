@@ -95,6 +95,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="DetailMusteriUrunPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="EditMusteriUrunPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

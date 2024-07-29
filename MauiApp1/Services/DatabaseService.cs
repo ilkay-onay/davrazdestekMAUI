@@ -33,6 +33,15 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<DvDestekMusteriUrun>(query);
             }
         }
+        public async Task<IEnumerable<DvDestekMusteriUrunDetay>> GetAllDvDestekMusteriUrunDetayAsync()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = "SELECT   BaglantiId = @BaglantiId, Tarih = @Tarih, Aciklama = @Aciklama, PersonelId = @PersonelId WHERE Id = @Id";
+                return await connection.QueryAsync<DvDestekMusteriUrunDetay>(query);
+            }
+        }
         public async Task<bool> ValidateUserAsync(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -113,6 +122,50 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<RemoteConnection>(query, new { Offset = offset, PageSize = pageSize });
             }
         }
+
+        public async Task UpdateDvDestekMusteriUrunDetayAsync(DvDestekMusteriUrunDetay urunDetay)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand(
+                    "UPDATE Dv_Destek_Musteri_Urun_Detay SET BaglantiId = @BaglantiId, Tarih = @Tarih, Aciklama = @Aciklama, PersonelId = @PersonelId WHERE Id = @Id",
+                    connection);
+                command.Parameters.AddWithValue("@Id", urunDetay.Id);
+                command.Parameters.AddWithValue("@BaglantiId", urunDetay.BaglantiId);
+                command.Parameters.AddWithValue("@Tarih", urunDetay.Tarih);
+                command.Parameters.AddWithValue("@Aciklama", urunDetay.Aciklama);
+                command.Parameters.AddWithValue("@PersonelId", urunDetay.PersonelId);
+
+                await connection.OpenAsync();
+                await command.ExecuteNonQueryAsync();
+            }
+        }
+        public async Task<DvDestekMusteriUrunDetay> GetDvDestekMusteriUrunDetayByIdAsync(int id)
+        {
+            DvDestekMusteriUrunDetay urunDetay = null;
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var command = new SqlCommand("SELECT Id, BaglantiId, Tarih, Aciklama, PersonelId FROM Dv_Destek_Musteri_Urun_Detay WHERE Id = @Id", connection);
+                command.Parameters.AddWithValue("@Id", id);
+
+                await connection.OpenAsync();
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        urunDetay = new DvDestekMusteriUrunDetay
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            BaglantiId = reader.GetInt32(reader.GetOrdinal("BaglantiId")),
+                            Tarih = reader.GetDateTime(reader.GetOrdinal("Tarih")),
+                            Aciklama = reader.GetString(reader.GetOrdinal("Aciklama")),
+                            PersonelId = reader.GetInt32(reader.GetOrdinal("PersonelId"))
+                        };
+                    }
+                }
+            }
+            return urunDetay;
+        }
         public void UpdateDvDestekMusteriUrun(DvDestekMusteriUrun dvDestekMusteriUrun)
         {
             using var connection = new SqlConnection(_connectionString);
@@ -129,6 +182,22 @@ namespace MauiApp1.Services
             command.Parameters.AddWithValue("@Miktar", dvDestekMusteriUrun.Miktar);
             command.Parameters.AddWithValue("@Durum", dvDestekMusteriUrun.Durum);
             command.Parameters.AddWithValue("@BirimId", dvDestekMusteriUrun.BirimId);
+            command.ExecuteNonQuery();
+
+        }
+        public void UpdateDvDestekMusteriUrunDetay(DvDestekMusteriUrunDetay dvDestekMusteriUrunDetay)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+
+            using var command = new SqlCommand(UpdateDvDestekMusteriUrunDetayQuery, connection);
+            command.Parameters.AddWithValue("@Id", dvDestekMusteriUrunDetay.Id);
+            command.Parameters.AddWithValue("@MusteriId", dvDestekMusteriUrunDetay.BaglantiId);
+            command.Parameters.AddWithValue("@UrunId", dvDestekMusteriUrunDetay.Tarih);
+            command.Parameters.AddWithValue("@BaslamaTarihi", dvDestekMusteriUrunDetay.Aciklama);
+            command.Parameters.AddWithValue("@SonKullanimTarihi", dvDestekMusteriUrunDetay.PersonelId);
+
             command.ExecuteNonQuery();
 
         }
@@ -200,7 +269,7 @@ namespace MauiApp1.Services
                 throw;
             }
         }
-   
+
 
         public async Task<int> GetTotalKisilerCountAsync()
         {
@@ -389,7 +458,9 @@ namespace MauiApp1.Services
         private const string UpdateDvDestekMusteriUrunQuery =
         @"UPDATE Dv_Destek_Musteri_Urun SET MusteriId = @MusteriId, UrunId = @UrunId, BaslamaTarihi = @BaslamaTarihi, SonKullanimTarihi = @SonKullanimTarihi, Aciklama = @Aciklama, Miktar = @Miktar, Durum = @Durum, BirimId = @BirimId WHERE Id = @Id";
 
+        private const string UpdateDvDestekMusteriUrunDetayQuery =
+         @"UPDATE Dv_Destek_Musteri_Urun_Detay SET BaglantiId = @BaglantiId, Tarih = @Tarih, Aciklama = @Aciklama, PersonelId = @PersonelId WHERE Id = @Id";
     }
 
-}
+    }
 

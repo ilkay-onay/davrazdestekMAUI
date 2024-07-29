@@ -25,7 +25,7 @@ namespace MauiApp1
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
-                MessageLabel.Text = "Please enter email and password.";
+                MessageLabel.Text = "Lütfen e-posta ve şifreyi girin.";
                 return;
             }
 
@@ -37,7 +37,7 @@ namespace MauiApp1
                     var user = await _databaseService.GetUserInfo(email, password);
                     if (user != null)
                     {
-                        _logger?.LogInformation("User {Email} logged in successfully.", email);
+                        _logger?.LogInformation("{Email} kullanıcısı başarıyla giriş yaptı", email);
                         await DisplayAlert("Başarıyla Giriş Yapıldı!", "", "Tamam");
 
                         // Kullanıcı bilgilerini Preferences'a kaydet
@@ -55,20 +55,20 @@ namespace MauiApp1
                     }
                     else
                     {
-                        _logger?.LogWarning("Failed to retrieve user information for {Email}.", email);
-                        MessageLabel.Text = "An error occurred. Please try again.";
+                        _logger?.LogWarning("{Email} için kullanıcı bilgileri alınamadı.", email);
+                        MessageLabel.Text = "Bir hata oluştu. Lütfen tekrar deneyin.";
                     }
                 }
                 else
                 {
-                    _logger?.LogWarning("Invalid login attempt for user {Email}.", email);
-                    MessageLabel.Text = "Invalid email or password.";
+                    _logger?.LogWarning("{Email} kullanıcısı için geçersiz giriş denemesi.", email);
+                    MessageLabel.Text = "Geçersiz e-posta veya şifre.";
                 }
             }
             catch (Exception ex)
             {
-                _logger?.LogError(ex, "An error occurred while logging in user {Email}.", email);
-                MessageLabel.Text = "An error occurred. Please try again.";
+                _logger?.LogError(ex, "{Email} kullanıcısı oturum açarken bir hata oluştu.", email);
+                MessageLabel.Text = "Bir hata oluştu. Lütfen tekrar deneyin.";
             }
         }
 

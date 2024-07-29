@@ -35,7 +35,7 @@
     <ContentPage.Content>
         <StackLayout Padding="10" Spacing="10">
             <!-- SearchBar and Filters -->
-            <Grid ColumnDefinitions="2*,Auto,Auto,Auto,Auto,Auto,Auto" BackgroundColor="White" Padding="5" HeightRequest="70">
+            <Grid ColumnDefinitions="2*,Auto,Auto,Auto,Auto,Auto,Auto,Auto" BackgroundColor="White" Padding="5" HeightRequest="70">
                 <SearchBar x:Name="SearchBar" 
                            Placeholder="Çağrıları ara" 
                            TextChanged="OnSearchBarTextChanged"
@@ -74,7 +74,13 @@
                 </StackLayout>
 
                 <Button Text="Filtre" Clicked="OnFilterClicked" Style="{StaticResource CustomButtonStyle}" Grid.Column="4" WidthRequest="80" HeightRequest="35"/>
+
                 <Button Text="Reset" Clicked="OnResetClicked" Style="{StaticResource CustomButtonStyle}" Grid.Column="5" WidthRequest="80" HeightRequest="35"/>
+
+                <!-- Added Import Button -->
+                <Button Text="Import" Clicked="OnImportFromExcelClicked" Style="{StaticResource CustomButtonStyle}" Grid.Column="6" WidthRequest="90" HeightRequest="35"/>
+
+                <Button Text="Export" Clicked="OnExportToExcelClicked" Style="{StaticResource CustomButtonStyle}" Grid.Column="7" WidthRequest="90" HeightRequest="35"/>
             </Grid>
 
             <!-- Calls CollectionView -->

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.DetailMusteriUrunPage"
+             Title="Müşteri Ürünü Detayları"
+             BackgroundColor="#F0F0F5">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10" Spacing="15">
+
+                <!-- Id -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Id: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="{Binding Id}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <!-- BaglantiId -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Baglanti Id: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="{Binding BaglantiId}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <!-- Tarih -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Tarih: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <DatePicker Date="{Binding Tarih}" TextColor="Black" Format="MM/dd/yyyy" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <!-- Aciklama -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Aciklama: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Editor Text="{Binding Aciklama}" TextColor="Black" FontSize="Medium" HeightRequest="50" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <!-- PersonelId -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto">
+                    <Label Text="Personel Id: " FontAttributes="Bold" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="{Binding PersonelId}" FontSize="Medium" TextColor="Black" Grid.Row="0" Grid.Column="1"/>
+                </Grid>
+
+                <!-- Save Button -->
+                <Button Text="Kaydet" Clicked="OnSaveButtonClicked" BackgroundColor="#007ACC" TextColor="White" FontAttributes="Bold"/>
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

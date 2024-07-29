@@ -57,6 +57,8 @@ Grid.Row="1"/>
 
                                 <!-- Edit Butonu -->
                                 <Button Text="Düzenle" Clicked="OnEditButtonClicked" Grid.Row="2" Grid.Column="11"/>
+                                <Button Text="Detay" Clicked="OnDetailButtonClicked" Grid.Row="1" Grid.Column="11" Margin="1"/>
+
                             </Grid>
                         </Frame>
                     </DataTemplate>

@@ -89,5 +89,20 @@ namespace MauiApp1
                 await Navigation.PushAsync(new EditMusteriUrunPage(urun, _databaseService));
             }
         }
+        private async void OnDetailButtonClicked(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var urun = button?.BindingContext as DvDestekMusteriUrun;
+            if (urun != null)
+            {
+                // Assuming you have a method to get the details by Id
+                var urunDetay = await _databaseService.GetDvDestekMusteriUrunDetayByIdAsync(urun.Id);
+                if (urunDetay != null)
+                {
+                    await Navigation.PushAsync(new DetailMusteriUrunPage(urunDetay, _databaseService));
+                }
+            }
+        }
+
     }
 }

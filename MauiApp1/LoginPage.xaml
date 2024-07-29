@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiApp1"
              x:Class="MauiApp1.LoginPage"
-             BackgroundColor="#361910"
-             
-             >
-    
+             BackgroundColor="#361910">
+
     <Grid Padding="100">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,7 +15,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Daire şeklindeki arka plan resmi -->
         <Image Source="arkaplan.png"
                HeightRequest="400"
                WidthRequest="400"
@@ -25,43 +22,47 @@
                VerticalOptions="Start"
                Margin="-20,0,0,0"
                Opacity="0.5"
-               Grid.RowSpan="6"
-               />
+               Grid.RowSpan="6"/>
 
         <Image Source="davrazlogo.png"
                HeightRequest="250"
                HorizontalOptions="Center"
                Grid.Row="0" 
-               Margin="0,60,0,0"
-               />
+               Margin="0,60,0,0"/>
 
         <Label Text="Giriş" FontSize="24" HorizontalOptions="Center"
-               Grid.Row="1" />
+               Grid.Row="1"/>
 
         <Entry x:Name="EmailEntry" Placeholder="Email" Keyboard="Email" MaxLength="100"
                HeightRequest="50"
                WidthRequest="350"
                Grid.Row="2" 
-               
-              PlaceholderColor="GhostWhite"
-               
-               />
+               PlaceholderColor="GhostWhite"/>
 
-        <Entry x:Name="PasswordEntry" Placeholder="Şifre" IsPassword="True"
-               HeightRequest="50"
-               WidthRequest="350"
-               PlaceholderColor="GhostWhite"
-               Grid.Row="3" />
+        <Grid Grid.Row="3" HorizontalOptions="Center" WidthRequest="350" HeightRequest="50">
+            <Entry x:Name="PasswordEntry" Placeholder="Şifre" IsPassword="True" MaxLength="100"
+                   PlaceholderColor="GhostWhite"
+                   Margin="0,0,3,0"
+                   VerticalOptions="Center"/>
+            <ImageButton x:Name="TogglePasswordButton" Source="eyekapali.png"
+                         Clicked="OnTogglePasswordVisibility"
+                         HeightRequest="20"
+                         WidthRequest="20"
+                         HorizontalOptions="End"
+                         BackgroundColor="Transparent"
+                         Aspect="Fill"
+                         VerticalOptions="Center"/>
+        </Grid>
 
         <Button Text="Giriş" Clicked="OnLoginClicked"
-               HeightRequest="40"
-               WidthRequest="100"
-               FontSize="14"
-               HorizontalOptions="Center"
-               Grid.Row="4"
+                HeightRequest="40"
+                WidthRequest="100"
+                FontSize="14"
+                HorizontalOptions="Center"
+                Grid.Row="4"
                 BackgroundColor="CadetBlue"/>
 
         <Label x:Name="MessageLabel" TextColor="Red" HorizontalOptions="Center"
-               Grid.Row="5" />
+               Grid.Row="5"/>
     </Grid>
 </ContentPage>

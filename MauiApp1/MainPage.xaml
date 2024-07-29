@@ -65,7 +65,24 @@
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Entry Text="{Binding Sifre}" FontSize="20" TextColor="White" IsPassword="True" />
+
+                    <Grid Grid.Row="3" HorizontalOptions="Center" WidthRequest="350" HeightRequest="50">
+                        <Entry Text="{Binding Sifre}"  x:Name="Enr" FontSize="20" TextColor="White" IsPassword="True" 
+       />
+                        <ImageButton x:Name="TogglePasswordButton" Source="eyekapali.png"
+                            Clicked="OnTogglePasswordVisibility"
+                            HeightRequest="20"
+                            WidthRequest="20"
+                            HorizontalOptions="End"
+                            BackgroundColor="White"
+                                     BorderWidth="10"
+                            Aspect="Fill"
+                            VerticalOptions="Center"/>
+                    </Grid>
+
+
+
+
 
                     <!-- Düzenleme Butonu -->
                     <Button Text="Düzenle" Clicked="OnEditClicked" HeightRequest="50" WidthRequest="200" BackgroundColor="#6200EE" TextColor="White" FontSize="18" CornerRadius="25" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>

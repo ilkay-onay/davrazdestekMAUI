@@ -256,6 +256,7 @@ namespace MauiApp1.Services
                 await connection.ExecuteAsync(sql, kisi);
             }
         }
+       
         public async Task<DvDestekPersonel> GetUserInfo(string email, string password)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -266,41 +267,7 @@ namespace MauiApp1.Services
             }
         }
 
-        public async Task UpdateDvDestekPersonelAsync(DvDestekPersonel dvDestekPersonel)
-        {
-            const string query = @"
-                UPDATE Dv_Destek_Personel
-                SET Ad_Soyad = @Ad_Soyad,
-                    [E-Posta] = @E_posta,
-                    Sifre = @Sifre,
-                    Telefon = @Telefon,
-                    Dahili = @Dahili
-                WHERE Id = @Id";
-
-            var parameters = new
-            {
-                dvDestekPersonel.Ad_Soyad,
-                E_posta = dvDestekPersonel.E_posta,
-                dvDestekPersonel.Sifre,
-                dvDestekPersonel.Telefon,
-                dvDestekPersonel.Dahili,
-                dvDestekPersonel.Id
-            };
-
-            try
-            {
-                using (var connection = DbConnector.GetConnection())
-                {
-                    await connection.ExecuteAsync(query, parameters);
-                }
-            }
-            catch (Exception ex)
-            {
-                //_logger.LogError($"Error in UpdateDvDestekPersonelAsync: {ex.Message}");
-                throw;
-            }
-        }
-
+       
         public async Task<IEnumerable<Kisiler>> GetKisilerAsync(int pageNumber, int pageSize)
         {
             try

@@ -336,7 +336,7 @@ namespace MauiApp1.Services
                     Gorev = reader.GetString(reader.GetOrdinal("Gorev")),
                     Mail = reader.GetString(reader.GetOrdinal("Mail")),
                     Telefon = reader.GetString(reader.GetOrdinal("Telefon")),
-                    Durum = reader.GetInt16(reader.GetOrdinal("Durum")),
+                    Durum = short.TryParse(reader.GetString(reader.GetOrdinal("Durum")), out var durum) ? durum : default,
                     BagliFirmaId = reader.GetInt32(reader.GetOrdinal("BagliFirmaId")),
                     Aciklama = reader.GetString(reader.GetOrdinal("Aciklama"))
                 };

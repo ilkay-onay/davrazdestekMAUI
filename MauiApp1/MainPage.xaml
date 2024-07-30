@@ -15,59 +15,60 @@
     <local:KisilerPage Title="Kişiler" IconImageSource="cona.png" />
     <local:MusteriUrunPage Title="Müşteri Ürün" IconImageSource="urun.png" />
 
-    <ContentPage Title="Kullanıcı Bilgileri" IconImageSource="user.png">
+    <ContentPage Title="Kullanıcı Bilgileri" IconImageSource="user.png" BackgroundColor="#F0F0F5" >
         <StackLayout Padding="20" Spacing="10">
             <!-- Kullanıcı Bilgileri -->
-            <Frame CornerRadius="10" BackgroundColor="black" Padding="10" HeightRequest="600" WidthRequest="600">
+            
                 <StackLayout Spacing="5">
-                    <Label Text="Kullanıcı Bilgileri" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="Kullanıcı Bilgileri" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Black"/>
 
                     <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="İsim: " />
+                                <Span Text="İsim: " TextColor="Black" />
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Entry Text="{Binding Ad_Soyad}" FontSize="20" TextColor="White" />
+                    <Entry Text="{Binding Ad_Soyad}" FontSize="20" TextColor="Black"  BackgroundColor="White"/>
 
                     <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="E-posta: " />
+                            <Span Text="E-posta: " TextColor="Black"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Entry Text="{Binding E_posta}" FontSize="20" TextColor="White" />
+                    <Entry Text="{Binding E_posta}" FontSize="20" TextColor="Black" 
+                           BackgroundColor="White"/>
 
                     <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Telefon: " />
+                            <Span Text="Telefon: " TextColor="Black"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Entry Text="{Binding Telefon}" FontSize="20" TextColor="White" />
+                    <Entry Text="{Binding Telefon}" FontSize="20" TextColor="Black"  BackgroundColor="White" />
 
                     <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Dahili: " />
+                            <Span Text="Dahili: " TextColor="Black"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Entry Text="{Binding Dahili}" FontSize="20" TextColor="White" />
+                    <Entry Text="{Binding Dahili}" FontSize="20" TextColor="black" BackgroundColor="White" />
 
                     <Label FontSize="18" FontAttributes="Bold" HorizontalOptions="Center">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Şifre: " />
+                                <Span Text="Şifre: " TextColor="Black"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
 
                     <Grid Grid.Row="3" HorizontalOptions="Center" WidthRequest="350" HeightRequest="50">
-                        <Entry Text="{Binding Sifre}"  x:Name="Enr" FontSize="20" TextColor="White" IsPassword="True" 
+                        <Entry Text="{Binding Sifre}"  x:Name="Enr" FontSize="20" TextColor="Black" IsPassword="True"  BackgroundColor="White"
        />
                         <ImageButton x:Name="TogglePasswordButton" Source="eyekapali.png"
                             Clicked="OnTogglePasswordVisibility"
@@ -87,7 +88,7 @@
                     <!-- Düzenleme Butonu -->
                     <Button Text="Düzenle" Clicked="OnEditClicked" HeightRequest="50" WidthRequest="200" BackgroundColor="#6200EE" TextColor="White" FontSize="18" CornerRadius="25" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
                 </StackLayout>
-            </Frame>
+           
 
             <!-- Logout Butonu -->
             <Button Text="Çıkış Yap" Clicked="OnLogoutClicked" HeightRequest="50" WidthRequest="200" BackgroundColor="#6200EE" TextColor="White" FontSize="18" CornerRadius="25" HorizontalOptions="Center" VerticalOptions="EndAndExpand"/>
@@ -96,3 +97,5 @@
 
     <local:SettingsPage Title="Settings" IconImageSource="settings.png" />
 </TabbedPage>
+<!--<Frame CornerRadius="10" BackgroundColor="black" Padding="10" HeightRequest="600" WidthRequest="600">
+</Frame>-->

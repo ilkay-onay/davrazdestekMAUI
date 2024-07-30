@@ -4,9 +4,13 @@
              x:Class="MauiApp1.SettingsPage"
              Title="SettingsPage">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        
+        <Button Text="Karanlık Mod"     
+        HeightRequest="40"
+        WidthRequest="120"
+        BackgroundColor="#8e44ad" 
+        TextColor="White" 
+        Margin="10,0,0,0"/>
+        
     </VerticalStackLayout>
 </ContentPage>

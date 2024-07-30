@@ -81,7 +81,7 @@ namespace MauiApp1
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in LoadKisilerAsync: {ex.Message}");
-                await DisplayAlert("Error", "Failed to load persons. Please try again later.", "OK");
+                await DisplayAlert("Hata", "Kişiler Yüklenemedi Lütfen Tekrar Deneyin", "TAMAM");
             }
         }
 
@@ -105,7 +105,7 @@ namespace MauiApp1
             catch (Exception ex)
             {
                 Console.WriteLine($"Error in SearchKisilerAsync: {ex.Message}");
-                await DisplayAlert("Error", "Failed to search persons. Please try again later.", "OK");
+                await DisplayAlert("Hata", "Kişiler Yüklenemedi Lütfen Tekrar Deneyin", "TAMAM");
             }
         }
     }

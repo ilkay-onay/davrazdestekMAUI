@@ -93,7 +93,7 @@ namespace MauiApp1
         private async Task SearchKisilerAsync(string searchTerm)
         {
             try
-            {
+          {
                 var searchResults = await _databaseService.SearchKisilerAsync(searchTerm);
 
                 Kisiler.Clear();

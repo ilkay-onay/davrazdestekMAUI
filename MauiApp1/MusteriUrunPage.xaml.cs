@@ -1,8 +1,9 @@
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using MauiApp1.Services;
+using System.ComponentModel;
 
 namespace MauiApp1
 {
@@ -21,11 +22,14 @@ namespace MauiApp1
             }
         }
 
+        public ObservableCollection<DvDestekUrunler> UrunList { get; set; }
+
         public MusteriUrunPage()
         {
             InitializeComponent();
             _databaseService = new DatabaseService("Server=192.168.100.220;Database=Dv;Encrypt=True;TrustServerCertificate=True;User Id=sa;Password=Password1;");
             MusteriUrunList = new ObservableCollection<DvDestekMusteriUrun>();
+            UrunList = new ObservableCollection<DvDestekUrunler>();
         }
 
         protected override async void OnAppearing()
@@ -38,14 +42,22 @@ namespace MauiApp1
         {
             try
             {
-                var urunList = await _databaseService.GetAllDvDestekMusteriUrunAsync();
-                MusteriUrunList.Clear();
-                foreach (var urun in urunList)
+                var urunler = await _databaseService.GetAllDvDestekUrunlerAsync();
+                var musteriUrunler = await _databaseService.GetAllDvDestekMusteriUrunAsync();
+
+                UrunList.Clear();
+                foreach (var urun in urunler)
                 {
-                    MusteriUrunList.Add(urun);
+                    UrunList.Add(urun);
                 }
 
-                // BindingContext'in veriler yüklendikten sonra ayarlanması
+                MusteriUrunList.Clear();
+                foreach (var musteriUrun in musteriUrunler)
+                {
+                    musteriUrun.Urun = UrunList.FirstOrDefault(u => u.Id == musteriUrun.UrunId)?.Urun;
+                    MusteriUrunList.Add(musteriUrun);
+                }
+
                 BindingContext = this;
             }
             catch (Exception ex)
@@ -69,13 +81,14 @@ namespace MauiApp1
                 MusteriUrunList.Clear();
                 foreach (var urun in searchResults)
                 {
+                    urun.Urun = UrunList.FirstOrDefault(u => u.Id == urun.UrunId)?.Urun;
                     MusteriUrunList.Add(urun);
                 }
                 BindingContext = this;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in SearchKisilerAsync: {ex.Message}");
+                Console.WriteLine($"Error in SearchUrunAsync: {ex.Message}");
                 await DisplayAlert("Error", "Failed to search persons. Please try again later.", "OK");
             }
         }
@@ -95,7 +108,6 @@ namespace MauiApp1
             var urun = button?.BindingContext as DvDestekMusteriUrun;
             if (urun != null)
             {
-                // Assuming you have a method to get the details by Id
                 var urunDetay = await _databaseService.GetDvDestekMusteriUrunDetayByIdAsync(urun.Id);
                 if (urunDetay != null)
                 {
@@ -103,6 +115,5 @@ namespace MauiApp1
                 }
             }
         }
-
     }
 }

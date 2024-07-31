@@ -1,9 +1,5 @@
 public class DvDestekUrunler{
-    /*
-    MAUI.dbo.Dv_Destek_Urunler.Id
-MAUI.dbo.Dv_Destek_Urunler.Urun
-    */
-
+    
     public int Id { get; set; }
 
     public string Urun { get; set; }

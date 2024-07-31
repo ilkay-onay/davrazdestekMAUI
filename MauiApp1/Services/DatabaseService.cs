@@ -25,6 +25,31 @@ namespace MauiApp1.Services
                 return await connection.QueryAsync<RemoteConnection>(query);
             }
         }
+        public async Task<List<DvDestekUrunler>> GetAllDvDestekUrunlerAsync()
+        {
+            var urunList = new List<DvDestekUrunler>();
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var command = new SqlCommand("SELECT * FROM Dv_Destek_Urunler", connection);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        var urun = new DvDestekUrunler
+                        {
+                            Id = reader.GetInt32(0),
+                            Urun = reader.GetString(1)
+                        };
+                        urunList.Add(urun);
+                    }
+                }
+            }
+
+            return urunList;
+        }
         public async Task<IEnumerable<DvDestekMusteriUrun>> GetAllDvDestekMusteriUrunAsync()
         {
             using (var connection = new SqlConnection(_connectionString))

@@ -11,6 +11,7 @@ public class DvDestekMusteriUrun
     public int Miktar { get; set; }
     public string Durum { get; set; }
     public int BirimId { get; set; }
+    public string Urun { get; set; }  // Yeni özellik
 
     public DvDestekMusteriUrun() { }
 
@@ -29,6 +30,6 @@ public class DvDestekMusteriUrun
 
     public override string ToString()
     {
-        return $"DvDestekMusteriUrun{{id={Id}, musteriId={MusteriId}, urunId={UrunId}, baslamaTarihi={BaslamaTarihi}, sonKullanimTarihi={SonKullanimTarihi}, aciklama='{Aciklama}', miktar={Miktar}, durum={Durum}, birimId={BirimId}}}";
+        return $"DvDestekMusteriUrun{{id={Id}, musteriId={MusteriId}, urunId={UrunId}, baslamaTarihi={BaslamaTarihi}, sonKullanimTarihi={SonKullanimTarihi}, aciklama='{Aciklama}', miktar={Miktar}, durum={Durum}, birimId={BirimId}, urun='{Urun}'}}";
     }
 }

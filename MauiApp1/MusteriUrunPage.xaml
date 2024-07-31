@@ -56,8 +56,8 @@ Grid.Row="1"/>
                                 <Label Text="{Binding BirimId}" FontSize="Small" TextColor="Gray" Grid.Row="2" Grid.Column="1"/>
 
                                 <!-- Edit Butonu -->
-                                <Button Text="Düzenle" Clicked="OnEditButtonClicked" Grid.Row="2" Grid.Column="11"/>
-                                <Button Text="Detay" Clicked="OnDetailButtonClicked" Grid.Row="1" Grid.Column="11" Margin="1"/>
+                                <Button Text="Düzenle" TextColor="White" Clicked="OnEditButtonClicked" Grid.Row="2" Grid.Column="11" BackgroundColor="#6200EE"/>
+                                <Button Text="Detay" TextColor="White" Clicked="OnDetailButtonClicked" Grid.Row="1" Grid.Column="11" Margin="1" BackgroundColor="#6200EE"/>
 
                             </Grid>
                         </Frame>

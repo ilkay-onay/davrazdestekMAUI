@@ -48,7 +48,7 @@
                                 <Label Text="Açıklama: " FontAttributes="Bold" FontSize="Small" TextColor="Black" Grid.Row="0" Grid.Column="4"/>
                                 <Label Text="{Binding Aciklama}" FontSize="Small" TextColor="Gray" Grid.Row="0" Grid.Column="5"/>
 
-                                <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}" BackgroundColor="LightGray" TextColor="Black" 
+                                <Button Text="Düzenle" Clicked="OnEditClicked" CommandParameter="{Binding .}"  BackgroundColor="#6200EE" TextColor="White" 
                                         Grid.Row="0" Grid.Column="7"  VerticalOptions="Center"/>
                             </Grid>
                         </Frame>

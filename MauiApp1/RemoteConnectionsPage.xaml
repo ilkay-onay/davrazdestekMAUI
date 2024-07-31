@@ -38,14 +38,14 @@
                         <!-- Buttons -->
                         <Button Text="Export to Excel" 
                                 Clicked="OnExportToExcelClicked" 
-                                BackgroundColor="#8e44ad" 
+                                 BackgroundColor="#6200EE" 
                                 TextColor="White" 
                                 Grid.Column="1" 
                                 HorizontalOptions="Center" 
                                 Margin="0,0,10,0"/>
                         <Button Text="Import from Excel" 
                                 Clicked="OnImportFromExcelClicked" 
-                                BackgroundColor="#8e44ad" 
+                                 BackgroundColor="#6200EE"
                                 TextColor="White" 
                                 Grid.Column="2" 
                                 HorizontalOptions="Center" 
@@ -211,10 +211,13 @@
                                                Grid.Row="2" 
                                                Grid.Column="9"/>
                                         <Button Text="Düzenle" 
+                                                TextColor="White"   
                                                 Clicked="OnEditClicked" 
                                                 CommandParameter="{Binding .}" 
                                                 Grid.Row="1" 
+                                                 BackgroundColor="#6200EE"
                                                 Grid.Column="11"/>
+
                                     </Grid>
                                 </Frame>
                             </DataTemplate>
@@ -233,11 +236,11 @@
                                  Margin="10,0">
                         <Button Text="Geri" 
                                 Clicked="OnPreviousClicked" 
-                                BackgroundColor="#8e44ad" 
+                                 BackgroundColor="#6200EE" 
                                 TextColor="White"/>
                         <Button Text="İleri" 
                                 Clicked="OnNextClicked" 
-                                BackgroundColor="#8e44ad" 
+                                BackgroundColor="#6200EE"
                                 TextColor="White" 
                                 Margin="10,0,0,0"/>
                     </StackLayout>

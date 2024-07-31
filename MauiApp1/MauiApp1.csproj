@@ -62,12 +62,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\daavraz.png" />
+	  <None Remove="Resources\Images\dddavraz.jpg" />
 	  <None Remove="Resources\Images\eye.png" />
 	  <None Remove="Resources\Images\eyeacik.png" />
 	  <None Remove="Resources\Images\eyekapali.png" />
 	  <None Remove="Resources\Images\goz.png" />
+	  <None Remove="Resources\Images\images.jpeg" />
 	  <None Remove="Resources\Images\phone.png" />
 	  <None Remove="Resources\Images\urun.png" />
+	  <None Remove="Resources\Images\yeni.png" />
 	</ItemGroup>
 
 	<ItemGroup>

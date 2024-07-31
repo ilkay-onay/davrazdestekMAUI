@@ -2,15 +2,42 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.SettingsPage"
-             Title="SettingsPage">
-    <VerticalStackLayout>
-        
-        <Button Text="Karanlık Mod"     
-        HeightRequest="40"
-        WidthRequest="120"
-        BackgroundColor="#8e44ad" 
-        TextColor="White" 
-        Margin="10,0,0,0"/>
-        
-    </VerticalStackLayout>
+             Title="Settings"
+             BackgroundColor="#F0F0F5"
+             BackgroundImageSource="daavraz.png"  >
+
+    <ContentPage.Resources>
+        <Style x:Key="CustomPickerStyle" TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="LightGray"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Margin" Value="5,0"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid Padding="10" RowDefinitions="Auto, *, Auto" ColumnDefinitions="*, Auto">
+            <!-- Header -->
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="Ayarlar Sayfası" FontSize="Large" TextColor="Black" HorizontalOptions="Center" Margin="0,10"/>
+
+            <!-- Content -->
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="2" Padding="10" Spacing="10">
+                <Button Text="Karanlık Mod" HeightRequest="40" WidthRequest="130" BackgroundColor="#6200EE" TextColor="White" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Dil Seçiniz" FontSize="Medium" TextColor="Black" HorizontalOptions="StartAndExpand" Margin="10,10"/>
+                <Picker x:Name="LanguagePicker" HorizontalOptions="StartAndExpand"
+                        ItemsSource="{Binding Languages}"
+                        SelectedIndexChanged="OnLanguagePickerSelectedIndexChanged"          
+                        Style="{StaticResource CustomPickerStyle}"
+                        WidthRequest="160" HeightRequest="25"/>
+            </StackLayout>
+
+            <!-- License Button -->
+            <Button Grid.Row="2" Grid.Column="1" Text="Lisans" Clicked="OnLicenseButtonClicked" BackgroundColor="#6200EE" TextColor="White" HeightRequest="40" WidthRequest="80" VerticalOptions="End" HorizontalOptions="End" Margin="10"/>
+
+            <!-- Credits Button -->
+            <Button Grid.Row="2" Grid.Column="0" Text="Emeği Geçenler" Clicked="OnCreditsButtonClicked" BackgroundColor="#6200EE" TextColor="White" HeightRequest="40" WidthRequest="150" VerticalOptions="End" HorizontalOptions="Start" Margin="10"/>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

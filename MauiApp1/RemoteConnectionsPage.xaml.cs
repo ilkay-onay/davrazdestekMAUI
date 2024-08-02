@@ -17,7 +17,7 @@ namespace MauiApp1
     {
         private readonly DatabaseService _databaseService;
         private int _currentPage = 1;
-        private const int PageSize = 5;
+        private const int PageSize = 4;
         private int _totalPageCount;
         private bool _isAscending = true;
 

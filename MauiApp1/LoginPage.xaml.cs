@@ -41,6 +41,7 @@ namespace MauiApp1
                         await DisplayAlert("Başarıyla Giriş Yapıldı!", "", "Tamam");
 
                         // Kullanıcı bilgilerini Preferences'a kaydet
+                        Preferences.Set("UserId", user.Id); // Ensure UserId is saved
                         Preferences.Set("UserName", user.Ad_Soyad);
                         Preferences.Set("UserEmail", user.E_posta);
                         Preferences.Set("UserPhone", user.Telefon);

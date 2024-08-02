@@ -520,16 +520,26 @@ namespace MauiApp1.Services
 
         public async Task UpdateDvDestekPersonelAsync(DvDestekPersonel dvDestekPersonel)
         {
-            using var connection = new SqlConnection(_connectionString);
-            await connection.ExecuteAsync(UpdateDvDestekPersonelQuery, new
+            try
             {
-                dvDestekPersonel.Id,
-                dvDestekPersonel.Ad_Soyad,
-                EPosta = dvDestekPersonel.E_posta, // SQL parametresi ile eşleşti
-                dvDestekPersonel.Sifre,
-                dvDestekPersonel.Telefon,
-                dvDestekPersonel.Dahili
-            });
+                using var connection = new SqlConnection(_connectionString);
+                await connection.ExecuteAsync(UpdateDvDestekPersonelQuery, new
+                {
+                    dvDestekPersonel.Id,
+                    dvDestekPersonel.Ad_Soyad,
+                    EPosta = dvDestekPersonel.E_posta, // SQL parametresi ile eşleşti
+                    dvDestekPersonel.Sifre,
+                    dvDestekPersonel.Telefon,
+                    dvDestekPersonel.Dahili
+                });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                Console.WriteLine($"Stack Trace: {ex.StackTrace}");
+                throw; // Re-throw the exception if you want it to propagate
+            }
         }
 
         private const string UpdateDvDestekMusteriUrunQuery =

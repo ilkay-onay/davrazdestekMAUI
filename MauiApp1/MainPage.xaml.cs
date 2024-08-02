@@ -48,6 +48,9 @@ namespace MauiApp1
             var settingsPage = this.Children[4] as ContentPage;
             if (settingsPage != null && settingsPage.BindingContext is DvDestekPersonel dvDestekPersonel)
             {
+                // Ensure the Id is fetched from Preferences
+                dvDestekPersonel.Id = Preferences.Get("UserId", 0);
+
                 try
                 {
                     await UpdateDvDestekPersonelAsync(dvDestekPersonel);
@@ -67,6 +70,7 @@ namespace MauiApp1
                 }
             }
         }
+
 
         private void OnTogglePasswordVisibility(object sender, EventArgs e)
         {

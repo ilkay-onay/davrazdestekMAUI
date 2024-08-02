@@ -2,13 +2,11 @@
 using MauiApp1.Services;
 using Microsoft.Maui.Controls;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using Dapper;
+using System.Threading.Tasks;
 
 namespace MauiApp1
 {
-    public partial class MainPage : TabbedPage              
+    public partial class MainPage : TabbedPage
     {
         private bool _isPasswordVisible = false;
         private readonly DatabaseService _databaseService;
@@ -50,17 +48,26 @@ namespace MauiApp1
             var settingsPage = this.Children[4] as ContentPage;
             if (settingsPage != null && settingsPage.BindingContext is DvDestekPersonel dvDestekPersonel)
             {
-                //await UpdateDvDestekPersonel(dvDestekPersonel);
-                await DisplayAlert("Başarılı", "Bilgiler güncellendi", "Tamam");
+                try
+                {
+                    await UpdateDvDestekPersonelAsync(dvDestekPersonel);
+                    await DisplayAlert("Başarılı", "Bilgiler güncellendi", "Tamam");
 
-                // Güncellenmiş bilgileri Preferences'e kaydet
-                Preferences.Set("UserName", dvDestekPersonel.Ad_Soyad);
-                Preferences.Set("UserEmail", dvDestekPersonel.E_posta);
-                Preferences.Set("UserPhone", dvDestekPersonel.Telefon);
-                Preferences.Set("UserDahili", dvDestekPersonel.Dahili);
-                Preferences.Set("UserPassword", dvDestekPersonel.Sifre);
+                    // Güncellenmiş bilgileri Preferences'e kaydet
+                    Preferences.Set("UserName", dvDestekPersonel.Ad_Soyad);
+                    Preferences.Set("UserEmail", dvDestekPersonel.E_posta);
+                    Preferences.Set("UserPhone", dvDestekPersonel.Telefon);
+                    Preferences.Set("UserDahili", dvDestekPersonel.Dahili);
+                    Preferences.Set("UserPassword", dvDestekPersonel.Sifre);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error updating user information");
+                    await DisplayAlert("Hata", "Bilgiler güncellenemedi", "Tamam");
+                }
             }
         }
+
         private void OnTogglePasswordVisibility(object sender, EventArgs e)
         {
             _isPasswordVisible = !_isPasswordVisible;
@@ -68,9 +75,9 @@ namespace MauiApp1
             TogglePasswordButton.Source = _isPasswordVisible ? "eyeacik.png" : "eyekapali.png";
         }
 
-
-
+        private async Task UpdateDvDestekPersonelAsync(DvDestekPersonel dvDestekPersonel)
+        {
+            await _databaseService.UpdateDvDestekPersonelAsync(dvDestekPersonel);
+        }
     }
-
-    
 }

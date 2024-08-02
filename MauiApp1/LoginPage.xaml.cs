@@ -47,7 +47,6 @@ namespace MauiApp1
                         Preferences.Set("UserDahili", user.Dahili);
                         Preferences.Set("UserPassword", user.Sifre);
 
-
                         var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
                         var logger = loggerFactory.CreateLogger<MainPage>();
 
@@ -83,7 +82,7 @@ namespace MauiApp1
 
         private void TogglePasswordButton_SizeChanged(object sender, EventArgs e)
         {
-
+            // This method can be used to handle size changes if needed.
         }
     }
 }

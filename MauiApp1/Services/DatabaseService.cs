@@ -507,8 +507,30 @@ namespace MauiApp1.Services
 
             return urunList;
         }
+     
 
+        private const string UpdateDvDestekPersonelQuery =
+         @"UPDATE Dv.dbo.Dv_Destek_Personel 
+          SET Ad_Soyad = @Ad_Soyad, 
+              E_posta = @EPosta, 
+              Sifre = @Sifre, 
+              Telefon = @Telefon, 
+              Dahili = @Dahili 
+          WHERE Id = @Id";
 
+        public async Task UpdateDvDestekPersonelAsync(DvDestekPersonel dvDestekPersonel)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            await connection.ExecuteAsync(UpdateDvDestekPersonelQuery, new
+            {
+                dvDestekPersonel.Id,
+                dvDestekPersonel.Ad_Soyad,
+                EPosta = dvDestekPersonel.E_posta, // SQL parametresi ile eşleşti
+                dvDestekPersonel.Sifre,
+                dvDestekPersonel.Telefon,
+                dvDestekPersonel.Dahili
+            });
+        }
 
         private const string UpdateDvDestekMusteriUrunQuery =
         @"UPDATE Dv_Destek_Musteri_Urun SET MusteriId = @MusteriId, UrunId = @UrunId, BaslamaTarihi = @BaslamaTarihi, SonKullanimTarihi = @SonKullanimTarihi, Aciklama = @Aciklama, Miktar = @Miktar, Durum = @Durum, BirimId = @BirimId WHERE Id = @Id";

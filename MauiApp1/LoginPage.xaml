@@ -44,24 +44,26 @@
                    PlaceholderColor="GhostWhite"
                    Margin="0,0,3,0"
                    VerticalOptions="Center"/>
-            <ImageButton x:Name="TogglePasswordButton" Source="eyekapali.png"
+            <ImageButton x:Name="TogglePasswordButton" Source="eyekapali2.png"
                          Clicked="OnTogglePasswordVisibility"
                          HeightRequest="20"
                          WidthRequest="20"
                          HorizontalOptions="End"
                          BackgroundColor="Transparent"
+                         
                          Aspect="Fill"
                          BorderWidth="10"   
                          VerticalOptions="Center"/>
         </Grid>
 
         <Button Text="Giriş" Clicked="OnLoginClicked"
+                TextColor="White"
                 HeightRequest="40"
                 WidthRequest="100"
                 FontSize="14"
                 HorizontalOptions="Center"
                 Grid.Row="4"
-                BackgroundColor="CadetBlue"/>
+                BackgroundColor="DarkBlue"/>
 
         <Label x:Name="MessageLabel" TextColor="Red" HorizontalOptions="Center"
                Grid.Row="5"/>

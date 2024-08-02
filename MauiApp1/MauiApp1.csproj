@@ -66,7 +66,9 @@
 	  <None Remove="Resources\Images\dddavraz.jpg" />
 	  <None Remove="Resources\Images\eye.png" />
 	  <None Remove="Resources\Images\eyeacik.png" />
+	  <None Remove="Resources\Images\eyeacik1.png" />
 	  <None Remove="Resources\Images\eyekapali.png" />
+	  <None Remove="Resources\Images\eyekapali2.png" />
 	  <None Remove="Resources\Images\goz.png" />
 	  <None Remove="Resources\Images\images.jpeg" />
 	  <None Remove="Resources\Images\phone.png" />
